@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,19 +10,27 @@ public class CameraRotate : MonoBehaviour
     [SerializeField]
     private float rotCamYAxisSpeed = 3;      
 
-    private float limitMinX = -80;          
-    private float limitMaxX = 50;            
+    private float limitMin = -80;          
+    private float limitMax = 50;            
     private float eulerAngleX;
     private float eulerAngleY;
 
+    private PlayerInput _playerInput;
+
+    private void Awake()
+    {
+        _playerInput = GetComponentInParent<PlayerInput>();
+        _playerInput.OnMouseMove += UpdateRotate;
+    }
+
     public void UpdateRotate(float mouseX, float mouseY)
     {
-        eulerAngleY += mouseX * rotCamYAxisSpeed;    // 마우스 좌/우 이동으로 카메라 y축 회전
+        //eulerAngleY += mouseX * rotCamYAxisSpeed;    // 마우스 좌/우 이동으로 카메라 y축 회전
         eulerAngleX -= mouseY * rotCamXAxisSpeed;    // 마우스 위/아래 이동으로 카메라 x축 회전
-
-      
-        eulerAngleX = ClampAngle(eulerAngleX, limitMinX, limitMaxX);
-        transform.rotation = Quaternion.Euler(eulerAngleX, eulerAngleY, 0);
+        
+        eulerAngleX = ClampAngle(eulerAngleX, limitMin, limitMax);
+        
+        transform.localRotation = Quaternion.Euler(eulerAngleX, 0, 0);
     }
 
     private float ClampAngle(float angle, float min, float max)

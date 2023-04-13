@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _inputVelocity.Normalize();
 
+        
         _movementVelocity = _inputVelocity * (_playerPropertySO.MoveSpeed * Time.fixedDeltaTime);
         
         // if(_movementVelocity.sqrMagnitude > 0)
