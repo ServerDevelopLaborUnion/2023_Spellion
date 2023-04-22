@@ -6,7 +6,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    
+    [SerializeField] private PoolingListSO _initPoolList;
     private void Awake()
     {
         if (Instance != null)
@@ -15,5 +16,16 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
+        
+        CreatePool();
+    }
+    
+    private void CreatePool()
+    {
+        PoolManager.Instance = new PoolManager(transform);
+        _initPoolList.PoolList.ForEach(p =>
+        {
+            PoolManager.Instance.CreatePool(p.Prefab, p.Count);
+        });
     }
 }
