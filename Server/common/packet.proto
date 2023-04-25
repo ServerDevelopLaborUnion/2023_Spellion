@@ -5,8 +5,34 @@ option csharp_namespace = "Packet";
 enum MSGID
 {
     MSGBOX = 0;
+    PLAYERINFO = 1;
 }
 
 message MsgBox {
     string context = 1;
+}
+
+message PlayerInfo {
+    string uuid = 1;
+    Vector3 pos = 2;
+    Vector2 rot = 3;
+    bool isGround = 4;
+}
+
+message FireBullet {
+    Vector3 startPos = 1;
+    Vector3 dir = 2;
+    float length = 3;
+    float laserWidth = 4;
+}
+
+message Vector2 {
+    float x = 1;
+    float y = 2;
+}
+
+message Vector3 {
+    float x = 1;
+    float y = 2;
+    float z = 3;
 }

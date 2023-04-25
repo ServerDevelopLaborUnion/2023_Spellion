@@ -2,6 +2,7 @@ import http from 'http';
 import Express, { Application } from "express";
 import ws from "ws";
 import Session from './Session';
+import crypto from 'crypto'
 
 const PORT = 50000;
 
@@ -19,7 +20,7 @@ wsServer.on("listening",  () => {
 });
 
 wsServer.on("connection", (socket, request) => {
-    const session = new Session(socket, (code: number, reason: Buffer) => {
+    const session = new Session(socket, crypto.randomUUID(), (code: number, reason: Buffer) => {
         // TODO: 클라이언트 로그아웃 시 작업
     });
     console.log(`[Server.ts] 새로운 Session 로그인. IP: ${request.socket.remoteAddress}`);
