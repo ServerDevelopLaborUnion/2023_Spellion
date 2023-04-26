@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option csharp_namespace = "Packet";
+
+enum MSGID
+{
+    MSGBOX = 0;
+}
+
+message MsgBox {
+    string context = 1;
+}
