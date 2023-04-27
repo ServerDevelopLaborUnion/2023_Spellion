@@ -8,35 +8,39 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private PlayerPropertySO _playerPropertySO;
-    
     private float _gravity = -9.8f;
+    
     private CharacterController _characterController;
     private PlayerInput _playerInput;
+    private Rigidbody _rigidbody;
 
     private Vector3 _movementVelocity;
     private float _verticalVelocity;
 
     public bool CanMove = true;
+    public bool CanJump = false;
 
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _playerInput = GetComponent<PlayerInput>();
+        _rigidbody = GetComponent<Rigidbody>();
 
         _playerInput.OnMovementKeyPress += CalcAcceleration;
+        //_playerInput.OnMovementKeyPress += Move;
         _playerInput.OnJumpKeyPress += Jump;
         _playerInput.OnDuckingKeyPress += Ducking;
     }
 
-    private void CalcAcceleration(Vector3 _inputVelocity)
+    private void CalcAcceleration(Vector3 inputVelocity)    
     {
-        _inputVelocity.Normalize();
-        _movementVelocity = _inputVelocity * (_playerPropertySO.MoveSpeed * Time.fixedDeltaTime);
+        inputVelocity.Normalize();
+        _movementVelocity = inputVelocity * (_playerPropertySO.MoveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void Move()
+    {
         
-        // if(_movementVelocity.sqrMagnitude > 0)
-        // {
-        //     transform.rotation = Quaternion.LookRotation(_movementVelocity);
-        // }
     }
 
     private void StopMove()
@@ -50,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 move = _movementVelocity + _verticalVelocity * Vector3.up;
             _characterController.Move(move);
-            //_characterController.Move(_movementVelocity);
         }
         
         if(_characterController.isGrounded == false)
@@ -65,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     
 
     private void Jump()
-    {
+    {  
         
     }
 
