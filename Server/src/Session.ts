@@ -1,5 +1,7 @@
 import ws from "ws";
 import { MSGID, MsgBox, PlayerInfo, Vector2, Vector3 } from "./packet/packet";
+import { Message } from "google-protobuf";
+import PacketManager from "./PacketManager";
 
 export default class Session
 {
@@ -16,22 +18,12 @@ export default class Session
     }
 
     processPacket(data: ws.RawData) {
-        
+        let code: number = this.getInt16LEFromBuffer(data.slice(2, 4) as Buffer);
+        PacketManager.Instance.handleMsg(this, code, data.slice(4) as Buffer);
     }
 
-    //#region Get & Set
-    get pos(): Vector3 | undefined {
-        return this.info.pos;
+    private getInt16LEFromBuffer(buffer:Buffer): number
+    {
+        return buffer.readInt16LE();
     }
-    set pos(pos: Vector3) {
-        this.info.pos = pos;
-    }
-
-    get rot(): Vector2 | undefined {
-        return this.info.rot;
-    }
-    set rot(rot: Vector2) {
-        this.info.rot = rot;
-    }
-    //#endregion
 }
