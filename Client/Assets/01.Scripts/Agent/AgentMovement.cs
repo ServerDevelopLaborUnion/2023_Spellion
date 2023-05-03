@@ -31,7 +31,6 @@ public class AgentMovement : MonoBehaviour
     {
         _yRot += mouseInput.x;
         transform.rotation = Quaternion.Euler(0, _yRot * _sensitivity, 0);
-        _gunTrm.rotation = Quaternion.Euler()
     }
 
     private void FixedUpdate()

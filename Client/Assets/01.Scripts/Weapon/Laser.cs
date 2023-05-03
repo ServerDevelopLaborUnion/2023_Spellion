@@ -7,14 +7,14 @@ public class Laser : MonoBehaviour
     [SerializeField] float _maxLength;
     [SerializeField] float _laserWidth;
 
-    LineRenderer lineRenderer;
-    private string hitTag = "Enemy";
+    private LineRenderer _lineRenderer;
+    private string _hitTag = "Enemy";
     private void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
+        _lineRenderer = GetComponent<LineRenderer>();
 
-        lineRenderer.startWidth = _laserWidth;
-        lineRenderer.endWidth = _laserWidth;
+        _lineRenderer.startWidth = _laserWidth;
+        _lineRenderer.endWidth = _laserWidth;
     }
 
     private void Update()
@@ -24,27 +24,27 @@ public class Laser : MonoBehaviour
             LaserSpawn();
         }
         else
-            lineRenderer.enabled = false;
+            _lineRenderer.enabled = false;
     }
 
     void LaserSpawn()
     {
-        lineRenderer.enabled = true;
+        _lineRenderer.enabled = true;
 
         if (Physics.Raycast(new(transform.position, transform.forward), out RaycastHit hit, _maxLength))
         {
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, hit.point);
+            _lineRenderer.SetPosition(0, transform.position);
+            _lineRenderer.SetPosition(1, hit.point);
 
-            if (hit.collider.tag == hitTag)
+            if (hit.collider.tag == _hitTag)
             {
                 Debug.Log("맞았음!");
             }
         }
         else
         {
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, transform.position + transform.forward * _maxLength);
+            _lineRenderer.SetPosition(0, transform.position);
+            _lineRenderer.SetPosition(1, transform.position + transform.forward * _maxLength);
         }
     }
 }
