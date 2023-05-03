@@ -29,6 +29,9 @@ wsServer.on("connection", (socket, request) => {
     SessionManager.Instance.addSession(session);
     console.log(`[Server.ts] 새로운 Session 로그인. IP: ${request.socket.remoteAddress}`);
 
+    // For Debug
+    
+
     socket.on("message", (data, isBinary) => {
         if(isBinary)
             session.processPacket(data);

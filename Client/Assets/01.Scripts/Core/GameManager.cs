@@ -8,6 +8,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     
     [SerializeField] private PoolingListSO _initPoolList;
+    
+    // Network
+    private SocketManager _socketManager;
+    [SerializeField] private string _connectionUrl;
+
     private void Awake()
     {
         if (Instance != null)
@@ -17,9 +22,17 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         
+        CreateSocketManager();
         CreatePool();
     }
-    
+
+    private void CreateSocketManager()
+    {
+        _socketManager = gameObject.AddComponent<SocketManager>();
+        SocketManager.Instance.Init(_connectionUrl);
+        SocketManager.Instance.Connection();
+    }
+
     private void CreatePool()
     {
         PoolManager.Instance = new PoolManager(transform);
