@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Packet;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -49,6 +52,12 @@ public class PlayerMovement : MonoBehaviour
         if (CanMove)
         {
             _characterController.Move(_movementVelocity);
+            PlayerInfo info = new PlayerInfo {
+                IsGround = _characterController.isGrounded,
+                Pos = new Packet.Vector3{X = transform.position.x, Y = transform.position.y, Z = transform.position.z},
+                Rot = new Packet.Vector2{X = transform.rotation.eulerAngles.x, Y = transform.rotation.eulerAngles.y}
+            };
+            SocketManager.Instance.RegisterSend(MSGID.Playerinfo, info);
         }
     }
 

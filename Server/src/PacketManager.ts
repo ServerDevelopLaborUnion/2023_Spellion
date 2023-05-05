@@ -2,6 +2,7 @@ import { Message } from "google-protobuf";
 import Session from "./Session";
 import { MSGID } from "./packet/packet";
 import { MsgBoxHandler } from "./Handlers/MsgBoxHandler";
+import { PlayerInfoHandler } from "./Handlers/PlayerInfoHandler";
 
 export default class PacketManager
 {
@@ -16,6 +17,7 @@ export default class PacketManager
 
     registerPacket(): void {
         this.handlerMap[MSGID.MSGBOX] = MsgBoxHandler;
+        this.handlerMap[MSGID.PLAYERINFO] = PlayerInfoHandler;
     }
 
     handleMsg(session: Session, code: number, data: Buffer) {

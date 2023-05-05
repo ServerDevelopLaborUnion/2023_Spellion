@@ -4,6 +4,9 @@ import ws from "ws";
 import Session from './Session';
 import crypto from 'crypto'
 import SessionManager from './SessionManager';
+import PacketManager from './PacketManager';
+import UpdateTimer from './UpdateTimer';
+import { MSGID, PlayerInfo, PlayerInfoList } from './packet/packet';
 
 const PORT = 50000;
 
@@ -17,6 +20,7 @@ const wsServer: ws.Server = new ws.Server({
 });
 
 SessionManager.Instance = new SessionManager();
+PacketManager.Instance = new PacketManager();
 
 wsServer.on("listening",  () => {
     console.log(`[Server.ts] Websocket Server 작동 중. 포트: ${PORT}`);
@@ -29,11 +33,17 @@ wsServer.on("connection", (socket, request) => {
     SessionManager.Instance.addSession(session);
     console.log(`[Server.ts] 새로운 Session 로그인. IP: ${request.socket.remoteAddress}`);
 
-    // For Debug
-    
+    // For Debugs
 
     socket.on("message", (data, isBinary) => {
         if(isBinary)
             session.processPacket(data);
     });
 });
+
+let updateTimer: UpdateTimer = new UpdateTimer(50, () => {
+    let list: PlayerInfo[] = SessionManager.Instance.getAllSessionInfo();
+    let infoList: PlayerInfoList = new PlayerInfoList({list});
+    SessionManager.Instance.broadcast(MSGID.PLAYERINFOLIST, infoList.serialize(), "");
+});
+// updateTimer.startTimer();

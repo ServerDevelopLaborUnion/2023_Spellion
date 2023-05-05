@@ -1,0 +1,14 @@
+.btn {
+    position: relative;
+    right: 10px;
+    top: 10px;
+    font-size: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

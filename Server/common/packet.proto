@@ -6,6 +6,7 @@ enum MSGID
 {
     MSGBOX = 0;
     PLAYERINFO = 1;
+    PLAYERINFOLIST = 2;
 }
 
 message MsgBox {
@@ -17,6 +18,10 @@ message PlayerInfo {
     Vector3 pos = 2;
     Vector2 rot = 3;
     bool isGround = 4;
+}
+
+message PlayerInfoList {
+    repeated PlayerInfo list = 1;
 }
 
 message FireBullet {

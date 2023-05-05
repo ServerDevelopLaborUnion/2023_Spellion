@@ -26,4 +26,21 @@ export default class Session
     {
         return buffer.readInt16LE();
     }
+
+    sendData(code: MSGID, data: Uint8Array) {
+        let len: number = data.length + 4;
+
+        let lenBuffer: Uint8Array = new Uint8Array(2); 
+        new DataView(lenBuffer.buffer).setUint16(0, len, true);
+
+        let codeBuffer: Uint8Array = new Uint8Array(2);
+        new DataView(codeBuffer.buffer).setUint16(0, code, true);
+
+        let sendBuffer: Uint8Array = new Uint8Array(len);
+        sendBuffer.set(lenBuffer, 0);
+        sendBuffer.set(codeBuffer, 2);
+        sendBuffer.set(data, 4);
+
+        this.socket.send(sendBuffer);
+    }
 }

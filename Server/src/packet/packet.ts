@@ -6,7 +6,8 @@
 import * as pb_1 from "google-protobuf";
 export enum MSGID {
     MSGBOX = 0,
-    PLAYERINFO = 1
+    PLAYERINFO = 1,
+    PLAYERINFOLIST = 2
 }
 export class MsgBox extends pb_1.Message {
     #one_of_decls: number[][] = [];
@@ -215,6 +216,73 @@ export class PlayerInfo extends pb_1.Message {
     }
     static deserializeBinary(bytes: Uint8Array): PlayerInfo {
         return PlayerInfo.deserialize(bytes);
+    }
+}
+export class PlayerInfoList extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        list?: PlayerInfo[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("list" in data && data.list != undefined) {
+                this.list = data.list;
+            }
+        }
+    }
+    get list() {
+        return pb_1.Message.getRepeatedWrapperField(this, PlayerInfo, 1) as PlayerInfo[];
+    }
+    set list(value: PlayerInfo[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 1, value);
+    }
+    static fromObject(data: {
+        list?: ReturnType<typeof PlayerInfo.prototype.toObject>[];
+    }): PlayerInfoList {
+        const message = new PlayerInfoList({});
+        if (data.list != null) {
+            message.list = data.list.map(item => PlayerInfo.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            list?: ReturnType<typeof PlayerInfo.prototype.toObject>[];
+        } = {};
+        if (this.list != null) {
+            data.list = this.list.map((item: PlayerInfo) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.list.length)
+            writer.writeRepeatedMessage(1, this.list, (item: PlayerInfo) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PlayerInfoList {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PlayerInfoList();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.list, () => pb_1.Message.addToRepeatedWrapperField(message, 1, PlayerInfo.deserialize(reader), PlayerInfo));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PlayerInfoList {
+        return PlayerInfoList.deserialize(bytes);
     }
 }
 export class FireBullet extends pb_1.Message {

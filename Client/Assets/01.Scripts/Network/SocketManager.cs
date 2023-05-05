@@ -27,12 +27,15 @@ public class SocketManager : MonoBehaviour
     private ClientWebSocket _socket = null;
     private bool _isReadyToSend = true;
 
+    [SerializeField] private bool _isConnected = false;
+
     public void Init(string url)
     {
         _url = url;
         _recvBuffer = new RecvBuffer(1024 * 10);
         _packetManager = new PacketManager();
         _sendQueue = new Queue<PacketMessage>();
+        _isConnected = false;
     }
 
     private void Update()
@@ -58,6 +61,11 @@ public class SocketManager : MonoBehaviour
         {
             SendMessages(); 
         }
+    }
+
+    private void OnDestroy()
+    {
+        Disconnect();
     }
 
     public void RegisterSend(MSGID code, IMessage msg)
@@ -107,11 +115,13 @@ public class SocketManager : MonoBehaviour
         try
         {
             await _socket.ConnectAsync(serverUri, CancellationToken.None);
+            _isConnected = true;
             ReceiveLoop();
         }
         catch(Exception ex)
         {
             Debug.LogError("Connection Error : check server status... " + ex.Message);
+            _isConnected = false;
             throw;
         }
     }
@@ -173,6 +183,7 @@ public class SocketManager : MonoBehaviour
         if (_socket != null && _socket.State == WebSocketState.Open)
         {
             _socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "quit Client", CancellationToken.None);
+            _isConnected = false;
         }
     }
 }
