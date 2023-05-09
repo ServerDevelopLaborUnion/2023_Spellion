@@ -23,6 +23,9 @@ public class GameUI : MonoBehaviour
         Button disconnectBtn = _root.Q<Button>("disconnectBtn");
         Button sendTestBtn = _root.Q<Button>("sendTestBtn");
 
+        VisualElement hpSliderValue = _root.Q<VisualElement>("hpSlider").Q<VisualElement>("value");
+        hpSliderValue.style.width = new StyleLength(Length.Percent(50f));
+
         connectBtn.RegisterCallback<ClickEvent>(e => {
             SocketManager.Instance.Connection();
         });

@@ -1,5 +1,5 @@
 import Session from "./Session";
-import { PlayerInfo } from "./packet/packet";
+import { MSGID, PlayerInfo, PlayerInfoList } from "./packet/packet";
 
 export default class SessionManager
 {
@@ -12,7 +12,10 @@ export default class SessionManager
     }
 
     addSession(session: Session): void {
+        let list: PlayerInfoList = new PlayerInfoList({list: this.getAllSessionInfo()});
         this.sessionMap[session.uuid] = session;
+        session.Init(list);
+        this.broadcast(MSGID.NEWSESSION, session.info.serialize(), session.uuid, true);
     }
 
     getAllSessionInfo(): PlayerInfo[] {
@@ -31,6 +34,10 @@ export default class SessionManager
             if(key == senderUUID && exceptSender == true) continue;
             this.sessionMap[key].sendData(code, data);
         }
+    }
+
+    removeSession(uuid: string) {
+        delete this?.sessionMap[uuid];
     }
 }
 

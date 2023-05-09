@@ -8,13 +8,15 @@ public class Laser : MonoBehaviour
     [SerializeField] float _laserWidth;
 
     private LineRenderer _lineRenderer;
-    private string _hitTag = "Enemy";
+    [SerializeField] private string _hitTag = "Remote";
     private void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
 
         _lineRenderer.startWidth = _laserWidth;
         _lineRenderer.endWidth = _laserWidth;
+
+        // GetComponentInParent<PlayerInput>().OnFireKeyPress += LaserSpawn;
     }
 
     private void Update()
@@ -27,11 +29,11 @@ public class Laser : MonoBehaviour
             _lineRenderer.enabled = false;
     }
 
-    void LaserSpawn()
+    private void LaserSpawn()
     {
         _lineRenderer.enabled = true;
 
-        if (Physics.Raycast(new(transform.position, transform.forward), out RaycastHit hit, _maxLength))
+        if (Physics.Raycast(new Ray(transform.position, transform.forward), out RaycastHit hit, _maxLength))
         {
             _lineRenderer.SetPosition(0, transform.position);
             _lineRenderer.SetPosition(1, hit.point);
@@ -47,4 +49,14 @@ public class Laser : MonoBehaviour
             _lineRenderer.SetPosition(1, transform.position + transform.forward * _maxLength);
         }
     }
+
+    #if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Color oldColor = Gizmos.color;
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, transform.position + transform.forward * _maxLength);
+        Gizmos.color = oldColor;
+    }
+    #endif
 }

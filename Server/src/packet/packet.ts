@@ -7,7 +7,11 @@ import * as pb_1 from "google-protobuf";
 export enum MSGID {
     MSGBOX = 0,
     PLAYERINFO = 1,
-    PLAYERINFOLIST = 2
+    PLAYERINFOLIST = 2,
+    INITLIST = 3,
+    NEWSESSION = 4,
+    STARTFIRE = 5,
+    STOPFIRE = 6
 }
 export class MsgBox extends pb_1.Message {
     #one_of_decls: number[][] = [];
@@ -425,6 +429,73 @@ export class FireBullet extends pb_1.Message {
     }
     static deserializeBinary(bytes: Uint8Array): FireBullet {
         return FireBullet.deserialize(bytes);
+    }
+}
+export class UUID extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        value?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("value" in data && data.value != undefined) {
+                this.value = data.value;
+            }
+        }
+    }
+    get value() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set value(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    static fromObject(data: {
+        value?: string;
+    }): UUID {
+        const message = new UUID({});
+        if (data.value != null) {
+            message.value = data.value;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            value?: string;
+        } = {};
+        if (this.value != null) {
+            data.value = this.value;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.value.length)
+            writer.writeString(1, this.value);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UUID {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new UUID();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.value = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): UUID {
+        return UUID.deserialize(bytes);
     }
 }
 export class Vector2 extends pb_1.Message {

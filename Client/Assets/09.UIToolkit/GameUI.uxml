@@ -7,5 +7,8 @@
             <ui:Button text="접속 차단" display-tooltip-when-elided="true" name="disconnectBtn" class="btn" />
             <ui:Button text="테스트 패킷 보내기" display-tooltip-when-elided="true" name="sendTestBtn" class="btn" />
         </ui:VisualElement>
+        <ui:VisualElement name="hpSlider" style="position: absolute; left: 15px; top: 15px; width: 15%; height: 50px; background-color: rgba(0, 0, 0, 0.53); flex-direction: row; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; overflow: hidden;">
+            <ui:VisualElement name="value" style="width: 100%; background-color: rgb(255, 71, 71); border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

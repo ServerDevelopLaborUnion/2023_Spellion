@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
                 Pos = new Packet.Vector3{X = transform.position.x, Y = transform.position.y, Z = transform.position.z},
                 Rot = new Packet.Vector2{X = transform.rotation.eulerAngles.x, Y = transform.rotation.eulerAngles.y}
             };
-            SocketManager.Instance.RegisterSend(MSGID.Playerinfo, info);
+            SocketManager.Instance?.RegisterSend(MSGID.Playerinfo, info);
         }
     }
 

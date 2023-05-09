@@ -7,6 +7,10 @@ enum MSGID
     MSGBOX = 0;
     PLAYERINFO = 1;
     PLAYERINFOLIST = 2;
+    INITLIST = 3;
+    NEWSESSION = 4;
+    STARTFIRE = 5;
+    STOPFIRE = 6;
 }
 
 message MsgBox {
@@ -29,6 +33,10 @@ message FireBullet {
     Vector3 dir = 2;
     float length = 3;
     float laserWidth = 4;
+}
+
+message UUID {
+    string value = 1;
 }
 
 message Vector2 {

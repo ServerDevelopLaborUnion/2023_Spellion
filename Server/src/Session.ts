@@ -1,7 +1,8 @@
 import ws from "ws";
-import { MSGID, MsgBox, PlayerInfo, Vector2, Vector3 } from "./packet/packet";
+import { MSGID, MsgBox, PlayerInfo, PlayerInfoList, Vector2, Vector3 } from "./packet/packet";
 import { Message } from "google-protobuf";
 import PacketManager from "./PacketManager";
+import SessionManager from "./SessionManager";
 
 export default class Session
 {
@@ -15,6 +16,13 @@ export default class Session
         this.uuid = uuid;
         this.socket.on("close", closeListener);
         this.info = new PlayerInfo({uuid: uuid});
+        this.info.pos = new Vector3({x: 0, y: 1, z: 0});
+        this.info.rot = new Vector2({x: 0, y: 0});
+        this.info.isGround = true;
+    }
+
+    Init(list: PlayerInfoList) {
+        this.sendData(MSGID.INITLIST, list.serialize());
     }
 
     processPacket(data: ws.RawData) {

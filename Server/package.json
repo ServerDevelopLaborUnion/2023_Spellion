@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --exec \"ts-node src/Server.ts\" --watch ./src/*.* -e ts",
+    "packet": "common\\protoc.exe -I=./common --ts_out=./src/packet --csharp_out=../Client/Assets/01.Scripts/Network/Packet packet.proto"
   },
   "keywords": [],
   "author": "",

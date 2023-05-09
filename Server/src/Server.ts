@@ -29,9 +29,11 @@ wsServer.on("listening",  () => {
 wsServer.on("connection", (socket, request) => {
     const session = new Session(socket, crypto.randomUUID(), (code: number, reason: Buffer) => {
         // TODO: 클라이언트 로그아웃 시 작업
+        SessionManager.Instance.removeSession(session.uuid);
+        console.log(`[Server.ts] Session 로그아웃됨. ID: ${session.uuid}`);
     });
     SessionManager.Instance.addSession(session);
-    console.log(`[Server.ts] 새로운 Session 로그인. IP: ${request.socket.remoteAddress}`);
+    console.log(`[Server.ts] 새로운 Session 로그인. ID: ${session.uuid}`);
 
     // For Debugs
 
@@ -43,7 +45,8 @@ wsServer.on("connection", (socket, request) => {
 
 let updateTimer: UpdateTimer = new UpdateTimer(50, () => {
     let list: PlayerInfo[] = SessionManager.Instance.getAllSessionInfo();
+    if(list.length <= 0) return;
     let infoList: PlayerInfoList = new PlayerInfoList({list});
     SessionManager.Instance.broadcast(MSGID.PLAYERINFOLIST, infoList.serialize(), "");
 });
-// updateTimer.startTimer();
+updateTimer.startTimer();

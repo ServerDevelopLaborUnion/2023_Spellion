@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Packet;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class PlayerInput : MonoBehaviour
     public event Action<float, float> OnMouseMove = null;
     public event Action OnJumpKeyPress = null;
     public event Action OnDuckingKeyPress = null;
+    public event Action OnFireKeyPress = null;
+    public event Action OnFireKeyRelease = null;
     
     private Vector3 _moveInput;
     private Vector3 _mouseInput;
@@ -24,6 +28,7 @@ public class PlayerInput : MonoBehaviour
     {
         UpdateMoveInput();
         GetMouseDragInput();
+        UpdateFireKeyState();
     }
 
     private void UpdateMoveInput()
@@ -40,5 +45,23 @@ public class PlayerInput : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y");
         
         OnMouseMove?.Invoke(mouseX, mouseY);
+    }
+
+    private void UpdateFireKeyState()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            OnFireKeyPress?.Invoke();
+
+            //! Remove This
+            SocketManager.Instance.RegisterSend(MSGID.Startfire, new UUID());
+        }
+        if(Input.GetMouseButtonUp(0))
+        {
+            OnFireKeyRelease?.Invoke();
+
+            //! Remove This
+            SocketManager.Instance.RegisterSend(MSGID.Stopfire, new UUID());
+        }
     }
 }
