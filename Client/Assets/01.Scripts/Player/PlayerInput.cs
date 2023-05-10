@@ -21,8 +21,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        UpdateMoveInput();
-        UpdateKeyInput();
+        //UpdateMoveInput();
+        //UpdateKeyInput();
         GetMouseDragInput();
     }
 
@@ -37,10 +37,10 @@ public class PlayerInput : MonoBehaviour
 
     private void UpdateKeyInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OnJumpKeyPress?.Invoke();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+            //OnJumpKeyPress?.Invoke();
+        //}//
     }
     private void GetMouseDragInput()
     {

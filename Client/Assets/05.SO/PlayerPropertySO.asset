@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerPropertySO
   m_EditorClassIdentifier: 
   MoveSpeed: 8
-  JumpForce: 10
+  JumpForce: 1

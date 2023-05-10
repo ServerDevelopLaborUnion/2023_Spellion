@@ -12,10 +12,12 @@ public class PlayerMovement : MonoBehaviour
     
     private CharacterController _characterController;
     private PlayerInput _playerInput;
-    private Rigidbody _rigidbody;
 
+    private float _groundCheckDistance = 0.4f;
+    public LayerMask GroundLayer;
+    
+    bool _isGrounded;
     private Vector3 _movementVelocity;
-    private float _verticalVelocity;
 
     public bool CanMove = true;
     public bool CanJump = false;
@@ -24,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _playerInput = GetComponent<PlayerInput>();
-        _rigidbody = GetComponent<Rigidbody>();
+        
 
         _playerInput.OnMovementKeyPress += CalcAcceleration;
         //_playerInput.OnMovementKeyPress += Move;
@@ -34,13 +36,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalcAcceleration(Vector3 inputVelocity)    
     {
-        inputVelocity.Normalize();
-        _movementVelocity = inputVelocity * (_playerPropertySO.MoveSpeed * Time.fixedDeltaTime);
-    }
-
-    private void Move()
-    {
-        
+        //inputVelocity.Normalize();
+        _movementVelocity = inputVelocity * (_playerPropertySO.MoveSpeed);
     }
 
     private void StopMove()
@@ -48,28 +45,32 @@ public class PlayerMovement : MonoBehaviour
         _movementVelocity = Vector3.zero;
     }
     
-    private void FixedUpdate() 
+    private void Update() 
     {
-        if (CanMove)
+        _isGrounded = Physics.CheckSphere(gameObject.transform.position, _groundCheckDistance, GroundLayer);
+        
+        if(_isGrounded && _movementVelocity.y < 0)
         {
-            Vector3 move = _movementVelocity + _verticalVelocity * Vector3.up;
-            _characterController.Move(move);
+            _movementVelocity.y = -2f;
         }
         
-        if(_characterController.isGrounded == false)
+        _characterController.Move(_movementVelocity * Time.deltaTime);
+        
+        if(Input.GetButtonDown("Jump") && _isGrounded)
         {
-            _verticalVelocity = _gravity * Time.fixedDeltaTime;
+            _movementVelocity.y = Mathf.Sqrt(_playerPropertySO.JumpForce * -2f * _gravity);
         }
-        else
-        {
-            _verticalVelocity = _gravity * 0.3f * Time.fixedDeltaTime;
-        }
+        
+        _movementVelocity.y += _gravity * Time.deltaTime;
+
+        _characterController.Move(_movementVelocity * Time.deltaTime);
     }
     
 
     private void Jump()
-    {  
-        
+    {
+        Debug.Log("점프");
+        //_rigidbody.AddForce(Vector3.up * _playerPropertySO.JumpForce, ForceMode.Impulse);
     }
 
     private void Ducking()
