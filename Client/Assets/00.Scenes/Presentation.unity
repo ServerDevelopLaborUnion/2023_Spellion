@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initPoolList: {fileID: 11400000, guid: ace04316a29588c4b801c06c524ab7bb, type: 2}
   _playerPref: {fileID: 5400501894012420077, guid: b12f02c83c381d041a61617091d3ff73, type: 3}
-  _connectionUrl: ws://localhost:50000
+  _connectionUrl: ws://172.31.0.213:50000
 --- !u!1 &143447140
 GameObject:
   m_ObjectHideFlags: 0

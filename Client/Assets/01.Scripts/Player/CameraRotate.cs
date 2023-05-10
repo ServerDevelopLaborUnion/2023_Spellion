@@ -23,7 +23,7 @@ public class CameraRotate : MonoBehaviour
     {
         _playerInput = GetComponentInParent<PlayerInput>();
         _playerInput.OnMouseMove += UpdateRotate;
-        // _gunTrm = transform.parent.Find("Gun");
+        _gunTrm = transform.parent.Find("Gun");
     }
 
     public void UpdateRotate(float mouseX, float mouseY)
@@ -34,7 +34,7 @@ public class CameraRotate : MonoBehaviour
         eulerAngleX = ClampAngle(eulerAngleX, limitMin, limitMax);
         
         transform.localRotation = Quaternion.Euler(eulerAngleX, 0, 0);
-        // _gunTrm.localRotation = Quaternion.Euler(eulerAngleX, 0, 0);
+        _gunTrm.localRotation = Quaternion.Euler(eulerAngleX - 5, 0, 0);
     }
 
     private float ClampAngle(float angle, float min, float max)

@@ -2,7 +2,7 @@
     position: relative;
     right: 10px;
     top: 10px;
-    font-size: 25px;
+    font-size: 30px;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
@@ -11,4 +11,6 @@
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
+    -unity-font-style: normal;
+    -unity-font-definition: url('project://database/Assets/08.Fonts/NotoSansKR-Medium%20SDF.asset?fileID=11400000&guid=795b7dfd5d059c148b1317365840000f&type=2#NotoSansKR-Medium SDF');
 }
