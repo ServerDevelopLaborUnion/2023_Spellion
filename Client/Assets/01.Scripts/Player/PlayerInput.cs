@@ -26,7 +26,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        UpdateMoveInput();
+        //UpdateMoveInput();
+        //UpdateKeyInput();
         GetMouseDragInput();
         UpdateFireKeyState();
     }
@@ -38,6 +39,14 @@ public class PlayerInput : MonoBehaviour
         // _moveInput = new Vector3(horizontal, 0, vertical);
         _moveInput = (transform.forward * vertical) + (transform.right * horizontal);
         OnMovementKeyPress?.Invoke(_moveInput);
+    }
+
+    private void UpdateKeyInput()
+    {
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+            //OnJumpKeyPress?.Invoke();
+        //}//
     }
     private void GetMouseDragInput()
     {
