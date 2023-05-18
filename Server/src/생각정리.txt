@@ -1,0 +1,72 @@
+서버를 해야 되긴 함.
+
+그렇다면 어디서부터???
+
+1. 유저 입장에서 처음부터 끝까지 다 생각해서 서버 구상
+2. 잠깐 발표회에서 보여줄 만큼까지만 개발하고 이후에 구조변경
+
+1번은 나는 편한테 시간을 못지킴
+고로 선택지는 2번밖에 없다? ㅇㅋ
+
+2번을 하려면 어디서부터 해야할까
+
+먼저 발표회때 뭘 보여줄지 정하기
+- 유저는 클라이언트를 키면 개활지 또는 맵에 생성됨.
+- 팀은 정해지지 않고 모두 다 상대로 판별됨.
+- 기본 총과 기본 캐릭터 상태이고, 총 쏘면 레이저 나감(라인렌더러)
+- 피격 이펙트.....?????? 가능하면 ㄱㄱ
+- 죽으면... 클라 종료?
+
+서버를 짜기 전에
+패킷들을 정의해야 한다.
+어떤 패킷들이 필요할까?
+
+PlayerPos // 플레이어 포지션
+- x: number
+- y: number
+- z: number
+- isGround: boolean
+
+PlayerRot // 플레이어 로테이션
+- x: number // 카메라 로테이션 x
+- y: number // 플레이어 로테이션 y 
+
+PlayerInfo // 플레이어 정보
+- uuid: string // UUID 정보
+- pos: PlayerPos // 포지션 정보
+- rot: PlayerRot // 로테이션 정보
+
+그렇다면 세션 클래스를 간단히 짰을 때
+
+class Session
+{
+    private socket: WebSocket;
+    info: PlayerInfo;
+    uuid: string;
+
+    constructor(socket: WebSocket, uuid: string)
+    {
+        this.socket = socket;
+        this.uuid = uuid;
+    }
+}
+
+이런 식으로 나오겠지??
+바로 ㄱㄱ
+
+개발할때 유니티클라를 어떤 식으로 짜야할까....
+
+흠.. 이것도 똑같이 유저 입장에서 플레이하는 것을 따라가면서 생각해 보자.
+
+1. exe 빌드본을 실행한다.
+
+2. Presentation(발표용 씬) 씬을 로드한다.
+
+그럼 지금 생각할꺼는 Presentation씬을 어떻게 구성할지만 하면 되겠네??
+
+- Presentation씬의 Awake를 따라가 보자.
+- 먼저, GameManager에서 맵을 제외한 다른 모~든 것들의 생성 주기를 관리한다.
+- 따라서, 해당 씬에서는 게임 매니져 오브젝트, 카메라, 조명 외에는 아무 것도 없다.
+- GameManager에서 SocketManager(웹소켓 커넥트 관리), UIManager(UI관리)를 생성하고 초기화해준다. (AddComponent 및 각 매니져별 Init)
+- 그 뒤에, 서버와의 연결이 확인되면 GameManager에서 플레이어 프리팹을 생성하고, RemoteManager(리모트 플레이어 관리)를 만들어주고 초기화한다.
+- 그러면 끝일듯?
