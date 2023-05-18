@@ -8,15 +8,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     
     [SerializeField] private PoolingListSO _initPoolList;
-
-    [SerializeField] private GameObject _playerPref;
-    private GameObject _player = null;
-    public GameObject Player => _player;
-    
-    // Network
-    [SerializeField] private string _connectionUrl;
-    private SocketManager _socketManager;
-
     private void Awake()
     {
         if (Instance != null)
@@ -26,28 +17,9 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         
-        CreateSocketManager();
         CreatePool();
-
-        GameObject t = GameObject.Find("Player");
-        if(t != null)
-        {
-            Destroy(t);
-        }
     }
-
-    private void CreateSocketManager()
-    {
-        _socketManager = gameObject.AddComponent<SocketManager>();
-        SocketManager.Instance.Init(_connectionUrl);
-        SocketManager.Instance.Connection();
-    }
-
-    public RemoteManager CreateRemoteManager()
-    {
-        return gameObject.AddComponent<RemoteManager>();
-    }
-
+    
     private void CreatePool()
     {
         PoolManager.Instance = new PoolManager(transform);
@@ -55,11 +27,5 @@ public class GameManager : MonoBehaviour
         {
             PoolManager.Instance.CreatePool(p.Prefab, p.Count);
         });
-    }
-
-    public void CreatePlayer()
-    {
-        _player = Instantiate(_playerPref, new Vector3(0, 1, 0), Quaternion.identity);
-        // _player.transform.position = new Vector3(0, 1, 0);
     }
 }

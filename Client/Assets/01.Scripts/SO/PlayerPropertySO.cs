@@ -6,6 +6,6 @@ using UnityEngine;
 public class PlayerPropertySO : ScriptableObject
 {
     public float MoveSpeed;
-    public float JumpForce;
+    public float JumpSpeed;
 
 }
