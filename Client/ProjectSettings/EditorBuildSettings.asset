@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/00.Scenes/dohee/00.StartScene.unity
+    guid: 2c7b12c46c2cf2447b3bbc7ff23deb0a
+  - enabled: 1
+    path: Assets/00.Scenes/dohee/01.MainScene.unity
+    guid: 80640510a82a08e4d8b30a6d33aad86e
+  - enabled: 1
+    path: Assets/00.Scenes/dohee/02.GameScene.unity
+    guid: 8b4b92279d9e9b8488395f3fac7541ba
   m_configObjects: {}
