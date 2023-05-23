@@ -8,13 +8,14 @@ public class TimerManager
     [SerializeField] float waitRoundTime = 10f;
     [SerializeField] float inRoundTime = 180f;
     [SerializeField] float endRoundTime = 5f;
-    private void Awake() {
+    public void Init() {
         Dohee_GameManager.Instance.waitRound += WaitRoundTimeSet;
 
         Dohee_GameManager.Instance.startRound += InRoundTimeSet;
         
         Dohee_GameManager.Instance.endRound += EndRoundTimeSet;
     }
+    
     private void WaitRoundTimeSet(){
         Dohee_GameManager.Instance.TimerStart(waitRoundTime);
     }
