@@ -739,8 +739,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1656149725}
-  - component: {fileID: 1656149727}
   - component: {fileID: 1656149726}
+  - component: {fileID: 1656149727}
   m_Layer: 0
   m_Name: MuzzlePosition
   m_TagString: Untagged
@@ -871,11 +871,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1656149724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1fe349a777a5d74f9a16ac425a25396, type: 3}
+  m_Script: {fileID: 11500000, guid: b468cf76e19fc664a809a2e99cf4b0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLength: 10
-  _laserWidth: 0.05
+  _hitTag: Remote
+  rateOfFire: 0.1
+  startAmmo: 100
 --- !u!1 &1684731450
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +959,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPropertySO: {fileID: 11400000, guid: f0c974408ecf4ed469b69153633e59cb, type: 2}
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   CanMove: 1
+  CanJump: 0
 --- !u!114 &1684731457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -982,9 +988,10 @@ GameObject:
   - component: {fileID: 1888670695}
   - component: {fileID: 1888670694}
   - component: {fileID: 1888670693}
+  - component: {fileID: 1888670697}
   m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Enemy
+  m_Name: Player2
+  m_TagString: Remote
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1067,3 +1074,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1888670697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888670692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f51ba7430f7035644a6312f844fe7685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
