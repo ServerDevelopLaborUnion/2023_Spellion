@@ -5,54 +5,38 @@ using TMPro;
 public class UIManager
 {
     public static UIManager Instance;
-    [SerializeField]TextMeshProUGUI timeText = null;
-    [SerializeField]TextMeshProUGUI redTeamScoreText = null;
-    [SerializeField]TextMeshProUGUI blueTeamScoreText = null;
-    [SerializeField]TextMeshProUGUI redModeScoreText = null;
-    [SerializeField]TextMeshProUGUI blueModeScoreText = null;
-    private int redTeamScore = 0;
-    private int blueTeamScore = 0;
-    public int RedTeamScore => redTeamScore;
-    public int BlueTeamScore => blueTeamScore;
-    private int redModeScore = 0;
-    private int blueModeScore = 0;
-    public int RedModeScore => redModeScore;
-    public int BlueModeScore => blueModeScore;
+    TextMeshProUGUI timeText = null;
+    TextMeshProUGUI redTeamScoreText = null;
+    TextMeshProUGUI blueTeamScoreText = null;
+    TextMeshProUGUI redModeScoreText = null;
+    TextMeshProUGUI blueModeScoreText = null;
     public void Init(){
-        Dohee_GameManager.Instance.startGame += InGameLoad;
+        
     }
-    private void InGameLoad(){
-        timeText = GameObject.Find("Timer/TimerText").GetComponent<TextMeshProUGUI>();
-        redTeamScoreText = GameObject.Find("BlueTeamScore/BlueTeamScoreText").GetComponent<TextMeshProUGUI>();
-        blueTeamScoreText = GameObject.Find("RedTeamScore/RedTeamScoreText").GetComponent<TextMeshProUGUI>();
-        redModeScoreText = GameObject.Find("ModeScoreUI/RedModeScore/RedModeScoreText").GetComponent<TextMeshProUGUI>();
-        blueModeScoreText = GameObject.Find("ModeScoreUI/BlueModeScore/BlueModeScoreText").GetComponent<TextMeshProUGUI>();
+    public void InGameLoad(GameMode currentMode){
+        timeText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
+        redTeamScoreText = GameObject.Find("BlueTeamScoreText").GetComponent<TextMeshProUGUI>();
+        blueTeamScoreText = GameObject.Find("RedTeamScoreText").GetComponent<TextMeshProUGUI>();
+        redModeScoreText = GameObject.Find("RedModeScoreText").GetComponent<TextMeshProUGUI>();
+        blueModeScoreText = GameObject.Find("BlueModeScoreText").GetComponent<TextMeshProUGUI>();
+
+        SetModeUI(currentMode);
+    }
+    private void SetModeUI(GameMode currentMode){
+        // 모드에 맞는 UI를 로드
+        if(currentMode == GameMode.KillAll){
+            // 팀 데스메치 UI 로드
+        }
     }
     public void SetTimeText(float time){
         timeText.SetText(((int)time).ToString());
     }
-    public void SetRoundScoreText(bool blueWin){
-        if(blueWin) blueTeamScore++;
-        else redTeamScore++;
-        blueTeamScoreText.text = blueTeamScore.ToString();
-        redTeamScoreText.text = redTeamScore.ToString();
-        if(Dohee_GameManager.CurrentMode == GameMode.KillAll){
-            blueModeScore = 5;
-            redModeScore = 5;
-        }
-        if(Dohee_GameManager.CurrentMode == GameMode.TakePlace){
-            blueModeScore = 0;
-            redModeScore = 0;
-        }
-        blueModeScoreText.text = blueModeScore.ToString();
-        redModeScoreText.text = redModeScore.ToString();
+    public void SetRoundScoreText(int blue, int red){
+        blueTeamScoreText.text = blue.ToString();
+        redTeamScoreText.text = red.ToString();
     }
-    public void SetModeScoreText(){
-        if(Dohee_GameManager.CurrentMode == GameMode.KillAll){
-            blueModeScore = Dohee_GameManager.Instance.BluePlayer;
-            redModeScore = Dohee_GameManager.Instance.RedPlayer;
-        }
-        blueModeScoreText.text = blueModeScore.ToString();
-        redModeScoreText.text = redModeScore.ToString();
+    public void SetModeScoreText(int blue, int red){
+        blueModeScoreText.text = blue.ToString();
+        redModeScoreText.text = red.ToString();
     }
 }

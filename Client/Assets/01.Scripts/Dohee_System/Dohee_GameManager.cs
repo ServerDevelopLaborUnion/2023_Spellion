@@ -13,15 +13,8 @@ public class Dohee_GameManager : MonoBehaviour
             phase = false;
             isInGame = false;
         }
-        if(Input.GetKey(KeyCode.Q)){
-            UIManager.Instance.SetModeScoreText();
-        }
-        if(Input.GetKey(KeyCode.E)){
-            UIManager.Instance.SetModeScoreText();
-        }
         if(Input.GetKeyDown(KeyCode.F)){
             RedPlayer--;
-            UIManager.Instance.SetModeScoreText();
         }
     }
     private void Update() {
@@ -29,26 +22,38 @@ public class Dohee_GameManager : MonoBehaviour
     }
     public static Dohee_GameManager Instance = null;
     private Coroutine currentRound = null;
-    static private GameMode currentMode = GameMode.KillAll;
-    static public GameMode CurrentMode => currentMode;
-    private bool game; // 전체 게임의 값
+    private GameMode currentMode = GameMode.KillAll;
+    public GameMode CurrentMode => currentMode;
+    private bool game; // 전체 게임의 값 매우 중요
     public bool Game => game;
     private bool phase; // 한칸 한칸 넘기는 값
     public bool Phase => phase;
     private bool isInGame; // 승리 계산하는지 확인하는 값
     public bool IsInGame => isInGame;
-    [SerializeField]private int bluePlayer = 5;
+    private int redRoundScore = 0;
+    private int blueRoundScore = 0;
+    public int RedRoundScore => redRoundScore;
+    public int BlueRoundScore => blueRoundScore;
+    private int redModeScore = 0;
+    private int blueModeScore = 0;
+    public int RedModeScore => redModeScore;
+    public int BlueModeScore => blueModeScore;
+    [SerializeField]private int bluePlayer = 4;
+    [SerializeField]private int redPlayer = 4;
     public int BluePlayer{
         get => bluePlayer;
         set{
             bluePlayer = Mathf.Clamp(value, 0, 5);
+            if(currentMode == GameMode.KillAll) blueModeScore = bluePlayer;
+            UIManager.Instance.SetModeScoreText(blueModeScore, redModeScore);
         }
     }
-    [SerializeField]private int redPlayer = 5;
     public int RedPlayer{
         get => redPlayer;
         set{
             redPlayer = Mathf.Clamp(value, 0, 5);
+            if(currentMode == GameMode.KillAll) redModeScore = redPlayer;
+            UIManager.Instance.SetModeScoreText(blueModeScore, redModeScore);
         }
     }
     public event Action startGame; // 게임 시작 (로딩)
@@ -59,12 +64,8 @@ public class Dohee_GameManager : MonoBehaviour
     private void Awake(){
         if(Instance != null) Destroy(gameObject);
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         CreateManagers();
-        Setting();
-    }
-    private void Start() {
-        StartCoroutine(StartGame());
-        UIManager.Instance.SetModeScoreText();
     }
     private void CreateManagers(){
         UIManager.Instance = new UIManager();
@@ -72,12 +73,20 @@ public class Dohee_GameManager : MonoBehaviour
         TimerManager.Instance = new TimerManager();
         TimerManager.Instance.Init();
     }
-    private void Setting(){
-        if(currentMode == GameMode.KillAll){}
+    public void InGameSetting(){
+        if(currentMode == GameMode.KillAll){
+            redModeScore = redPlayer;
+            blueModeScore = bluePlayer;
+        }
         if(currentMode == GameMode.TakePlace){}
         game = true;
+        UIManager.Instance.InGameLoad(currentMode);
+        UIManager.Instance.SetModeScoreText(blueModeScore, redModeScore);
+        UIManager.Instance.SetRoundScoreText(blueRoundScore, redRoundScore);
+        StartCoroutine(StartGame());
     }
     private IEnumerator StartGame(){
+        // phase = true;
         startGame?.Invoke();
         yield return new WaitUntil(() => !phase);
         while(game){
@@ -106,12 +115,9 @@ public class Dohee_GameManager : MonoBehaviour
         while(currentTime >= 0 && phase){
             currentTime -= Time.deltaTime;
             UIManager.Instance.SetTimeText(currentTime);
-            if(isInGame){
-                RoundWinCheck();
-            }
-            if(currentTime >= 0){
-                UIManager.Instance.SetTimeText(currentTime);
-            }else{
+
+            if(isInGame) RoundWinCheck();
+            if(currentTime <= 0){
                 phase = false;
                 if(isInGame) Tied();
             }
@@ -121,24 +127,36 @@ public class Dohee_GameManager : MonoBehaviour
     private void RoundWinCheck(){
         if(currentMode == GameMode.KillAll){
             if(BluePlayer == 0){
-                UIManager.Instance.SetRoundScoreText(blueWin: true);
+                blueRoundScore++;
+                UIManager.Instance.SetRoundScoreText(blueRoundScore, redRoundScore);
+                BluePlayer = 4;
+                RedPlayer = 4;
                 isInGame = false;
                 phase = false;
             }
             if(RedPlayer == 0){
-                UIManager.Instance.SetRoundScoreText(blueWin: false);
+                redRoundScore++;
+                UIManager.Instance.SetRoundScoreText(blueRoundScore, redRoundScore);
+                BluePlayer = 4;
+                RedPlayer = 4;
                 isInGame = false;
                 phase = false;
             }
         }
         if(currentMode == GameMode.TakePlace){
-            if(UIManager.Instance.BlueModeScore >= 100){
-                UIManager.Instance.SetRoundScoreText(blueWin: true);
+            if(BlueModeScore >= 100){
+                blueRoundScore++;
+                UIManager.Instance.SetRoundScoreText(blueRoundScore, redRoundScore);
+                BluePlayer = 4;
+                RedPlayer = 4;
                 isInGame = false;
                 phase = false;
             }
-            if(UIManager.Instance.RedModeScore >= 100){
-                UIManager.Instance.SetRoundScoreText(blueWin: false);
+            if(RedModeScore >= 100){
+                redRoundScore++;
+                UIManager.Instance.SetRoundScoreText(blueRoundScore, redRoundScore);
+                BluePlayer = 4;
+                RedPlayer = 4;
                 isInGame = false;
                 phase = false;
             }
@@ -148,19 +166,17 @@ public class Dohee_GameManager : MonoBehaviour
         isInGame = false;
     }
     private void GameWinCheck(){
-        if(UIManager.Instance.BlueTeamScore >= 2){
+        if(BlueRoundScore >= 2){
             game = false;
-            // 만약 플레이어가 블루팀이면 승리 창 레드팀이면 패배창
         }
-        if(UIManager.Instance.RedTeamScore >= 2){
+        if(RedRoundScore >= 2){
             game = false;
-            // 반대
         }
     }
-    static public void ChangeGameMode(int mode){
+    public void ChangeGameMode(int mode){
         switch(mode){
-            case 1: currentMode = GameMode.KillAll; break;
-            case 2: currentMode = GameMode.TakePlace; break;
+            case 1: Dohee_GameManager.Instance.currentMode = GameMode.KillAll; break;
+            case 2: Dohee_GameManager.Instance.currentMode = GameMode.TakePlace; break;
         }
     }
 }
