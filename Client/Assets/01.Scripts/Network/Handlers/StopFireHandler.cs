@@ -9,6 +9,6 @@ public class StopFireHandler : IPacketHandler
 {
     public void Process(IMessage packet)
     {
-        RemoteManager.Instance.SetStopFire(packet as UUID);
+        
     }
 }

@@ -28,12 +28,6 @@ public class GameManager : MonoBehaviour
         
         CreateSocketManager();
         CreatePool();
-
-        GameObject t = GameObject.Find("Player");
-        if(t != null)
-        {
-            Destroy(t);
-        }
     }
 
     private void CreateSocketManager()
@@ -41,11 +35,6 @@ public class GameManager : MonoBehaviour
         _socketManager = gameObject.AddComponent<SocketManager>();
         SocketManager.Instance.Init(_connectionUrl);
         SocketManager.Instance.Connection();
-    }
-
-    public RemoteManager CreateRemoteManager()
-    {
-        return gameObject.AddComponent<RemoteManager>();
     }
 
     private void CreatePool()
