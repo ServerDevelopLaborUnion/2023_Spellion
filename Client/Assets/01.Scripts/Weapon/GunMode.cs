@@ -10,6 +10,8 @@ public class GunMode : MonoBehaviour
     [SerializeField] float rateOfFire = 0.1f;
     [SerializeField] int startAmmo = 100;
     [SerializeField] int damage = 5;
+    [SerializeField] GameObject player;
+    Vector3 dir;
     int currentAmmo = 100;
     bool isGizmo = false;
     private bool gunMode = false;
@@ -23,6 +25,7 @@ public class GunMode : MonoBehaviour
     {
         IsGunMode();
         Reload();
+        SetDir();
     }
     void Reload()
     {
@@ -34,12 +37,12 @@ public class GunMode : MonoBehaviour
     }
     void IsGunMode()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.J))
         {
             Debug.Log("연사모드");
             gunMode = true;
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             Debug.Log("단발모드");
             gunMode = false;
@@ -51,11 +54,18 @@ public class GunMode : MonoBehaviour
         if ((gunMode == true && Input.GetMouseButtonUp(0)) || currentAmmo <= 0)
             StopCoroutine("Repeater");
     }
+    private void SetDir()
+    {
+        Vector3 a = player.transform.forward * _maxLength;
+        a.y = transform.position.y;
+        dir = a - transform.position;
+        dir = dir.normalized;
+    }
     void SingleShot()
     {
         currentAmmo--;
         Debug.Log(currentAmmo);
-        if (Physics.Raycast(new Ray(transform.position, transform.forward), out RaycastHit hit, _maxLength))
+        if (Physics.Raycast(new Ray(transform.position, dir), out RaycastHit hit, _maxLength))
         {
             if (hit.collider.tag == _hitTag)
             {
@@ -68,7 +78,7 @@ public class GunMode : MonoBehaviour
     {
         while (true)
         {
-            if (Physics.Raycast(new Ray(transform.position, transform.forward), out RaycastHit hit, _maxLength))
+            if (Physics.Raycast(new Ray(transform.position, dir), out RaycastHit hit, _maxLength))
             {
                 if (hit.collider.tag == _hitTag)
                 {
@@ -93,6 +103,6 @@ public class GunMode : MonoBehaviour
             Gizmos.color = Color.clear;
         else
             Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, transform.position + transform.forward * _maxLength);
+        Gizmos.DrawRay(transform.position, dir * _maxLength);
     }
 }
