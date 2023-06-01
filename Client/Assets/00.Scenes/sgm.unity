@@ -1129,7 +1129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7343b4e7a4b81184bbebcb965da54b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fsm: {fileID: 0}
 --- !u!114 &1888670699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,4 +1145,5 @@ MonoBehaviour:
   detectionRange: 8
   attackRange: 5
   damage: 5
+  myself: {fileID: 1888670693}
   state: 0
