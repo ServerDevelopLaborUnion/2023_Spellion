@@ -58,8 +58,7 @@ public class GunMode : MonoBehaviour
     {
         Vector3 a = player.transform.forward * _maxLength;
         a.y = transform.position.y;
-        dir = a - transform.position;
-        dir = dir.normalized;
+        dir = (a - transform.position).normalized;
     }
     void SingleShot()
     {

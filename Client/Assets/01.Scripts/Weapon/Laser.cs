@@ -27,20 +27,20 @@ public class Laser : MonoBehaviour
         }
         else
             _lineRenderer.enabled = false;
+
         SetDir();
     }
     private void SetDir()
     {
         Vector3 a = player.transform.forward * _maxLength;
         a.y = transform.position.y;
-        dir = a - transform.position;
-        dir = dir.normalized;
+        dir = (a - transform.position).normalized;
     }
     void LaserSpawn()
     {
         _lineRenderer.enabled = true;
 
-        if (Physics.Raycast(new(transform.position, transform.forward), out RaycastHit hit, _maxLength))
+        if (Physics.Raycast(new(transform.position, dir), out RaycastHit hit, _maxLength))
         {
             _lineRenderer.SetPosition(0, transform.position);
             _lineRenderer.SetPosition(1, hit.point);
