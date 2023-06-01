@@ -1,0 +1,40 @@
+.btn {
+    position: relative;
+    right: 10px;
+    top: 10px;
+    font-size: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    -unity-font-style: normal;
+    -unity-font-definition: url('project://database/Assets/08.Fonts/NotoSansKR-Medium%20SDF.asset?fileID=11400000&guid=795b7dfd5d059c148b1317365840000f&type=2#NotoSansKR-Medium SDF');
+}
+
+#InterLabel {
+    font-size: 27px;
+    background-color: rgba(0, 180, 255, 0.35);
+}
+
+.InterUI {
+    width: 50%;
+    flex-direction: row;
+    left: 25%;
+    top: 50%;
+    right: 25%;
+    bottom: 50%;
+    opacity: 0;
+    justify-content: center;
+}
+
+.InterUI.on {
+    justify-content: space-between;
+    opacity: 1;
+    transition-property: opacity, justify-content;
+    transition-duration: 1s, 0.5s;
+    flex-direction: row;
+}
