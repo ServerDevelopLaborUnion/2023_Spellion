@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Packet;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 [RequireComponent(typeof(AgentInput), typeof(CharacterController))]
 public class AgentMovement : MonoBehaviour
@@ -25,6 +28,21 @@ public class AgentMovement : MonoBehaviour
 
         _agentInput.OnMovementKeyInput += SetMoveVelocity;
         _agentInput.OnJumpKeyPress += SetJump;
+        _agentInput.OnMousePosInput += SetRotation;
+    }
+
+    private void SetRotation(Vector2 mouseInput)
+    {
+        transform.rotation = Quaternion.Euler(transform.eulerAngles + Vector3.up * mouseInput.y);
+    }
+
+    private IEnumerator SendMovementInfoLoop()
+    {
+        while(true)
+        {
+            SocketManager.Instance.RegisterSend(MSGID.Playerinfo, new PlayerInfo{});
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     private void SetJump()
@@ -45,6 +63,7 @@ public class AgentMovement : MonoBehaviour
     private void CalculatePlayerMovement()
     {
         _movementVelocity.Normalize();
+        _movementVelocity = transform.rotation * _movementVelocity;
         _movementVelocity *= _moveData.MoveSpeed * Time.deltaTime;
     }
 

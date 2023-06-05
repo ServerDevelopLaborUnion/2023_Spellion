@@ -14,3 +14,15 @@
     -unity-font-style: normal;
     -unity-font-definition: url('project://database/Assets/08.Fonts/NotoSansKR-Medium%20SDF.asset?fileID=11400000&guid=795b7dfd5d059c148b1317365840000f&type=2#NotoSansKR-Medium SDF');
 }
+
+.pause {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#Container.pause > #notConnect {
+    display: flex;
+}
+
+#notConnect {
+    display: none;
+}

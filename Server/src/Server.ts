@@ -11,6 +11,11 @@ import { MSGID, PlayerInfo, PlayerInfoList } from './packet/packet';
 const PORT = 50000;
 
 const App: Application = Express();
+
+App.get("/", (req, res) => {
+    res.send(JSON.stringify(SessionManager.Instance.getAllSessionInfo()));
+})
+
 const httpServer: http.Server = App.listen(PORT, () => {
     console.log(`[Server.ts] Http Server 작동 중. 포트: ${PORT}`);
 });
@@ -28,7 +33,6 @@ wsServer.on("listening",  () => {
 
 wsServer.on("connection", (socket, request) => {
     const session = new Session(socket, crypto.randomUUID(), (code: number, reason: Buffer) => {
-        // TODO: 클라이언트 로그아웃 시 작업
         SessionManager.Instance.removeSession(session.uuid);
         console.log(`[Server.ts] Session 로그아웃됨. ID: ${session.uuid}`);
     });
@@ -45,7 +49,7 @@ wsServer.on("connection", (socket, request) => {
 
 let updateTimer: UpdateTimer = new UpdateTimer(50, () => {
     let list: PlayerInfo[] = SessionManager.Instance.getAllSessionInfo();
-    if(list.length <= 0) return;
+    if(list.length < 1) return;
     let infoList: PlayerInfoList = new PlayerInfoList({list});
     SessionManager.Instance.broadcast(MSGID.PLAYERINFOLIST, infoList.serialize(), "");
 });

@@ -7,6 +7,7 @@ public class AgentInput : MonoBehaviour
 {
     // Movement
     public event Action<Vector3> OnMovementKeyInput;
+    public event Action<Vector2> OnMousePosInput;
     public event Action OnJumpKeyPress;
 
     // Fire
@@ -17,6 +18,14 @@ public class AgentInput : MonoBehaviour
     {
         UpdateMovementInput();
         UpdateFireKeyInput();
+        UpdateMousePosInput();
+    }
+
+    private void UpdateMousePosInput()
+    {
+        float xRot = Input.GetAxis("Mouse Y");
+        float yRot = Input.GetAxis("Mouse X");
+        OnMousePosInput?.Invoke(new Vector2(xRot, yRot));
     }
 
     private void UpdateFireKeyInput()
