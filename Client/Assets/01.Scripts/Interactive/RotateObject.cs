@@ -13,39 +13,19 @@ public class RotateObject : MonoBehaviour
     
     private IEnumerator RotateCoroutine(float time, float angle, bool clockWise = true)
     {
-        Vector3 wise;
-        if (clockWise == true) wise = Vector3.up;
-        else wise = Vector3.down;
-        
-        float elapsedTime = 0.0f;
-        Quaternion currentRotation = transform.rotation;
-        Vector3 targetEulerAngles = transform.rotation.eulerAngles;
-        targetEulerAngles.y += angle * wise.y;
-        
-        Quaternion targetRotation = Quaternion.Euler(targetEulerAngles);
-        
-        while (elapsedTime < time)
-        {
-            transform.rotation = Quaternion.Euler(Vector3.Lerp(
-                currentRotation.eulerAngles, targetRotation.eulerAngles, elapsedTime / time)
-            );
+        //360을 넘어갔을 때 360 빼주기
+        //360이 되는 순간 0도로 바꿔주는 처리
 
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
         
-        targetEulerAngles.y = round(targetEulerAngles.y, angle);
-        transform.rotation = Quaternion.Euler(targetEulerAngles);
 
         yield return new WaitForSeconds(1f);
     }
     
-    float round(float f, float angle)
-    {
-        float r = f % angle;
-        return (r < angle / 2) ? f - r : f - r + angle;
-    }
+    // float round(float f, float angle)
+    // {
+    //     float r = f % angle;
+    //     return (r < angle / 2) ? f - r : f - r + angle;
+    // }
 
     private void Update()
     {
