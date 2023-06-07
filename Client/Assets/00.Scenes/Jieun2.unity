@@ -318,6 +318,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &299729962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5400501894012420077, guid: b12f02c83c381d041a61617091d3ff73, type: 3}
+  m_PrefabInstance: {fileID: 733677857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &369741810
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,6 +684,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8601159381601108268, guid: b12f02c83c381d041a61617091d3ff73, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 299729962}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b12f02c83c381d041a61617091d3ff73, type: 3}
 --- !u!1 &1199202695
@@ -1009,8 +1018,9 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 52587398ea5f1304db37db6138a995a9, type: 3}
   - {fileID: 8300000, guid: 2f33c2d218f090f41a53de7b35dc0be9, type: 3}
+  - {fileID: 8300000, guid: 883133fffbfc825499eb9c4b2ed56a0d, type: 3}
   bgmPlayer: {fileID: 0}
-  systemPlayer: {fileID: 0}
+  systemPlayer: {fileID: 1689998375}
 --- !u!4 &1689998377
 Transform:
   m_ObjectHideFlags: 0

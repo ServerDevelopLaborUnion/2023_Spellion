@@ -18,9 +18,9 @@ public class GunMode : MonoBehaviour
     private void Start()
     {
         currentAmmo = startAmmo;
-        Debug.Log("´Ü¹ß¸ðµå");
+        Debug.Log("ï¿½Ü¹ß¸ï¿½ï¿½");
     }
-    // false = ´Ü¹ß¸ðµå / true = ¿¬»ç¸ðµå
+    // false = ë‹¨ë°œ / true = ì—°ì‚¬
     private void Update()
     {
         IsGunMode();
@@ -39,12 +39,12 @@ public class GunMode : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            Debug.Log("¿¬»ç¸ðµå");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             gunMode = true;
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            Debug.Log("´Ü¹ß¸ðµå");
+            Debug.Log("ï¿½Ü¹ß¸ï¿½ï¿½");
             gunMode = false;
         }
         if (gunMode == false && Input.GetMouseButtonDown(0) && currentAmmo > 0)
@@ -64,6 +64,7 @@ public class GunMode : MonoBehaviour
     {
         currentAmmo--;
         Debug.Log(currentAmmo);
+        AudioManager.Instance.PlaySystem("Rifle");
         if (Physics.Raycast(new Ray(transform.position, dir), out RaycastHit hit, _maxLength))
         {
             if (hit.collider.tag == _hitTag)
@@ -77,6 +78,7 @@ public class GunMode : MonoBehaviour
     {
         while (true)
         {
+            AudioManager.Instance.PlaySystem("Rifle");
             if (Physics.Raycast(new Ray(transform.position, dir), out RaycastHit hit, _maxLength))
             {
                 if (hit.collider.tag == _hitTag)

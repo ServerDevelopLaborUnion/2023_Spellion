@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 7992747170856158491}
   - component: {fileID: 8027502824504050223}
   - component: {fileID: 2400809249692066150}
+  - component: {fileID: 8601159381601108268}
   m_Layer: 0
   m_Name: MuzzlePosition
   m_TagString: Untagged
@@ -73,14 +74,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4580517105877585572}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1fe349a777a5d74f9a16ac425a25396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   _maxLength: 10
   _laserWidth: 0.05
-  _hitTag: Remote
 --- !u!120 &2400809249692066150
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -180,6 +181,24 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &8601159381601108268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4580517105877585572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b468cf76e19fc664a809a2e99cf4b0a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxLength: 10
+  _hitTag: Remote
+  rateOfFire: 0.1
+  startAmmo: 100
+  damage: 5
+  player: {fileID: 0}
 --- !u!1 &5400501894012420077
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +280,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPropertySO: {fileID: 11400000, guid: f0c974408ecf4ed469b69153633e59cb, type: 2}
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   CanMove: 1
+  CanJump: 0
 --- !u!114 &5400501894012420075
 MonoBehaviour:
   m_ObjectHideFlags: 0
