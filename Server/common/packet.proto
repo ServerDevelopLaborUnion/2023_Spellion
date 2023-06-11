@@ -15,6 +15,7 @@ enum MSGID
 
 message MsgBox {
     string context = 1;
+    float time = 2;
 }
 
 message PlayerInfo {

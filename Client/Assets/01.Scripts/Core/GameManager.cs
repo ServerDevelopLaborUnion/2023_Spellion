@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
     public void SetPause(bool value)
     {
         _gameUI.SetPause(value);
-        Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
+        // Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
         if(value) OnPause?.Invoke();
         else OnResume?.Invoke();
     }

@@ -17,12 +17,16 @@ export class MsgBox extends pb_1.Message {
     #one_of_decls: number[][] = [];
     constructor(data?: any[] | {
         context?: string;
+        time?: number;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
         if (!Array.isArray(data) && typeof data == "object") {
             if ("context" in data && data.context != undefined) {
                 this.context = data.context;
+            }
+            if ("time" in data && data.time != undefined) {
+                this.time = data.time;
             }
         }
     }
@@ -32,21 +36,35 @@ export class MsgBox extends pb_1.Message {
     set context(value: string) {
         pb_1.Message.setField(this, 1, value);
     }
+    get time() {
+        return pb_1.Message.getFieldWithDefault(this, 2, 0) as number;
+    }
+    set time(value: number) {
+        pb_1.Message.setField(this, 2, value);
+    }
     static fromObject(data: {
         context?: string;
+        time?: number;
     }): MsgBox {
         const message = new MsgBox({});
         if (data.context != null) {
             message.context = data.context;
+        }
+        if (data.time != null) {
+            message.time = data.time;
         }
         return message;
     }
     toObject() {
         const data: {
             context?: string;
+            time?: number;
         } = {};
         if (this.context != null) {
             data.context = this.context;
+        }
+        if (this.time != null) {
+            data.time = this.time;
         }
         return data;
     }
@@ -56,6 +74,8 @@ export class MsgBox extends pb_1.Message {
         const writer = w || new pb_1.BinaryWriter();
         if (this.context.length)
             writer.writeString(1, this.context);
+        if (this.time != 0)
+            writer.writeFloat(2, this.time);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -67,6 +87,9 @@ export class MsgBox extends pb_1.Message {
             switch (reader.getFieldNumber()) {
                 case 1:
                     message.context = reader.readString();
+                    break;
+                case 2:
+                    message.time = reader.readFloat();
                     break;
                 default: reader.skipField();
             }

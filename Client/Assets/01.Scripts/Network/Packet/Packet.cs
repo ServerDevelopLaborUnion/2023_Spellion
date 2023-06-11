@@ -24,22 +24,22 @@ namespace Packet {
     static PacketReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxwYWNrZXQucHJvdG8iGQoGTXNnQm94Eg8KB2NvbnRleHQYASABKAkiWgoK",
-            "UGxheWVySW5mbxIMCgR1dWlkGAEgASgJEhUKA3BvcxgCIAEoCzIILlZlY3Rv",
-            "cjMSFQoDcm90GAMgASgLMgguVmVjdG9yMhIQCghpc0dyb3VuZBgEIAEoCCIr",
-            "Cg5QbGF5ZXJJbmZvTGlzdBIZCgRsaXN0GAEgAygLMgsuUGxheWVySW5mbyJj",
-            "CgpGaXJlQnVsbGV0EhoKCHN0YXJ0UG9zGAEgASgLMgguVmVjdG9yMxIVCgNk",
-            "aXIYAiABKAsyCC5WZWN0b3IzEg4KBmxlbmd0aBgDIAEoAhISCgpsYXNlcldp",
-            "ZHRoGAQgASgCIhUKBFVVSUQSDQoFdmFsdWUYASABKAkiHwoHVmVjdG9yMhIJ",
-            "CgF4GAEgASgCEgkKAXkYAiABKAIiKgoHVmVjdG9yMxIJCgF4GAEgASgCEgkK",
-            "AXkYAiABKAISCQoBehgDIAEoAipyCgVNU0dJRBIKCgZNU0dCT1gQABIOCgpQ",
-            "TEFZRVJJTkZPEAESEgoOUExBWUVSSU5GT0xJU1QQAhIMCghJTklUTElTVBAD",
-            "Eg4KCk5FV1NFU1NJT04QBBINCglTVEFSVEZJUkUQBRIMCghTVE9QRklSRRAG",
-            "QgmqAgZQYWNrZXRiBnByb3RvMw=="));
+            "CgxwYWNrZXQucHJvdG8iJwoGTXNnQm94Eg8KB2NvbnRleHQYASABKAkSDAoE",
+            "dGltZRgCIAEoAiJaCgpQbGF5ZXJJbmZvEgwKBHV1aWQYASABKAkSFQoDcG9z",
+            "GAIgASgLMgguVmVjdG9yMxIVCgNyb3QYAyABKAsyCC5WZWN0b3IyEhAKCGlz",
+            "R3JvdW5kGAQgASgIIisKDlBsYXllckluZm9MaXN0EhkKBGxpc3QYASADKAsy",
+            "Cy5QbGF5ZXJJbmZvImMKCkZpcmVCdWxsZXQSGgoIc3RhcnRQb3MYASABKAsy",
+            "CC5WZWN0b3IzEhUKA2RpchgCIAEoCzIILlZlY3RvcjMSDgoGbGVuZ3RoGAMg",
+            "ASgCEhIKCmxhc2VyV2lkdGgYBCABKAIiFQoEVVVJRBINCgV2YWx1ZRgBIAEo",
+            "CSIfCgdWZWN0b3IyEgkKAXgYASABKAISCQoBeRgCIAEoAiIqCgdWZWN0b3Iz",
+            "EgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCKnIKBU1TR0lEEgoK",
+            "Bk1TR0JPWBAAEg4KClBMQVlFUklORk8QARISCg5QTEFZRVJJTkZPTElTVBAC",
+            "EgwKCElOSVRMSVNUEAMSDgoKTkVXU0VTU0lPThAEEg0KCVNUQVJURklSRRAF",
+            "EgwKCFNUT1BGSVJFEAZCCaoCBlBhY2tldGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Packet.MSGID), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Packet.MsgBox), global::Packet.MsgBox.Parser, new[]{ "Context" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Packet.MsgBox), global::Packet.MsgBox.Parser, new[]{ "Context", "Time" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Packet.PlayerInfo), global::Packet.PlayerInfo.Parser, new[]{ "Uuid", "Pos", "Rot", "IsGround" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Packet.PlayerInfoList), global::Packet.PlayerInfoList.Parser, new[]{ "List" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Packet.FireBullet), global::Packet.FireBullet.Parser, new[]{ "StartPos", "Dir", "Length", "LaserWidth" }, null, null, null, null),
@@ -100,6 +100,7 @@ namespace Packet {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public MsgBox(MsgBox other) : this() {
       context_ = other.context_;
+      time_ = other.time_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -121,6 +122,18 @@ namespace Packet {
       }
     }
 
+    /// <summary>Field number for the "time" field.</summary>
+    public const int TimeFieldNumber = 2;
+    private float time_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Time {
+      get { return time_; }
+      set {
+        time_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -137,6 +150,7 @@ namespace Packet {
         return true;
       }
       if (Context != other.Context) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Time, other.Time)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -145,6 +159,7 @@ namespace Packet {
     public override int GetHashCode() {
       int hash = 1;
       if (Context.Length != 0) hash ^= Context.GetHashCode();
+      if (Time != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Time);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -167,6 +182,10 @@ namespace Packet {
         output.WriteRawTag(10);
         output.WriteString(Context);
       }
+      if (Time != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Time);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -181,6 +200,10 @@ namespace Packet {
         output.WriteRawTag(10);
         output.WriteString(Context);
       }
+      if (Time != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Time);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -193,6 +216,9 @@ namespace Packet {
       int size = 0;
       if (Context.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Context);
+      }
+      if (Time != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -208,6 +234,9 @@ namespace Packet {
       }
       if (other.Context.Length != 0) {
         Context = other.Context;
+      }
+      if (other.Time != 0F) {
+        Time = other.Time;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -228,6 +257,10 @@ namespace Packet {
             Context = input.ReadString();
             break;
           }
+          case 21: {
+            Time = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -245,6 +278,10 @@ namespace Packet {
             break;
           case 10: {
             Context = input.ReadString();
+            break;
+          }
+          case 21: {
+            Time = input.ReadFloat();
             break;
           }
         }

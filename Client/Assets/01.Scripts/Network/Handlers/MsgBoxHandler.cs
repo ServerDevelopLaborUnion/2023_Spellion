@@ -8,6 +8,10 @@ public class MsgBoxHandler : IPacketHandler
 {
     public void Process(IMessage packet)
     {
-        Debug.Log((packet as MsgBox).Context);
+        MsgBox msgBox = (packet as MsgBox);
+        Debug.Log(msgBox.Context);
+        float rtt = Time.time - msgBox.Time;
+        Debug.Log($"RTT: {rtt * 1000f}ms");
+        Debug.Log($"1/2 RTT: {rtt * 500f}ms");
     }
 }

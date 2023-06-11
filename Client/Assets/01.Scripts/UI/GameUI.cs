@@ -36,7 +36,7 @@ public class GameUI : MonoBehaviour
         });
 
         sendTestBtn.RegisterCallback<ClickEvent>(e => {
-            MsgBox box = new MsgBox{Context = "Test"};
+            MsgBox box = new MsgBox{Context = "Test", Time = Time.time};
             SocketManager.Instance.RegisterSend(MSGID.Msgbox, box);
         });
     }
