@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+    [SerializeField] GameObject player;
     [SerializeField] float _maxLength;
     [SerializeField] float _laserWidth;
 
+    Vector3 dir;
     private LineRenderer _lineRenderer;
     [SerializeField] private string _hitTag = "Remote";
     private void Start()
@@ -27,13 +29,20 @@ public class Laser : MonoBehaviour
         }
         else
             _lineRenderer.enabled = false;
-    }
 
-    private void LaserSpawn()
+        SetDir();
+    }
+    private void SetDir()
+    {
+        Vector3 a = player.transform.forward * _maxLength;
+        a.y = transform.position.y;
+        dir = (a - transform.position).normalized;
+    }
+    void LaserSpawn()
     {
         _lineRenderer.enabled = true;
 
-        if (Physics.Raycast(new Ray(transform.position, transform.forward), out RaycastHit hit, _maxLength))
+        if (Physics.Raycast(new(transform.position, dir), out RaycastHit hit, _maxLength))
         {
             _lineRenderer.SetPosition(0, transform.position);
             _lineRenderer.SetPosition(1, hit.point);
@@ -46,7 +55,7 @@ public class Laser : MonoBehaviour
         else
         {
             _lineRenderer.SetPosition(0, transform.position);
-            _lineRenderer.SetPosition(1, transform.position + transform.forward * _maxLength);
+            _lineRenderer.SetPosition(1, transform.position + dir * _maxLength);
         }
     }
 
