@@ -7,8 +7,10 @@ import SessionManager from './SessionManager';
 import PacketManager from './PacketManager';
 import UpdateTimer from './UpdateTimer';
 import { MSGID, PlayerInfo, PlayerInfoList } from './packet/packet';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const PORT = 50000;
+const PORT = process.env.PORT;
 
 const App: Application = Express();
 

@@ -7,7 +7,7 @@ using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
-[RequireComponent(typeof(AgentInput), typeof(CharacterController))]
+[RequireComponent(typeof(CharacterController))]
 public class AgentMovement : MonoBehaviour
 {
     // Component
@@ -18,6 +18,9 @@ public class AgentMovement : MonoBehaviour
     [SerializeField] private Transform _headTrm;
     [SerializeField, Range(1, 100)] private float _upperLookLimit = 80.0f, _lowerLookLimit = 80.0f;
     private float _rotationX = 0f;
+
+    private float _timer = 0f;
+    private float _sendDuration = 1f;
 
     // Movement
     [SerializeField] private PlayerPropertySO _moveData;
@@ -53,7 +56,7 @@ public class AgentMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y + rotationY, 0);
     }
 
-    private void SetMoveVelocity(Vector3 dir)
+    public void SetMoveVelocity(Vector3 dir)
     {
         _movementVelocity = dir;
     }
@@ -80,6 +83,15 @@ public class AgentMovement : MonoBehaviour
         _charController.Move(_movementVelocity);
 
         _verticalVelocity += _moveData.Gravity * Time.fixedDeltaTime;
-        _charController.Move((_movementVelocity + _verticalVelocity * Vector3.up) * Time.fixedDeltaTime);
+        _charController.Move((_verticalVelocity * Vector3.up) * Time.fixedDeltaTime);
+
+        _timer += Time.fixedDeltaTime;
+        if(_timer >= _sendDuration)
+        {
+            Packet.Vector3 pos = new Packet.Vector3{X = transform.position.x, Y = transform.position.y, Z = transform.position.z};
+            Packet.Vector2 velocity = new Packet.Vector2{X = _movementVelocity.x, Y = _movementVelocity.y};
+            PlayerInfo info = new PlayerInfo{ Pos = pos, Dir = velocity, IsGround = _charController.isGrounded };
+            SocketManager.Instance.RegisterSend(MSGID.Playerinfo, info);
+        }
     }
 }

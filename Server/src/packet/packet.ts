@@ -109,6 +109,7 @@ export class PlayerInfo extends pb_1.Message {
         uuid?: string;
         pos?: Vector3;
         rot?: Vector2;
+        dir?: Vector2;
         isGround?: boolean;
     }) {
         super();
@@ -122,6 +123,9 @@ export class PlayerInfo extends pb_1.Message {
             }
             if ("rot" in data && data.rot != undefined) {
                 this.rot = data.rot;
+            }
+            if ("dir" in data && data.dir != undefined) {
+                this.dir = data.dir;
             }
             if ("isGround" in data && data.isGround != undefined) {
                 this.isGround = data.isGround;
@@ -152,16 +156,26 @@ export class PlayerInfo extends pb_1.Message {
     get has_rot() {
         return pb_1.Message.getField(this, 3) != null;
     }
+    get dir() {
+        return pb_1.Message.getWrapperField(this, Vector2, 4) as Vector2;
+    }
+    set dir(value: Vector2) {
+        pb_1.Message.setWrapperField(this, 4, value);
+    }
+    get has_dir() {
+        return pb_1.Message.getField(this, 4) != null;
+    }
     get isGround() {
-        return pb_1.Message.getFieldWithDefault(this, 4, false) as boolean;
+        return pb_1.Message.getFieldWithDefault(this, 5, false) as boolean;
     }
     set isGround(value: boolean) {
-        pb_1.Message.setField(this, 4, value);
+        pb_1.Message.setField(this, 5, value);
     }
     static fromObject(data: {
         uuid?: string;
         pos?: ReturnType<typeof Vector3.prototype.toObject>;
         rot?: ReturnType<typeof Vector2.prototype.toObject>;
+        dir?: ReturnType<typeof Vector2.prototype.toObject>;
         isGround?: boolean;
     }): PlayerInfo {
         const message = new PlayerInfo({});
@@ -174,6 +188,9 @@ export class PlayerInfo extends pb_1.Message {
         if (data.rot != null) {
             message.rot = Vector2.fromObject(data.rot);
         }
+        if (data.dir != null) {
+            message.dir = Vector2.fromObject(data.dir);
+        }
         if (data.isGround != null) {
             message.isGround = data.isGround;
         }
@@ -184,6 +201,7 @@ export class PlayerInfo extends pb_1.Message {
             uuid?: string;
             pos?: ReturnType<typeof Vector3.prototype.toObject>;
             rot?: ReturnType<typeof Vector2.prototype.toObject>;
+            dir?: ReturnType<typeof Vector2.prototype.toObject>;
             isGround?: boolean;
         } = {};
         if (this.uuid != null) {
@@ -194,6 +212,9 @@ export class PlayerInfo extends pb_1.Message {
         }
         if (this.rot != null) {
             data.rot = this.rot.toObject();
+        }
+        if (this.dir != null) {
+            data.dir = this.dir.toObject();
         }
         if (this.isGround != null) {
             data.isGround = this.isGround;
@@ -210,8 +231,10 @@ export class PlayerInfo extends pb_1.Message {
             writer.writeMessage(2, this.pos, () => this.pos.serialize(writer));
         if (this.has_rot)
             writer.writeMessage(3, this.rot, () => this.rot.serialize(writer));
+        if (this.has_dir)
+            writer.writeMessage(4, this.dir, () => this.dir.serialize(writer));
         if (this.isGround != false)
-            writer.writeBool(4, this.isGround);
+            writer.writeBool(5, this.isGround);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -231,6 +254,9 @@ export class PlayerInfo extends pb_1.Message {
                     reader.readMessage(message.rot, () => message.rot = Vector2.deserialize(reader));
                     break;
                 case 4:
+                    reader.readMessage(message.dir, () => message.dir = Vector2.deserialize(reader));
+                    break;
+                case 5:
                     message.isGround = reader.readBool();
                     break;
                 default: reader.skipField();

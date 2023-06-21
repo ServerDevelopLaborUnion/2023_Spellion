@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d03259e398ab841b104bdba1a38123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initPoolList: {fileID: 0}
+  _initPoolList: {fileID: 11400000, guid: dce58526bc8134e46ae72b9be9012958, type: 2}
   _connectionUrl: ws://localhost:50000
   OnPause:
     m_PersistentCalls:

@@ -70,7 +70,6 @@ public class PacketManager
             Debug.LogError($"There is no packet handler for this packet : {((MSGID)code).ToString()}, ({size}");
             return 0;
         }
-        if(code != (ushort)MSGID.Playerinfolist)
         Debug.Log($"패킷 받음. 길이: {size}, 프로토콜: {((MSGID)code).ToString()}");
         return size;
     }
