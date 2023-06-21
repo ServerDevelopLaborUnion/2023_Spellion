@@ -28,6 +28,7 @@ export default class Session
     processPacket(data: ws.RawData) {
         let code: number = this.getInt16LEFromBuffer(data.slice(2, 4) as Buffer);
         PacketManager.Instance.handleMsg(this, code, data.slice(4) as Buffer);
+        console.log(`[Session.ts] Packet recieved. ID: ${code}`);
     }
 
     private getInt16LEFromBuffer(buffer:Buffer): number

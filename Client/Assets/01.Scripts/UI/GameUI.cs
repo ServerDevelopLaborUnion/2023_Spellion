@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Packet;
@@ -9,7 +10,7 @@ public class GameUI : MonoBehaviour
     private UIDocument _uiDocument;
 
     private VisualElement _root;
-    
+
     private void Awake()
     {
         _uiDocument = GetComponent<UIDocument>();
@@ -35,8 +36,15 @@ public class GameUI : MonoBehaviour
         });
 
         sendTestBtn.RegisterCallback<ClickEvent>(e => {
-            MsgBox box = new MsgBox{Context = "Test"};
+            MsgBox box = new MsgBox{Context = "Test", Time = Time.time};
             SocketManager.Instance.RegisterSend(MSGID.Msgbox, box);
         });
+    }
+
+    public void SetPause(bool value)
+    {
+        VisualElement container = _root.Q("Container");
+        if(!container.ClassListContains("pause") && value) container.AddToClassList("pause");
+        else if(container.ClassListContains("pause") && !value) container.RemoveFromClassList("pause");
     }
 }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd3dca498a03846b6bdc3ea4c8b85f, type: 3}
   m_Name: PlayerPropertySO
   m_EditorClassIdentifier: 
-  MoveSpeed: 8
-  JumpForce: 1
+  MoveSpeed: 5
+  JumpForce: 0.75
+  Gravity: -9.81
