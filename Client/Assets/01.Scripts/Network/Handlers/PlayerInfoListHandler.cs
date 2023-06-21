@@ -11,7 +11,7 @@ public class PlayerInfoListHandler : IPacketHandler
         PlayerInfoList infoList = packet as PlayerInfoList;
         for(int i = 0; i < infoList.List.Count; i++)
         {
-            RemoteManager.Instance.SetRemote(infoList.List[i]);
+            
         }
     }
 }

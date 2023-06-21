@@ -24,23 +24,24 @@ namespace Packet {
     static PacketReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxwYWNrZXQucHJvdG8iGQoGTXNnQm94Eg8KB2NvbnRleHQYASABKAkiWgoK",
-            "UGxheWVySW5mbxIMCgR1dWlkGAEgASgJEhUKA3BvcxgCIAEoCzIILlZlY3Rv",
-            "cjMSFQoDcm90GAMgASgLMgguVmVjdG9yMhIQCghpc0dyb3VuZBgEIAEoCCIr",
-            "Cg5QbGF5ZXJJbmZvTGlzdBIZCgRsaXN0GAEgAygLMgsuUGxheWVySW5mbyJj",
-            "CgpGaXJlQnVsbGV0EhoKCHN0YXJ0UG9zGAEgASgLMgguVmVjdG9yMxIVCgNk",
-            "aXIYAiABKAsyCC5WZWN0b3IzEg4KBmxlbmd0aBgDIAEoAhISCgpsYXNlcldp",
-            "ZHRoGAQgASgCIhUKBFVVSUQSDQoFdmFsdWUYASABKAkiHwoHVmVjdG9yMhIJ",
-            "CgF4GAEgASgCEgkKAXkYAiABKAIiKgoHVmVjdG9yMxIJCgF4GAEgASgCEgkK",
-            "AXkYAiABKAISCQoBehgDIAEoAipyCgVNU0dJRBIKCgZNU0dCT1gQABIOCgpQ",
-            "TEFZRVJJTkZPEAESEgoOUExBWUVSSU5GT0xJU1QQAhIMCghJTklUTElTVBAD",
-            "Eg4KCk5FV1NFU1NJT04QBBINCglTVEFSVEZJUkUQBRIMCghTVE9QRklSRRAG",
-            "QgmqAgZQYWNrZXRiBnByb3RvMw=="));
+            "CgxwYWNrZXQucHJvdG8iJwoGTXNnQm94Eg8KB2NvbnRleHQYASABKAkSDAoE",
+            "dGltZRgCIAEoAiJxCgpQbGF5ZXJJbmZvEgwKBHV1aWQYASABKAkSFQoDcG9z",
+            "GAIgASgLMgguVmVjdG9yMxIVCgNyb3QYAyABKAsyCC5WZWN0b3IyEhUKA2Rp",
+            "chgEIAEoCzIILlZlY3RvcjISEAoIaXNHcm91bmQYBSABKAgiKwoOUGxheWVy",
+            "SW5mb0xpc3QSGQoEbGlzdBgBIAMoCzILLlBsYXllckluZm8iYwoKRmlyZUJ1",
+            "bGxldBIaCghzdGFydFBvcxgBIAEoCzIILlZlY3RvcjMSFQoDZGlyGAIgASgL",
+            "MgguVmVjdG9yMxIOCgZsZW5ndGgYAyABKAISEgoKbGFzZXJXaWR0aBgEIAEo",
+            "AiIVCgRVVUlEEg0KBXZhbHVlGAEgASgJIh8KB1ZlY3RvcjISCQoBeBgBIAEo",
+            "AhIJCgF5GAIgASgCIioKB1ZlY3RvcjMSCQoBeBgBIAEoAhIJCgF5GAIgASgC",
+            "EgkKAXoYAyABKAIqcgoFTVNHSUQSCgoGTVNHQk9YEAASDgoKUExBWUVSSU5G",
+            "TxABEhIKDlBMQVlFUklORk9MSVNUEAISDAoISU5JVExJU1QQAxIOCgpORVdT",
+            "RVNTSU9OEAQSDQoJU1RBUlRGSVJFEAUSDAoIU1RPUEZJUkUQBkIJqgIGUGFj",
+            "a2V0YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Packet.MSGID), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Packet.MsgBox), global::Packet.MsgBox.Parser, new[]{ "Context" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Packet.PlayerInfo), global::Packet.PlayerInfo.Parser, new[]{ "Uuid", "Pos", "Rot", "IsGround" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Packet.MsgBox), global::Packet.MsgBox.Parser, new[]{ "Context", "Time" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Packet.PlayerInfo), global::Packet.PlayerInfo.Parser, new[]{ "Uuid", "Pos", "Rot", "Dir", "IsGround" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Packet.PlayerInfoList), global::Packet.PlayerInfoList.Parser, new[]{ "List" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Packet.FireBullet), global::Packet.FireBullet.Parser, new[]{ "StartPos", "Dir", "Length", "LaserWidth" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Packet.UUID), global::Packet.UUID.Parser, new[]{ "Value" }, null, null, null, null),
@@ -100,6 +101,7 @@ namespace Packet {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public MsgBox(MsgBox other) : this() {
       context_ = other.context_;
+      time_ = other.time_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -121,6 +123,18 @@ namespace Packet {
       }
     }
 
+    /// <summary>Field number for the "time" field.</summary>
+    public const int TimeFieldNumber = 2;
+    private float time_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Time {
+      get { return time_; }
+      set {
+        time_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -137,6 +151,7 @@ namespace Packet {
         return true;
       }
       if (Context != other.Context) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Time, other.Time)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -145,6 +160,7 @@ namespace Packet {
     public override int GetHashCode() {
       int hash = 1;
       if (Context.Length != 0) hash ^= Context.GetHashCode();
+      if (Time != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Time);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -167,6 +183,10 @@ namespace Packet {
         output.WriteRawTag(10);
         output.WriteString(Context);
       }
+      if (Time != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Time);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -181,6 +201,10 @@ namespace Packet {
         output.WriteRawTag(10);
         output.WriteString(Context);
       }
+      if (Time != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Time);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -193,6 +217,9 @@ namespace Packet {
       int size = 0;
       if (Context.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Context);
+      }
+      if (Time != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -208,6 +235,9 @@ namespace Packet {
       }
       if (other.Context.Length != 0) {
         Context = other.Context;
+      }
+      if (other.Time != 0F) {
+        Time = other.Time;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -228,6 +258,10 @@ namespace Packet {
             Context = input.ReadString();
             break;
           }
+          case 21: {
+            Time = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -245,6 +279,10 @@ namespace Packet {
             break;
           case 10: {
             Context = input.ReadString();
+            break;
+          }
+          case 21: {
+            Time = input.ReadFloat();
             break;
           }
         }
@@ -291,6 +329,7 @@ namespace Packet {
       uuid_ = other.uuid_;
       pos_ = other.pos_ != null ? other.pos_.Clone() : null;
       rot_ = other.rot_ != null ? other.rot_.Clone() : null;
+      dir_ = other.dir_ != null ? other.dir_.Clone() : null;
       isGround_ = other.isGround_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -337,8 +376,20 @@ namespace Packet {
       }
     }
 
+    /// <summary>Field number for the "dir" field.</summary>
+    public const int DirFieldNumber = 4;
+    private global::Packet.Vector2 dir_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Packet.Vector2 Dir {
+      get { return dir_; }
+      set {
+        dir_ = value;
+      }
+    }
+
     /// <summary>Field number for the "isGround" field.</summary>
-    public const int IsGroundFieldNumber = 4;
+    public const int IsGroundFieldNumber = 5;
     private bool isGround_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -367,6 +418,7 @@ namespace Packet {
       if (Uuid != other.Uuid) return false;
       if (!object.Equals(Pos, other.Pos)) return false;
       if (!object.Equals(Rot, other.Rot)) return false;
+      if (!object.Equals(Dir, other.Dir)) return false;
       if (IsGround != other.IsGround) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -378,6 +430,7 @@ namespace Packet {
       if (Uuid.Length != 0) hash ^= Uuid.GetHashCode();
       if (pos_ != null) hash ^= Pos.GetHashCode();
       if (rot_ != null) hash ^= Rot.GetHashCode();
+      if (dir_ != null) hash ^= Dir.GetHashCode();
       if (IsGround != false) hash ^= IsGround.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -409,8 +462,12 @@ namespace Packet {
         output.WriteRawTag(26);
         output.WriteMessage(Rot);
       }
+      if (dir_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Dir);
+      }
       if (IsGround != false) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(40);
         output.WriteBool(IsGround);
       }
       if (_unknownFields != null) {
@@ -435,8 +492,12 @@ namespace Packet {
         output.WriteRawTag(26);
         output.WriteMessage(Rot);
       }
+      if (dir_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Dir);
+      }
       if (IsGround != false) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(40);
         output.WriteBool(IsGround);
       }
       if (_unknownFields != null) {
@@ -457,6 +518,9 @@ namespace Packet {
       }
       if (rot_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rot);
+      }
+      if (dir_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Dir);
       }
       if (IsGround != false) {
         size += 1 + 1;
@@ -487,6 +551,12 @@ namespace Packet {
           Rot = new global::Packet.Vector2();
         }
         Rot.MergeFrom(other.Rot);
+      }
+      if (other.dir_ != null) {
+        if (dir_ == null) {
+          Dir = new global::Packet.Vector2();
+        }
+        Dir.MergeFrom(other.Dir);
       }
       if (other.IsGround != false) {
         IsGround = other.IsGround;
@@ -524,7 +594,14 @@ namespace Packet {
             input.ReadMessage(Rot);
             break;
           }
-          case 32: {
+          case 34: {
+            if (dir_ == null) {
+              Dir = new global::Packet.Vector2();
+            }
+            input.ReadMessage(Dir);
+            break;
+          }
+          case 40: {
             IsGround = input.ReadBool();
             break;
           }
@@ -561,7 +638,14 @@ namespace Packet {
             input.ReadMessage(Rot);
             break;
           }
-          case 32: {
+          case 34: {
+            if (dir_ == null) {
+              Dir = new global::Packet.Vector2();
+            }
+            input.ReadMessage(Dir);
+            break;
+          }
+          case 40: {
             IsGround = input.ReadBool();
             break;
           }

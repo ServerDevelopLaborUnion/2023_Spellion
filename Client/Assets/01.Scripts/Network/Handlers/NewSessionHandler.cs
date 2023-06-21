@@ -8,6 +8,6 @@ public class NewSessionHandler : IPacketHandler
 {
     public void Process(IMessage packet)
     {
-        RemoteManager.Instance.CreateRemotePlayer(packet as PlayerInfo);
+        
     }
 }

@@ -8,6 +8,6 @@ public class StartFIreHandler : IPacketHandler
 {
     public void Process(IMessage packet)
     {
-        RemoteManager.Instance.SetStartFire(packet as UUID);
+        
     }
 }

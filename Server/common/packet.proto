@@ -15,13 +15,15 @@ enum MSGID
 
 message MsgBox {
     string context = 1;
+    float time = 2;
 }
 
 message PlayerInfo {
     string uuid = 1;
     Vector3 pos = 2;
     Vector2 rot = 3;
-    bool isGround = 4;
+    Vector2 dir = 4;
+    bool isGround = 5;
 }
 
 message PlayerInfoList {

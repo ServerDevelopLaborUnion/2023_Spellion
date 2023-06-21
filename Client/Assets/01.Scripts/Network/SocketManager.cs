@@ -28,6 +28,9 @@ public class SocketManager : MonoBehaviour
     private bool _isReadyToSend = true;
 
     [SerializeField] private bool _isConnected = false;
+    
+    public event Action OnConnect;
+    public event Action OnDisconnect;
 
     public void Init(string url)
     {
@@ -116,6 +119,7 @@ public class SocketManager : MonoBehaviour
         {
             await _socket.ConnectAsync(serverUri, CancellationToken.None);
             _isConnected = true;
+            OnConnect?.Invoke();
             ReceiveLoop();
         }
         catch(Exception ex)
@@ -183,6 +187,7 @@ public class SocketManager : MonoBehaviour
         if (_socket != null && _socket.State == WebSocketState.Open)
         {
             _socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "quit Client", CancellationToken.None);
+            OnDisconnect?.Invoke();
             _isConnected = false;
         }
     }

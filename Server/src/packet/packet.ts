@@ -17,12 +17,16 @@ export class MsgBox extends pb_1.Message {
     #one_of_decls: number[][] = [];
     constructor(data?: any[] | {
         context?: string;
+        time?: number;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
         if (!Array.isArray(data) && typeof data == "object") {
             if ("context" in data && data.context != undefined) {
                 this.context = data.context;
+            }
+            if ("time" in data && data.time != undefined) {
+                this.time = data.time;
             }
         }
     }
@@ -32,21 +36,35 @@ export class MsgBox extends pb_1.Message {
     set context(value: string) {
         pb_1.Message.setField(this, 1, value);
     }
+    get time() {
+        return pb_1.Message.getFieldWithDefault(this, 2, 0) as number;
+    }
+    set time(value: number) {
+        pb_1.Message.setField(this, 2, value);
+    }
     static fromObject(data: {
         context?: string;
+        time?: number;
     }): MsgBox {
         const message = new MsgBox({});
         if (data.context != null) {
             message.context = data.context;
+        }
+        if (data.time != null) {
+            message.time = data.time;
         }
         return message;
     }
     toObject() {
         const data: {
             context?: string;
+            time?: number;
         } = {};
         if (this.context != null) {
             data.context = this.context;
+        }
+        if (this.time != null) {
+            data.time = this.time;
         }
         return data;
     }
@@ -56,6 +74,8 @@ export class MsgBox extends pb_1.Message {
         const writer = w || new pb_1.BinaryWriter();
         if (this.context.length)
             writer.writeString(1, this.context);
+        if (this.time != 0)
+            writer.writeFloat(2, this.time);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -67,6 +87,9 @@ export class MsgBox extends pb_1.Message {
             switch (reader.getFieldNumber()) {
                 case 1:
                     message.context = reader.readString();
+                    break;
+                case 2:
+                    message.time = reader.readFloat();
                     break;
                 default: reader.skipField();
             }
@@ -86,6 +109,7 @@ export class PlayerInfo extends pb_1.Message {
         uuid?: string;
         pos?: Vector3;
         rot?: Vector2;
+        dir?: Vector2;
         isGround?: boolean;
     }) {
         super();
@@ -99,6 +123,9 @@ export class PlayerInfo extends pb_1.Message {
             }
             if ("rot" in data && data.rot != undefined) {
                 this.rot = data.rot;
+            }
+            if ("dir" in data && data.dir != undefined) {
+                this.dir = data.dir;
             }
             if ("isGround" in data && data.isGround != undefined) {
                 this.isGround = data.isGround;
@@ -129,16 +156,26 @@ export class PlayerInfo extends pb_1.Message {
     get has_rot() {
         return pb_1.Message.getField(this, 3) != null;
     }
+    get dir() {
+        return pb_1.Message.getWrapperField(this, Vector2, 4) as Vector2;
+    }
+    set dir(value: Vector2) {
+        pb_1.Message.setWrapperField(this, 4, value);
+    }
+    get has_dir() {
+        return pb_1.Message.getField(this, 4) != null;
+    }
     get isGround() {
-        return pb_1.Message.getFieldWithDefault(this, 4, false) as boolean;
+        return pb_1.Message.getFieldWithDefault(this, 5, false) as boolean;
     }
     set isGround(value: boolean) {
-        pb_1.Message.setField(this, 4, value);
+        pb_1.Message.setField(this, 5, value);
     }
     static fromObject(data: {
         uuid?: string;
         pos?: ReturnType<typeof Vector3.prototype.toObject>;
         rot?: ReturnType<typeof Vector2.prototype.toObject>;
+        dir?: ReturnType<typeof Vector2.prototype.toObject>;
         isGround?: boolean;
     }): PlayerInfo {
         const message = new PlayerInfo({});
@@ -151,6 +188,9 @@ export class PlayerInfo extends pb_1.Message {
         if (data.rot != null) {
             message.rot = Vector2.fromObject(data.rot);
         }
+        if (data.dir != null) {
+            message.dir = Vector2.fromObject(data.dir);
+        }
         if (data.isGround != null) {
             message.isGround = data.isGround;
         }
@@ -161,6 +201,7 @@ export class PlayerInfo extends pb_1.Message {
             uuid?: string;
             pos?: ReturnType<typeof Vector3.prototype.toObject>;
             rot?: ReturnType<typeof Vector2.prototype.toObject>;
+            dir?: ReturnType<typeof Vector2.prototype.toObject>;
             isGround?: boolean;
         } = {};
         if (this.uuid != null) {
@@ -171,6 +212,9 @@ export class PlayerInfo extends pb_1.Message {
         }
         if (this.rot != null) {
             data.rot = this.rot.toObject();
+        }
+        if (this.dir != null) {
+            data.dir = this.dir.toObject();
         }
         if (this.isGround != null) {
             data.isGround = this.isGround;
@@ -187,8 +231,10 @@ export class PlayerInfo extends pb_1.Message {
             writer.writeMessage(2, this.pos, () => this.pos.serialize(writer));
         if (this.has_rot)
             writer.writeMessage(3, this.rot, () => this.rot.serialize(writer));
+        if (this.has_dir)
+            writer.writeMessage(4, this.dir, () => this.dir.serialize(writer));
         if (this.isGround != false)
-            writer.writeBool(4, this.isGround);
+            writer.writeBool(5, this.isGround);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -208,6 +254,9 @@ export class PlayerInfo extends pb_1.Message {
                     reader.readMessage(message.rot, () => message.rot = Vector2.deserialize(reader));
                     break;
                 case 4:
+                    reader.readMessage(message.dir, () => message.dir = Vector2.deserialize(reader));
+                    break;
+                case 5:
                     message.isGround = reader.readBool();
                     break;
                 default: reader.skipField();
