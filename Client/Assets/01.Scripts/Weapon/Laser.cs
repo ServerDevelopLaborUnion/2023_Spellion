@@ -10,15 +10,13 @@ public class Laser : MonoBehaviour
 
     Vector3 dir;
     private LineRenderer _lineRenderer;
-    [SerializeField] private string _hitTag = "Remote";
+    private string _hitTag = "Enemy";
     private void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
 
         _lineRenderer.startWidth = _laserWidth;
         _lineRenderer.endWidth = _laserWidth;
-
-        // GetComponentInParent<PlayerInput>().OnFireKeyPress += LaserSpawn;
     }
 
     private void Update()
@@ -58,14 +56,4 @@ public class Laser : MonoBehaviour
             _lineRenderer.SetPosition(1, transform.position + dir * _maxLength);
         }
     }
-
-    #if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        Color oldColor = Gizmos.color;
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, transform.position + transform.forward * _maxLength);
-        Gizmos.color = oldColor;
-    }
-    #endif
 }
