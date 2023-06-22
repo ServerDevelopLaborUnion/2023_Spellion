@@ -19,14 +19,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string _connectionUrl;
     private SocketManager _socketManager;
 
-    private bool _isPause = true;
-    public bool IsPause => _isPause;
-
-    public UnityEvent OnPause;
-    public UnityEvent OnResume;
-
-    private GameUI _gameUI;
-
     private void Awake()
     {
         if (Instance != null)
@@ -36,9 +28,6 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
 
-        _gameUI = FindObjectOfType<GameUI>();
-        
-        SetPause(true);
         CreateSocketManager();
         CreatePool();
     }
@@ -47,9 +36,6 @@ public class GameManager : MonoBehaviour
     {
         _socketManager = gameObject.AddComponent<SocketManager>();
         SocketManager.Instance.Init(_connectionUrl);
-
-        SocketManager.Instance.OnConnect += () => SetPause(false);
-        SocketManager.Instance.OnDisconnect += () => SetPause(true);
 
         SocketManager.Instance.Connection();
     }
@@ -71,13 +57,5 @@ public class GameManager : MonoBehaviour
     public void FindPlayer()
     {
         _player = GameObject.Find("Player").transform;
-    }
-
-    public void SetPause(bool value)
-    {
-        _gameUI.SetPause(value);
-        // Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
-        if(value) OnPause?.Invoke();
-        else OnResume?.Invoke();
     }
 }
