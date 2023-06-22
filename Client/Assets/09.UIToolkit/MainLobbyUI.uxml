@@ -3,16 +3,16 @@
     <ui:VisualElement name="Root">
         <ui:VisualElement name="BtnContainer" style="flex-direction: row; flex-grow: 0; background-color: rgba(77, 77, 77, 0.61);">
             <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayBtn" class="topBtn" style="width: 243px;">
-                <ui:VisualElement name="Arrow" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/arrow.png?fileID=2800000&amp;guid=34d3f9c806209fb4dafc7f280b01b980&amp;type=3#arrow&apos;); width: 40px; height: 40px; bottom: -11px; -unity-background-image-tint-color: rgb(255, 255, 255); visibility: visible;" />
+                <ui:VisualElement name="Arrow" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/arrow.png?fileID=2800000&amp;guid=34d3f9c806209fb4dafc7f280b01b980&amp;type=3#arrow&apos;); width: 40px; height: 40px; bottom: -11px; -unity-background-image-tint-color: rgb(255, 255, 255); visibility: hidden;" />
             </ui:Button>
             <ui:Button text="WEAPONS" display-tooltip-when-elided="true" name="WeaponBtn" class="topBtn" style="width: 366px;">
-                <ui:VisualElement name="Arrow" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/arrow.png?fileID=2800000&amp;guid=34d3f9c806209fb4dafc7f280b01b980&amp;type=3#arrow&apos;); width: 40px; height: 40px; bottom: -11px; -unity-background-image-tint-color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="Arrow" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/arrow.png?fileID=2800000&amp;guid=34d3f9c806209fb4dafc7f280b01b980&amp;type=3#arrow&apos;); width: 40px; height: 40px; bottom: -11px; -unity-background-image-tint-color: rgb(255, 255, 255); visibility: hidden;" />
             </ui:Button>
             <ui:Button text="SOCIAL" display-tooltip-when-elided="true" name="SocialBtn" class="topBtn" style="width: 238px;">
-                <ui:VisualElement name="Arrow" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/arrow.png?fileID=2800000&amp;guid=34d3f9c806209fb4dafc7f280b01b980&amp;type=3#arrow&apos;); width: 40px; height: 40px; bottom: -11px; -unity-background-image-tint-color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="Arrow" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/arrow.png?fileID=2800000&amp;guid=34d3f9c806209fb4dafc7f280b01b980&amp;type=3#arrow&apos;); width: 40px; height: 40px; bottom: -11px; -unity-background-image-tint-color: rgb(255, 255, 255); visibility: hidden;" />
             </ui:Button>
             <ui:Button text=" STORE" display-tooltip-when-elided="true" name="StoreBtn" class="topBtn" style="width: 220px; -unity-text-align: middle-center;">
-                <ui:VisualElement name="Arrow" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/arrow.png?fileID=2800000&amp;guid=34d3f9c806209fb4dafc7f280b01b980&amp;type=3#arrow&apos;); width: 40px; height: 40px; bottom: -11px; -unity-background-image-tint-color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="Arrow" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/arrow.png?fileID=2800000&amp;guid=34d3f9c806209fb4dafc7f280b01b980&amp;type=3#arrow&apos;); width: 40px; height: 40px; bottom: -11px; -unity-background-image-tint-color: rgb(255, 255, 255); visibility: hidden;" />
             </ui:Button>
             <ui:VisualElement class="topBtn" style="width: 341px;" />
             <ui:Button text="NAME" display-tooltip-when-elided="true" name="Profile" class="topBtn" style="width: 352px;" />

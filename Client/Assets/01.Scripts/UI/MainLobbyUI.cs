@@ -28,9 +28,6 @@ public class MainLobbyUI : MonoBehaviour
         _weaponBtn = _btnContainer.Q<Button>("WeaponBtn");
         _socialBtn = _btnContainer.Q<Button>("SocialBtn");
         _storeBtn = _btnContainer.Q<Button>("StoreBtn");
-        
-        
-
     }
 
     private void OnEnable()
@@ -40,7 +37,7 @@ public class MainLobbyUI : MonoBehaviour
             VisualElement arrow = _playBtn.Q<VisualElement>("Arrow");
             arrow.visible = true;
         });
-        _playBtn.RegisterCallback<MouseDownEvent>(e =>
+        _playBtn.RegisterCallback<MouseOutEvent>(e =>
         {
             VisualElement arrow = _playBtn.Q<VisualElement>("Arrow");
             arrow.visible = false;
@@ -48,15 +45,35 @@ public class MainLobbyUI : MonoBehaviour
         
         _weaponBtn.RegisterCallback<MouseOverEvent>(e =>
         {
-            
+            VisualElement arrow = _weaponBtn.Q<VisualElement>("Arrow");
+            arrow.visible = true;
         });
+        _weaponBtn.RegisterCallback<MouseOutEvent>(e =>
+        {
+            VisualElement arrow = _weaponBtn.Q<VisualElement>("Arrow");
+            arrow.visible = false;
+        });
+        
         _socialBtn.RegisterCallback<MouseOverEvent>(e =>
         {
-            
+            VisualElement arrow = _socialBtn.Q<VisualElement>("Arrow");
+            arrow.visible = true;
         });
+        _socialBtn.RegisterCallback<MouseOutEvent>(e =>
+        {
+            VisualElement arrow = _socialBtn.Q<VisualElement>("Arrow");
+            arrow.visible = false;
+        });
+        
         _storeBtn.RegisterCallback<MouseOverEvent>(e =>
         {
-            
+            VisualElement arrow = _storeBtn.Q<VisualElement>("Arrow");
+            arrow.visible = true;
+        });
+        _storeBtn.RegisterCallback<MouseOutEvent>(e =>
+        {
+            VisualElement arrow = _storeBtn.Q<VisualElement>("Arrow");
+            arrow.visible = false;
         });
         
         
