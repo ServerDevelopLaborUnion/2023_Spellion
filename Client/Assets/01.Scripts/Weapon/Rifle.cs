@@ -3,56 +3,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunMode : MonoBehaviour
+public class Rifle : MonoBehaviour
 {
     [SerializeField] float _maxLength;
     [SerializeField] private string _hitTag = "Remote";
     [SerializeField] float rateOfFire = 0.1f;
-    [SerializeField] int startAmmo = 100;
+    [SerializeField] int MaxAmmo = 30;
     [SerializeField] int damage = 5;
     [SerializeField] GameObject player;
+    AudioSource audioSource;
     Vector3 dir;
     int currentAmmo = 100;
+    bool shotAble = true;
     bool isGizmo = false;
     private bool gunMode = false;
     private void Start()
     {
-        currentAmmo = startAmmo;
+        audioSource = GetComponent<AudioSource>();
+        currentAmmo = MaxAmmo;
         Debug.Log("�ܹ߸��");
     }
     // false = 단발 / true = 연사
     private void Update()
     {
-        IsGunMode();
-        Reload();
+        if(Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
+        if(shotAble) IsGunMode();
         SetDir();
     }
-    void Reload()
+    IEnumerator Reload()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            currentAmmo = startAmmo;
-            Debug.Log(currentAmmo);
-        }
+        shotAble = false;
+        Debug.Log("Start Reloading");
+        yield return new WaitForSeconds(0.7f);
+        Debug.Log("End Reloading");
+        shotAble = true;
+        currentAmmo = MaxAmmo;
     }
     void IsGunMode()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Debug.Log("������");
-            gunMode = true;
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Debug.Log("�ܹ߸��");
-            gunMode = false;
-        }
+        if(Input.GetKeyDown(KeyCode.V))
+            ChangeGunMode();
         if (gunMode == false && Input.GetMouseButtonDown(0) && currentAmmo > 0)
             SingleShot();
         if (gunMode == true && Input.GetMouseButtonDown(0) && currentAmmo > 0)
             StartCoroutine("Repeater");
-        if ((gunMode == true && Input.GetMouseButtonUp(0)) || currentAmmo <= 0)
+        if (gunMode == true && Input.GetMouseButtonUp(0) || currentAmmo <= 0)
             StopCoroutine("Repeater");
+        if(currentAmmo <= 0 && Input.GetMouseButtonUp(0))
+            AudioManager.Instance.PlayAudio("NoBullet", audioSource);
     }
     private void SetDir()
     {
@@ -64,33 +62,44 @@ public class GunMode : MonoBehaviour
     {
         currentAmmo--;
         Debug.Log(currentAmmo);
-        AudioManager.Instance.PlaySystem("Rifle");
+        AudioManager.Instance.PlayAudio("Rifle", audioSource);
         if (Physics.Raycast(new Ray(transform.position, dir), out RaycastHit hit, _maxLength))
-        {
-            if (hit.collider.tag == _hitTag)
-            {
-                hit.collider.GetComponent<PlayerHealth>().OnDamage(damage);
-            }
-        }
-        StartCoroutine("DrawLine");
-    }
-    IEnumerator Repeater()
-    {
-        while (true)
-        {
-            AudioManager.Instance.PlaySystem("Rifle");
-            if (Physics.Raycast(new Ray(transform.position, dir), out RaycastHit hit, _maxLength))
             {
                 if (hit.collider.tag == _hitTag)
                 {
                     hit.collider.GetComponent<PlayerHealth>().OnDamage(damage);
                 }
             }
+        StartCoroutine("DrawLine");
+    }
+    IEnumerator Repeater()
+    {
+        while (true)
+        {
+            AudioManager.Instance.PlayAudio("Rifle", audioSource);
+            if (Physics.Raycast(new Ray(transform.position, dir), out RaycastHit hit, _maxLength))
+                {
+                    if (hit.collider.tag == _hitTag)
+                    {
+                        hit.collider.GetComponent<PlayerHealth>().OnDamage(damage);
+                    }
+                }
             StartCoroutine("DrawLine");
             currentAmmo--;
             Debug.Log(currentAmmo);
             yield return new WaitForSeconds(rateOfFire);
         }
+    }
+    private void ChangeGunMode(){
+        if(gunMode){
+            gunMode = false;
+            Debug.Log("single");
+        }
+        else{
+            gunMode = true;
+            Debug.Log("auto");
+        }
+        AudioManager.Instance.PlayAudio("ChangeGunMode", audioSource);
     }
     IEnumerator DrawLine()
     {
