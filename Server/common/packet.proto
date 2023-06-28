@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option csharp_namespace = "Packet";
+
+enum MSGID
+{
+    MSGBOX = 0;
+    PLAYERINFO = 1;
+    PLAYERINFOLIST = 2;
+    INITLIST = 3;
+    NEWSESSION = 4;
+    STARTFIRE = 5;
+    STOPFIRE = 6;
+}
+
+message MsgBox {
+    string context = 1;
+    float time = 2;
+}
+
+message PlayerInfo {
+    string uuid = 1;
+    Vector3 pos = 2;
+    Vector2 rot = 3;
+    Vector2 dir = 4;
+    bool isGround = 5;
+}
+
+message PlayerInfoList {
+    repeated PlayerInfo list = 1;
+}
+
+message FireBullet {
+    Vector3 startPos = 1;
+    Vector3 dir = 2;
+    float length = 3;
+    float laserWidth = 4;
+}
+
+message UUID {
+    string value = 1;
+}
+
+message Vector2 {
+    float x = 1;
+    float y = 2;
+}
+
+message Vector3 {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}
