@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initPoolList: {fileID: 0}
-  _connectionUrl: ws://localhost:50000
+  _connectionUrl: ws://127.0.0.1:50000
 --- !u!4 &125789787
 Transform:
   m_ObjectHideFlags: 0

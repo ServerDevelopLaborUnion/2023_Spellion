@@ -9,10 +9,14 @@ public class LobbyUI : MonoBehaviour
 
     private VisualElement _currentContainer;
 
+    private VisualElement _mainTopBar;
     private Button _play, _weapons, _social, _store;
     private VisualElement _image;
     private Label _name, _level;
     private Slider _levelBar;
+
+    private VisualElement _roomTopBar;
+    private Label _title, _sub;
     
     private VisualElement _mainContainer;
     
@@ -28,7 +32,7 @@ public class LobbyUI : MonoBehaviour
     {
         VisualElement root = _uiDoc.rootVisualElement;
         
-        TopBarInit(root);
+        MainTopBarInit(root);
 
         _mainContainer = root.Q("MainContainer");
 
@@ -47,18 +51,18 @@ public class LobbyUI : MonoBehaviour
         _currentContainer.AddToClassList("on");
     }
 
-    private void TopBarInit(VisualElement root)
+    private void MainTopBarInit(VisualElement root)
     {
-        VisualElement topBar = root.Q("TopBar");
-        _play = topBar.Q<Button>("PlayBtn");
-        _weapons = topBar.Q<Button>("WeaponBtn");
-        _social = topBar.Q<Button>("SocialBtn");
-        _store = topBar.Q<Button>("StoreBtn");
+        _mainTopBar = root.Q("MainTopBar");
+        _play = _mainTopBar.Q<Button>("PlayBtn");
+        _weapons = _mainTopBar.Q<Button>("WeaponBtn");
+        _social = _mainTopBar.Q<Button>("SocialBtn");
+        _store = _mainTopBar.Q<Button>("StoreBtn");
 
-        _image = topBar.Q("Image");
-        _name = topBar.Q<Label>("Name");
-        _level = topBar.Q<Label>("Level");
-        _levelBar = topBar.Q<Slider>("LevelSlider");
+        _image = _mainTopBar.Q("Image");
+        _name = _mainTopBar.Q<Label>("Name");
+        _level = _mainTopBar.Q<Label>("Level");
+        _levelBar = _mainTopBar.Q<Slider>("LevelSlider");
 
         _play.RegisterCallback<ClickEvent>(PlayButtonHandle);
     }

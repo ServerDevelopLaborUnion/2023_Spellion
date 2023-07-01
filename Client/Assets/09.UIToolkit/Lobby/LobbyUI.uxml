@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/09.UIToolkit/Lobby/LobbyUI.uss?fileID=7433441132597879392&amp;guid=bf5c2b47a1ae3c54db641676099595a8&amp;type=3#LobbyUI" />
-    <ui:VisualElement name="TopBar" style="width: 100%; height: 15%; background-color: rgb(115, 115, 115); flex-direction: row; justify-content: space-between;">
+    <ui:VisualElement name="MainTopBar" class="top-bar">
         <ui:VisualElement name="BtnList" style="height: 100%; flex-direction: row; flex-basis: 60%; align-items: flex-end;">
             <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayBtn" enable-rich-text="false" class="btn main">
                 <ui:VisualElement name="select" />
@@ -33,30 +33,54 @@
             <ui:VisualElement name="Resources" style="flex-shrink: 0; height: 100%; justify-content: center; align-items: center; flex-direction: row; padding-left: 30px; padding-right: 30px; padding-top: 30px; padding-bottom: 30px;">
                 <ui:VisualElement name="Credit" style="height: 100%; flex-direction: row; align-items: center;">
                     <ui:VisualElement name="Image" style="background-image: url(&apos;project://database/Assets/07.Sprites/UI/Coin.png?fileID=2800000&amp;guid=4d56f3ec330e7204fa09f81dbfcdaaaa&amp;type=3#Coin&apos;); -unity-background-scale-mode: scale-and-crop; flex-shrink: 0; flex-grow: 1; height: 50px; width: 25px; -unity-slice-bottom: 5; translate: -5px -5px;" />
-                    <ui:Label text="1,000,000" display-tooltip-when-elided="true" name="Value" style="-unity-text-align: lower-left; font-size: 21px; color: rgba(255, 255, 255, 255);" />
+                    <ui:Label text="1,000,000" display-tooltip-when-elided="true" name="Value" style="-unity-text-align: lower-left; font-size: 21px; color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="MainContainer" class="container on" />
+    <ui:VisualElement name="RoomTopBar" class="top-bar on" style="flex-direction: column; justify-content: center; padding-left: 60px; padding-top: 35px; padding-bottom: 35px; padding-right: 35px;">
+        <ui:Label text="Elimination" display-tooltip-when-elided="true" name="Title" style="font-size: 60px; -unity-text-align: middle-left; color: rgb(255, 255, 255);" />
+        <ui:Label text="섬멸전" display-tooltip-when-elided="true" name="Sub" style="font-size: 40px; color: rgb(224, 224, 224);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="MainContainer" class="container" />
     <ui:VisualElement name="SelectModeContainer" class="container" style="align-items: center; justify-content: center;">
         <ui:VisualElement name="ModeList" style="width: 90%; height: 65%; flex-direction: row; justify-content: space-around;">
-            <ui:Button text="Button" display-tooltip-when-elided="true" name="AllKill" class="mode">
+            <ui:Button display-tooltip-when-elided="true" name="AllKill" class="mode">
                 <ui:VisualElement name="Image" style="background-image: url(&apos;project://database/Assets/07.Sprites/UI/%EC%84%AC%EB%A9%B8.png?fileID=2800000&amp;guid=218b0220af116c841880f5fa40a8f391&amp;type=3#섬멸&apos;);" />
                 <ui:Label text="섬멸전" display-tooltip-when-elided="true" name="Text" enable-rich-text="false" />
             </ui:Button>
-            <ui:Button text="Button" display-tooltip-when-elided="true" name="Payload" class="mode">
+            <ui:Button display-tooltip-when-elided="true" name="Payload" class="mode">
                 <ui:VisualElement name="Image" style="background-image: url(&apos;project://database/Assets/07.Sprites/UI/%ED%99%94%EB%AC%BC.png?fileID=2800000&amp;guid=0e9098715ca9c38418a0c9a0a012238e&amp;type=3#화물&apos;);" />
                 <ui:Label text="화물 운송" display-tooltip-when-elided="true" name="Text" enable-rich-text="false" />
             </ui:Button>
-            <ui:Button text="Button" display-tooltip-when-elided="true" name="Capture" class="mode">
+            <ui:Button display-tooltip-when-elided="true" name="Capture" class="mode">
                 <ui:VisualElement name="Image" style="background-image: url(&apos;project://database/Assets/07.Sprites/UI/%EC%A0%90%EB%A0%B9.png?fileID=2800000&amp;guid=16e13a6b5a26c7e4c97a0623efb66c8c&amp;type=3#점령&apos;);" />
                 <ui:Label text="점령전" display-tooltip-when-elided="true" name="Text" enable-rich-text="false" />
             </ui:Button>
-            <ui:Button text="Button" display-tooltip-when-elided="true" name="Bomb" class="mode">
+            <ui:Button display-tooltip-when-elided="true" name="Bomb" class="mode">
                 <ui:VisualElement name="Image" style="background-image: url(&apos;project://database/Assets/07.Sprites/UI/%ED%8F%AD%ED%83%84.png?fileID=2800000&amp;guid=b57e5f15c159b3b4dac2a3c7ac1360f6&amp;type=3#폭탄&apos;);" />
                 <ui:Label text="폭탄 제거" display-tooltip-when-elided="true" name="Text" enable-rich-text="false" />
             </ui:Button>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="RoomContainer" class="container on" style="border-top-width: 5px; background-color: rgb(115, 115, 115); border-top-color: rgb(255, 255, 255); padding-left: 8%; padding-right: 8%; padding-top: 6%; padding-bottom: 6%;">
+        <ui:VisualElement name="Teams" style="flex-grow: 3; flex-shrink: 0; flex-direction: row; justify-content: center; align-items: stretch;">
+            <ui:VisualElement name="AllyTeam" class="team">
+                <ui:Label text="아군" display-tooltip-when-elided="true" name="TeamName" style="font-size: 40px; padding-left: 38px; padding-right: 38px; color: rgb(197, 194, 255); margin-bottom: 12px;" />
+                <ui:VisualElement name="PlayerList" class="player-list">
+                    <ui:VisualElement name="Player" class="player" />
+                    <ui:VisualElement name="Player" class="player" />
+                    <ui:VisualElement name="Player" class="player" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label text="VS" display-tooltip-when-elided="true" name="Vs" style="-unity-text-align: middle-center; font-size: 75px; flex-shrink: 1; margin-left: 60px; margin-right: 60px;" />
+            <ui:VisualElement name="EnemyTeam" class="team">
+                <ui:Label text="적군" display-tooltip-when-elided="true" name="TeamName" style="font-size: 40px; padding-left: 38px; padding-right: 38px; color: rgb(255, 223, 223); margin-bottom: 12px;" />
+                <ui:VisualElement name="PlayerList" class="player-list" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-shrink: 0; flex-grow: 1;">
+            <ui:VisualElement />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
