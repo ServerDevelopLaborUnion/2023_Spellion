@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class Rifle : MonoBehaviour
 {
-    [SerializeField] float _maxLength;
+    [SerializeField] private string _wallTag = "Remote";
     [SerializeField] private string _hitTag = "Remote";
     [SerializeField] float rateOfFire = 0.1f;
+    [SerializeField] float _maxLength;
     [SerializeField] int MaxAmmo = 30;
     [SerializeField] int damage = 5;
-    [SerializeField] GameObject player;
     AudioSource audioSource;
     Vector3 dir;
     int currentAmmo = 100;
     bool shotAble = true;
     bool isGizmo = false;
-    private bool gunMode = false;
+    private bool isAuto = false;
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -27,11 +27,13 @@ public class Rifle : MonoBehaviour
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
-        if(shotAble) IsGunMode();
+        if(Input.GetKeyDown(KeyCode.V)) ChangeGunMode();
+        ShotCheck();
         SetDir();
     }
     IEnumerator Reload()
     {
+        StopCoroutine("shot");
         shotAble = false;
         Debug.Log("Start Reloading");
         yield return new WaitForSeconds(0.7f);
@@ -39,64 +41,59 @@ public class Rifle : MonoBehaviour
         shotAble = true;
         currentAmmo = MaxAmmo;
     }
-    void IsGunMode()
+    void ShotCheck()
     {
-        if(Input.GetKeyDown(KeyCode.V))
-            ChangeGunMode();
-        if (gunMode == false && Input.GetMouseButtonDown(0) && currentAmmo > 0)
-            SingleShot();
-        if (gunMode == true && Input.GetMouseButtonDown(0) && currentAmmo > 0)
-            StartCoroutine("Repeater");
-        if (gunMode == true && Input.GetMouseButtonUp(0) || currentAmmo <= 0)
-            StopCoroutine("Repeater");
-        if(currentAmmo <= 0 && Input.GetMouseButtonUp(0))
+        if(shotAble && currentAmmo > 0 && Input.GetMouseButtonDown(0)){
+            shotAble = false;
+            StartCoroutine("Shot");
+        }
+        else if(isAuto && currentAmmo > 0 && Input.GetMouseButtonUp(0)){
+            shotAble = true;
+            StopCoroutine("Shot");
+        }
+        else if(shotAble && currentAmmo <=0 && Input.GetMouseButtonDown(0))
             AudioManager.Instance.PlayAudio("NoBullet", audioSource);
     }
     private void SetDir()
     {
-        Vector3 a = player.transform.forward * _maxLength;
-        a.y = transform.position.y;
-        dir = (a - transform.position).normalized;
+        dir = transform.forward * _maxLength;
     }
-    void SingleShot()
-    {
-        currentAmmo--;
-        Debug.Log(currentAmmo);
-        AudioManager.Instance.PlayAudio("Rifle", audioSource);
-        if (Physics.Raycast(new Ray(transform.position, dir), out RaycastHit hit, _maxLength))
-            {
-                if (hit.collider.tag == _hitTag)
-                {
-                    hit.collider.GetComponent<PlayerHealth>().OnDamage(damage);
-                }
-            }
-        StartCoroutine("DrawLine");
-    }
-    IEnumerator Repeater()
-    {
-        while (true)
-        {
+    IEnumerator Shot(){
+        do{
+            currentAmmo--;
+            Debug.Log(currentAmmo);
             AudioManager.Instance.PlayAudio("Rifle", audioSource);
             if (Physics.Raycast(new Ray(transform.position, dir), out RaycastHit hit, _maxLength))
                 {
                     if (hit.collider.tag == _hitTag)
                     {
                         hit.collider.GetComponent<PlayerHealth>().OnDamage(damage);
+                        // MakeMark(hit, "BulletHitEnemy"); 사운드 구하지 못함
+                    }
+                    if (hit.collider.tag == _wallTag){
+                        MakeMark(hit, "BulletHitWall");
                     }
                 }
-            StartCoroutine("DrawLine");
-            currentAmmo--;
-            Debug.Log(currentAmmo);
+            StartCoroutine(DrawLine());
             yield return new WaitForSeconds(rateOfFire);
-        }
+        }while(isAuto && currentAmmo > 0);
+        shotAble = true;
+    }
+    private void MakeMark(RaycastHit hit, string sound){
+        GameObject bulletMark = new GameObject("BulletMark");
+        AudioSource audioSource = bulletMark.AddComponent<AudioSource>();
+        bulletMark.transform.position = hit.point;
+        bulletMark.transform.rotation = Quaternion.LookRotation(hit.transform.forward, hit.transform.up);
+        AudioManager.Instance.PlayAudio(sound, audioSource);
+        Destroy(bulletMark, 3f);
     }
     private void ChangeGunMode(){
-        if(gunMode){
-            gunMode = false;
+        if(isAuto){
+            isAuto = false;
             Debug.Log("single");
         }
         else{
-            gunMode = true;
+            isAuto = true;
             Debug.Log("auto");
         }
         AudioManager.Instance.PlayAudio("ChangeGunMode", audioSource);

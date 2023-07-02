@@ -28,6 +28,11 @@ public class AgentMovement : MonoBehaviour
     private float _verticalVelocity;
     private bool _isJump = false;
 
+    // will used for footsteps
+    public CharacterController CharController => _charController;
+    public Vector3 MovementVelocity => _movementVelocity;
+    public float VerticalVelocity => _verticalVelocity;
+
     private void Awake()
     {
         _agentInput = GetComponent<AgentInput>();
@@ -91,7 +96,7 @@ public class AgentMovement : MonoBehaviour
             Packet.Vector3 pos = new Packet.Vector3{X = transform.position.x, Y = transform.position.y, Z = transform.position.z};
             Packet.Vector2 velocity = new Packet.Vector2{X = _movementVelocity.x, Y = _movementVelocity.y};
             PlayerInfo info = new PlayerInfo{ Pos = pos, Dir = velocity, IsGround = _charController.isGrounded };
-            SocketManager.Instance.RegisterSend(MSGID.Playerinfo, info);
+            //SocketManager.Instance.RegisterSend(MSGID.Playerinfo, info);
         }
     }
 }
