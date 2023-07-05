@@ -16,6 +16,8 @@ public class MainLobbyUI : MonoBehaviour
 
     private VisualElement _root;
     private VisualElement _btnContainer;
+
+    [SerializeField] Texture2D _gradientBackground;
     
     private void Awake()
     {
@@ -36,44 +38,52 @@ public class MainLobbyUI : MonoBehaviour
         {
             VisualElement arrow = _playBtn.Q<VisualElement>("Arrow");
             arrow.visible = true;
+            _playBtn.style.backgroundImage = Resources.Load<Texture2D>("bg");
         });
         _playBtn.RegisterCallback<MouseOutEvent>(e =>
         {
             VisualElement arrow = _playBtn.Q<VisualElement>("Arrow");
             arrow.visible = false;
+            _playBtn.style.backgroundImage = null;
         });
         
         _weaponBtn.RegisterCallback<MouseOverEvent>(e =>
         {
             VisualElement arrow = _weaponBtn.Q<VisualElement>("Arrow");
             arrow.visible = true;
+            _weaponBtn.style.backgroundImage = Resources.Load<Texture2D>("bg");
         });
         _weaponBtn.RegisterCallback<MouseOutEvent>(e =>
         {
             VisualElement arrow = _weaponBtn.Q<VisualElement>("Arrow");
             arrow.visible = false;
+            _weaponBtn.style.backgroundImage = null;
         });
         
         _socialBtn.RegisterCallback<MouseOverEvent>(e =>
         {
             VisualElement arrow = _socialBtn.Q<VisualElement>("Arrow");
             arrow.visible = true;
+            _socialBtn.style.backgroundImage = Resources.Load<Texture2D>("bg");
         });
         _socialBtn.RegisterCallback<MouseOutEvent>(e =>
         {
             VisualElement arrow = _socialBtn.Q<VisualElement>("Arrow");
             arrow.visible = false;
+            _socialBtn.style.backgroundImage = null;
         });
         
         _storeBtn.RegisterCallback<MouseOverEvent>(e =>
         {
             VisualElement arrow = _storeBtn.Q<VisualElement>("Arrow");
             arrow.visible = true;
+            _storeBtn.style.backgroundImage = Resources.Load<Texture2D>("bg");
         });
         _storeBtn.RegisterCallback<MouseOutEvent>(e =>
         {
             VisualElement arrow = _storeBtn.Q<VisualElement>("Arrow");
             arrow.visible = false;
+            _storeBtn.style.backgroundImage = null;
         });
         
         
