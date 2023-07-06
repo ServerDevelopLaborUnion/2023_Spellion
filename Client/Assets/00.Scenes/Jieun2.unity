@@ -336,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5400501894012420077, guid: b5f3d2eda7f7985488fc1e8ea5a36d8e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5400501894012420078, guid: b5f3d2eda7f7985488fc1e8ea5a36d8e, type: 3}
       propertyPath: m_RootOrder
@@ -862,6 +862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9e00f0ae5d9064eb8171235e4c2b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gradientBackground: {fileID: 0}
 --- !u!1 &1689998374
 GameObject:
   m_ObjectHideFlags: 0

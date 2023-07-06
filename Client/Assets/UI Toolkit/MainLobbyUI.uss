@@ -22,12 +22,56 @@
     border-top-width: 0;
     border-bottom-width: 0;
     border-top-left-radius: 0;
-    border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 0;
     border-top-right-radius: 0;
-    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 0;
     align-items: center;
     justify-content: flex-end;
 }
 
 .topBtn:hover {
+}
+
+.menuBtn {
+    height: 615px;
+    top: 165px;
+    width: 410px;
+    margin-left: 34px;
+    margin-right: 20px;
+    background-color: rgb(192, 192, 192);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 8px;
+    border-right-width: 8px;
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.point {
+}
+
+#MenuIcon {
+    height: 300px;
+    width: 300px;
+    top: 58px;
+    left: 41px;
+}
+
+#MenuLabelContainer {
+    height: 155px;
+    background-color: rgb(74, 76, 74);
+    top: 144px;
+}
+
+#MenuLabel {
+    font-size: 65px;
+    -unity-font-definition: url('project://database/Assets/08.Fonts/Tenada%20SDF%201.asset?fileID=11400000&guid=923e335bb123e084c952c8313de554ce&type=2#Tenada SDF 1');
+    margin-top: 53px;
+    color: rgba(255, 255, 255, 255);
 }

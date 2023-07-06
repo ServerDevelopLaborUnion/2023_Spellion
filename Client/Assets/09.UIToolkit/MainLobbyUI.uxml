@@ -14,14 +14,14 @@
             <ui:Button text=" STORE" display-tooltip-when-elided="true" name="StoreBtn" class="topBtn" style="width: 220px; -unity-text-align: middle-center;">
                 <ui:VisualElement name="Arrow" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/arrow.png?fileID=2800000&amp;guid=34d3f9c806209fb4dafc7f280b01b980&amp;type=3#arrow&apos;); width: 40px; height: 40px; bottom: -11px; -unity-background-image-tint-color: rgb(255, 255, 255); visibility: hidden;" />
             </ui:Button>
-            <ui:VisualElement class="topBtn" style="width: 341px; flex-direction: row;">
-                <ui:VisualElement style="background-image: url(&apos;project://database/Assets/09.UIToolkit/coin.png?fileID=2800000&amp;guid=a131d9d3d66af684c84406545867ba7b&amp;type=3#coin&apos;); width: 88px; height: 88px; left: -1px; position: absolute; top: 15px;" />
-                <ui:Label text="1,000,000" display-tooltip-when-elided="true" style="left: 82px; position: absolute; top: 38px; width: 269px; font-size: 36px; height: 52px;" />
+            <ui:VisualElement name="CoinContainer" class="topBtn" style="width: 341px; flex-direction: row;">
+                <ui:VisualElement name="CoinImage" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/coin.png?fileID=2800000&amp;guid=a131d9d3d66af684c84406545867ba7b&amp;type=3#coin&apos;); width: 88px; height: 88px; left: -1px; position: absolute; top: 15px;" />
+                <ui:Label text="1,000,000" display-tooltip-when-elided="true" name="CoinLabel" style="left: 82px; position: absolute; top: 38px; width: 269px; font-size: 36px; height: 52px;" />
             </ui:VisualElement>
             <ui:Button display-tooltip-when-elided="true" name="Profile" class="topBtn" style="width: 352px;">
                 <ui:VisualElement name="ProfileImage" style="background-color: rgb(255, 255, 255); position: absolute; height: 90px; top: 20px; width: 90px; left: 33px; border-top-left-radius: 20px; border-bottom-right-radius: 20px;" />
                 <ui:VisualElement name="ExpGaugeContainer" style="left: 145px; width: 216px; height: 8px; bottom: 31px; background-color: rgba(106, 106, 106, 0.21); position: absolute;">
-                    <ui:VisualElement name="ExpGauge" style="width: 74%; height: 8px; background-color: rgb(255, 255, 255); transform-origin: left; position: relative; max-width: 101%; max-height: 8px; min-height: 8px; min-width: 1%;" />
+                    <ui:VisualElement name="ExpGauge" style="width: 64%; height: 8px; background-color: rgb(255, 255, 255); transform-origin: left; position: relative; max-width: 101%; max-height: 8px; min-height: 8px; min-width: 1%;" />
                 </ui:VisualElement>
                 <ui:Label text="Name" display-tooltip-when-elided="true" name="NameLabel" style="position: absolute; left: 154px; font-size: 36px; top: 24px; height: 52px;" />
                 <ui:VisualElement name="LevelContainer" style="background-color: rgb(255, 255, 255); position: absolute; height: 42px; width: 78px; top: 30px; left: 280px; border-top-left-radius: 8px; border-bottom-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px;">
@@ -29,6 +29,32 @@
                 </ui:VisualElement>
             </ui:Button>
         </ui:VisualElement>
-        <ui:VisualElement style="height: 2px; background-color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="UnderBar" style="height: 2px; background-color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="GameMenuContainer" style="justify-content: center; align-items: auto; flex-direction: row;">
+            <ui:Button display-tooltip-when-elided="true" class="menuBtn">
+                <ui:VisualElement name="MenuIcon" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/EliminationIcon.png?fileID=2800000&amp;guid=28a69f6539462f24b9bd123e1f12d0fe&amp;type=3#EliminationIcon&apos;);" />
+                <ui:VisualElement name="MenuLabelContainer">
+                    <ui:Label text="섬멸전" display-tooltip-when-elided="true" name="MenuLabel" />
+                </ui:VisualElement>
+            </ui:Button>
+            <ui:Button display-tooltip-when-elided="true" class="menuBtn">
+                <ui:VisualElement name="MenuIcon" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/FreightageIcon.png?fileID=2800000&amp;guid=d31f91625a96f8e4e9d55dbfaeaf5383&amp;type=3#FreightageIcon&apos;);" />
+                <ui:VisualElement name="MenuLabelContainer">
+                    <ui:Label text="화물 운송" display-tooltip-when-elided="true" name="MenuLabel" />
+                </ui:VisualElement>
+            </ui:Button>
+            <ui:Button display-tooltip-when-elided="true" class="menuBtn">
+                <ui:VisualElement name="MenuIcon" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/DominationIcon.png?fileID=2800000&amp;guid=106eb14ebf4bfc84aba1a24183c4adce&amp;type=3#DominationIcon&apos;);" />
+                <ui:VisualElement name="MenuLabelContainer">
+                    <ui:Label text="점령전" display-tooltip-when-elided="true" name="MenuLabel" />
+                </ui:VisualElement>
+            </ui:Button>
+            <ui:Button display-tooltip-when-elided="true" class="menuBtn">
+                <ui:VisualElement name="MenuIcon" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/BombDefuseIcon.png?fileID=2800000&amp;guid=52617c5b03b65c942821ebc83f53916e&amp;type=3#BombDefuseIcon&apos;);" />
+                <ui:VisualElement name="MenuLabelContainer">
+                    <ui:Label text="폭탄 제거" display-tooltip-when-elided="true" name="MenuLabel" />
+                </ui:VisualElement>
+            </ui:Button>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
