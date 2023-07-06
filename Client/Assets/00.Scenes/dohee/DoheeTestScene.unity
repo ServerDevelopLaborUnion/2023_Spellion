@@ -296,12 +296,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b468cf76e19fc664a809a2e99cf4b0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitSoundMixerGroup: {fileID: 3453322151384164960, guid: 9e0e14ecc300c1c41ac3376e97e6a3f8, type: 2}
   _wallTag: Remote
   _hitTag: Enemy
-  rateOfFire: 0.12
+  _rateOfFire: 0.1
   _maxLength: 20
-  MaxAmmo: 30
-  damage: 5
+  _MaxAmmo: 30
+  _damage: 5
 --- !u!82 &719558366
 AudioSource:
   m_ObjectHideFlags: 0
@@ -311,7 +312,7 @@ AudioSource:
   m_GameObject: {fileID: 719558363}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2857437249832211882, guid: 9e0e14ecc300c1c41ac3376e97e6a3f8, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.8
@@ -543,7 +544,7 @@ GameObject:
   - component: {fileID: 1169482527}
   m_Layer: 0
   m_Name: Test
-  m_TagString: Enemy
+  m_TagString: Remote
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -774,6 +775,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9e44953b7c3080d478b9e242a67ab9c0, type: 3}
   - {fileID: 8300000, guid: 365a9af404d6b914294286970243326f, type: 3}
   - {fileID: 8300000, guid: e0e4ee6f3e5ab804f900b4eb9438bb16, type: 3}
+  - {fileID: 8300000, guid: 4433d1039ad79214b973b54c8dcbd8e0, type: 3}
   bgmPlayer: {fileID: 1351578006}
   systemPlayer: {fileID: 230656026}
 --- !u!4 &1297346888
@@ -1082,7 +1084,7 @@ AudioSource:
   m_GameObject: {fileID: 1357888558}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3175779591995123076, guid: 9e0e14ecc300c1c41ac3376e97e6a3f8, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1553,7 +1555,7 @@ AudioSource:
   m_GameObject: {fileID: 1943180711}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3790079447245134970, guid: 9e0e14ecc300c1c41ac3376e97e6a3f8, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
