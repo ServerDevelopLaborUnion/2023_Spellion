@@ -765,17 +765,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 52587398ea5f1304db37db6138a995a9, type: 3}
   - {fileID: 8300000, guid: 515e7d8f2bc14524488fa82d647e1626, type: 3}
   - {fileID: 8300000, guid: d5b30d18c9bff1e4d938deb59e4c3e26, type: 3}
   - {fileID: 8300000, guid: 8928ff569e8283e44b31fb7f94bd13ef, type: 3}
   - {fileID: 8300000, guid: 4e599f6c885e0b746bbeaadd44615094, type: 3}
   - {fileID: 8300000, guid: 9d9526119e41f8a46b24413d3cdf69bf, type: 3}
-  - {fileID: 8300000, guid: f03edc95d6178354bbe38ffcc77c5ff2, type: 3}
+  - {fileID: 8300000, guid: ef192acc75e5f0846b67afe2e5a00363, type: 3}
   - {fileID: 8300000, guid: 9e44953b7c3080d478b9e242a67ab9c0, type: 3}
   - {fileID: 8300000, guid: 365a9af404d6b914294286970243326f, type: 3}
   - {fileID: 8300000, guid: e0e4ee6f3e5ab804f900b4eb9438bb16, type: 3}
   - {fileID: 8300000, guid: 4433d1039ad79214b973b54c8dcbd8e0, type: 3}
+  - {fileID: 8300000, guid: f03edc95d6178354bbe38ffcc77c5ff2, type: 3}
+  - {fileID: 8300000, guid: 0a97f934f24e8324788f8159de3f0dda, type: 3}
+  - {fileID: 8300000, guid: dc4adcb4c257a6442bec50ddeb9aaddf, type: 3}
+  - {fileID: 8300000, guid: ab5991b243ab1804eaec5d269b3d0df3, type: 3}
   bgmPlayer: {fileID: 1351578006}
   systemPlayer: {fileID: 230656026}
 --- !u!4 &1297346888

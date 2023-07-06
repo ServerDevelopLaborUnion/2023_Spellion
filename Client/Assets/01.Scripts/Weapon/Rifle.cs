@@ -23,14 +23,14 @@ public class Rifle : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _currentAmmo = _MaxAmmo;
-        Debug.Log("�ܹ߸��");
+        gameObject.GetComponentInParent<AgentInput>().OnFireKeyPress += StartShooting;
+        gameObject.GetComponentInParent<AgentInput>().OnFireKeyRelease += StopShooting;
     }
     // false = 단발 / true = 연사
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
         if(Input.GetKeyDown(KeyCode.V)) ChangeGunMode();
-        ShotCheck();
         SetDir();
     }
     IEnumerator Reload()
@@ -43,24 +43,20 @@ public class Rifle : MonoBehaviour
         _shotAble = true;
         _currentAmmo = _MaxAmmo;
     }
-    void ShotCheck()
-    {
-        if(_shotAble && _currentAmmo > 0 && Input.GetMouseButtonDown(0)){
-            _shotAble = false;
-            StartCoroutine("Shot");
-        }
-        else if(_isAuto && _currentAmmo > 0 && Input.GetMouseButtonUp(0)){
-            _shotAble = true;
-            StopCoroutine("Shot");
-        }
-        else if(_shotAble && _currentAmmo <=0 && Input.GetMouseButtonDown(0))
-            AudioManager.Instance.PlayAudio("NoBullet", _audioSource);
-    }
     private void SetDir()
     {
         _dir = transform.forward * _maxLength;
     }
-    IEnumerator Shot(){
+    private void StartShooting(){
+        if(_shotAble){
+            if(_currentAmmo < 0) AudioManager.Instance.PlayAudio("NoBullet", _audioSource);
+            else StartCoroutine("Shooting");
+        }
+    }
+    private void StopShooting(){
+        StopCoroutine("Shooting");
+    }
+    private IEnumerator Shooting(){
         do{
             _currentAmmo--;
             Debug.Log(_currentAmmo);
@@ -73,13 +69,14 @@ public class Rifle : MonoBehaviour
                         MakeMark(hit, "BulletHitEnemy");
                     }
                     if (hit.collider.tag == _wallTag){
-                        MakeMark(hit, "BulletHitWall");
+                        int rand = UnityEngine.Random.Range(0, 4);
+                        MakeMark(hit, "BulletHitWall" + rand.ToString());
                     }
                 }
             StartCoroutine(DrawLine());
             yield return new WaitForSeconds(_rateOfFire);
         }while(_isAuto && _currentAmmo > 0);
-        _shotAble = true;
+
     }
     private void MakeMark(RaycastHit hit, string sound){
         GameObject bulletMark = new GameObject("BulletMark");
@@ -93,11 +90,9 @@ public class Rifle : MonoBehaviour
     private void ChangeGunMode(){
         if(_isAuto){
             _isAuto = false;
-            Debug.Log("single");
         }
         else{
             _isAuto = true;
-            Debug.Log("auto");
         }
         AudioManager.Instance.PlayAudio("ChangeGunMode", _audioSource);
     }
