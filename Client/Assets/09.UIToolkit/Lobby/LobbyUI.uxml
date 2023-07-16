@@ -20,7 +20,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="InfoList" style="flex-basis: 30%; flex-direction: row-reverse; align-items: flex-end; flex-shrink: 0; flex-grow: 1;">
             <ui:VisualElement name="PlayerInfo" style="flex-basis: 65%; height: 100%; padding-left: 5%; padding-right: 5%; padding-top: 5%; padding-bottom: 5%; flex-direction: row; min-width: 30%;">
-                <ui:VisualElement name="Image" style="height: 100%; min-width: 25%; background-color: rgb(255, 255, 255); border-top-left-radius: 10px; border-bottom-right-radius: 10px;" />
+                <ui:VisualElement name="Image" style="height: 100%; min-width: 25%; border-top-left-radius: 10px; border-bottom-right-radius: 10px; background-image: url(&apos;project://database/Assets/07.Sprites/Render/PlayerImage.renderTexture?fileID=8400000&amp;guid=f313cf2aac72e0244a86bbe7558a9d51&amp;type=2#PlayerImage&apos;); -unity-background-scale-mode: stretch-to-fill; background-color: rgb(255, 255, 255);" />
                 <ui:VisualElement name="Stat" style="flex-shrink: 0; flex-grow: 1; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; justify-content: center;">
                     <ui:VisualElement name="Container" style="flex-grow: 1; flex-shrink: 0; flex-direction: row; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; justify-content: space-between; min-width: initial; min-height: initial; align-items: center;">
                         <ui:Label text="NAME" display-tooltip-when-elided="true" enable-rich-text="false" name="Name" style="-unity-text-align: middle-left; font-size: 29px; white-space: normal; -unity-font-style: normal; height: 100%; flex-grow: 1; color: rgb(255, 255, 255);" />
