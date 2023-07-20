@@ -32,8 +32,8 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 5341033664168713359}
-    m_Position: {x: 353.80078, y: 132.97507, z: 0}
+    m_State: {fileID: 3216689597008714070}
+    m_Position: {x: 310, y: 130, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -43,15 +43,15 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 5341033664168713359}
---- !u!1102 &5341033664168713359
+  m_DefaultState: {fileID: 3216689597008714070}
+--- !u!1102 &3216689597008714070
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle Aiming
+  m_Name: Hip Hop Dancing
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -64,7 +64,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: abbaad14db0932a4ca30a09561574b1f, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 82d26226d24458b499829643164e52c1, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -1,55 +1,76 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    
-    [SerializeField] private PoolingListSO _initPoolList;
+    // Singleton
+    private static GameManager _instance = null;
+    public static GameManager Instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                _instance = FindObjectOfType<GameManager>();
+                if(_instance == null)
+                {
+                    GameObject manager = new GameObject("Manager");
+                    _instance = manager.AddComponent<GameManager>();
+                    DontDestroyOnLoad(manager);
+                }
+            }
+            return _instance;
+        }
+    }
 
-    private Transform _player = null;
-    public Transform Player => _player;
-    
-    // Network
-    [SerializeField] private string _connectionUrl;
-    private SocketManager _socketManager;
+    [SerializeField] 
+    private string _ip, _port;
+
+    [SerializeField]
+    private float _minLoadTime = 3f;
 
     private void Awake()
     {
-        if (Instance != null)
+        // Singleton
+        if(_instance == null)
         {
-            Debug.LogError("Multiple GameManager is running");
+            _instance = this;
+            gameObject.name = "Manager";
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Debug.LogError("Multiple GameManager is running, Destroy This!");
+            Destroy(gameObject);
+            return;
         }
 
-        Instance = this;
-
-        CreateSocketManager();
-        CreatePool();
-    }
-
-    private void CreateSocketManager()
-    {
-        _socketManager = gameObject.AddComponent<SocketManager>();
-        SocketManager.Instance.Init(_connectionUrl);
-
+        // Create Socket Manager
+        gameObject.AddComponent<SocketManager>();
+        SocketManager.Instance.Init($"{_ip}:{_port}");
         SocketManager.Instance.Connection();
     }
 
-    private void CreatePool()
+    public void LoadScene(string sceneName)
     {
-        if(_initPoolList == null) 
-        {
-            Debug.LogWarning("Init Pool list is null. PoolManager will be null");
-            return;
-        }
-        PoolManager.Instance = new PoolManager(transform);
-        _initPoolList.PoolList.ForEach(p =>
-        {
-            PoolManager.Instance.CreatePool(p.Prefab, p.Count);
-        });
+        StartCoroutine(LoadSceneCoroutine(sceneName));
     }
 
-    public void FindPlayer()
+    public void LoadSceneImmediate(string sceneName)
     {
-        _player = GameObject.Find("Player").transform;
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private IEnumerator LoadSceneCoroutine(string sceneName)
+    {
+        AsyncOperation loadScene = SceneManager.LoadSceneAsync(sceneName);
+        float timer = _minLoadTime;
+        while(loadScene.isDone && timer <= 0f)
+        {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
     }
 }
