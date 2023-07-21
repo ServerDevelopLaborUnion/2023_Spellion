@@ -49,7 +49,7 @@ public class Rifle : MonoBehaviour
     }
     private void StartShooting(){
         if(_shotAble){
-            if(_currentAmmo < 0) AudioManager.Instance.PlayAudio("NoBullet", _audioSource);
+            if(_currentAmmo <= 0) AudioManager.Instance.PlayAudio("NoBullet", _audioSource);
             else StartCoroutine("Shooting");
         }
     }
