@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/00.Scenes/dohee/00.StartScene.unity
-    guid: 2c7b12c46c2cf2447b3bbc7ff23deb0a
+    path: Assets/00.Scenes/Merge/Entry.unity
+    guid: 3683468e4cbb54845897d58d8369f0c1
   - enabled: 1
-    path: Assets/00.Scenes/dohee/01.MainScene.unity
-    guid: 80640510a82a08e4d8b30a6d33aad86e
+    path: Assets/00.Scenes/Merge/MainLobby.unity
+    guid: add4ea63570545e40baee3b925ecd07c
   - enabled: 1
-    path: Assets/00.Scenes/dohee/02.GameScene.unity
-    guid: 8b4b92279d9e9b8488395f3fac7541ba
+    path: Assets/00.Scenes/Merge/Game.unity
+    guid: 78dcb0b5d9f1d944c9d5824cb473b434
   m_configObjects: {}

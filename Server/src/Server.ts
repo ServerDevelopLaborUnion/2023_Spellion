@@ -1,58 +1,52 @@
-import http from 'http';
-import Express, { Application } from "express";
-import ws from "ws";
-import Session from './Session';
-import crypto from 'crypto'
-import SessionManager from './SessionManager';
-import PacketManager from './PacketManager';
-import UpdateTimer from './UpdateTimer';
-import { MSGID, PlayerInfo, PlayerInfoList } from './packet/packet';
-import dotenv from 'dotenv';
+import Express from "express";
+import dotenv from "dotenv";
+import { WebSocket } from "ws";
+import Session from "./Session";
+import SessionManager from "./SessionManager";
+import PacketManager from "./packet/PacketManager";
+import RoomManager from "./RoomManager";
 dotenv.config();
 
-const PORT = process.env.PORT;
+const app = Express();
 
-const App: Application = Express();
-
-App.get("/", (req, res) => {
-    res.send(JSON.stringify(SessionManager.Instance.getAllSessionInfo()));
-})
-
-const httpServer: http.Server = App.listen(PORT, () => {
-    console.log(`[Server.ts] Http Server 작동 중. 포트: ${PORT}`);
+app.get("/", (req, res) => {
+    res.json(SessionManager.Instance.getAllSessionInfo());
 });
 
-const wsServer: ws.Server = new ws.Server({
-    server: httpServer
+app.get("/room", (req, res) => {
+    res.json(RoomManager.Instance.getAllRoomInfo());
+});
+
+const httpServer = app.listen(process.env.PORT, () => {
+    console.log(`Web Server is listening on port ${process.env.PORT}`);
 });
 
 SessionManager.Instance = new SessionManager();
 PacketManager.Instance = new PacketManager();
+RoomManager.Instance = new RoomManager();
 
-wsServer.on("listening",  () => {
-    console.log(`[Server.ts] Websocket Server 작동 중. 포트: ${PORT}`);
+const wsServer = new WebSocket.Server({
+    server: httpServer
 });
 
-wsServer.on("connection", (socket, request) => {
-    const session = new Session(socket, crypto.randomUUID(), (code: number, reason: Buffer) => {
-        SessionManager.Instance.removeSession(session.uuid);
-        console.log(`[Server.ts] Session 로그아웃됨. ID: ${session.uuid}`);
-    });
-    SessionManager.Instance.addSession(session);
-    console.log(`[Server.ts] 새로운 Session 로그인. ID: ${session.uuid}`);
+wsServer.on("listening", () => {
+    console.log(`Socket Server is listening on port ${process.env.PORT}`);
+});
 
-    // For Debugs
+wsServer.on("connection", (socket, req) => {
+    const session = new Session(socket);
+    SessionManager.Instance.addSession(session);
 
     socket.on("message", (data, isBinary) => {
         if(isBinary)
             session.processPacket(data);
     });
-});
 
-let updateTimer: UpdateTimer = new UpdateTimer(50, () => {
-    let list: PlayerInfo[] = SessionManager.Instance.getAllSessionInfo();
-    if(list.length < 1) return;
-    let infoList: PlayerInfoList = new PlayerInfoList({list});
-    SessionManager.Instance.broadcast(MSGID.PLAYERINFOLIST, infoList.serialize(), "");
+    socket.on("close", (code, reason) => {
+        if(session.room)
+        {
+            session.room.removeMember(session.id);
+        }
+        SessionManager.Instance.removeSession(session.id);
+    })
 });
-updateTimer.startTimer();

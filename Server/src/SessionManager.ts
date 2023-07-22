@@ -1,47 +1,37 @@
 import Session from "./Session";
-import { MSGID, PlayerInfo, PlayerInfoList } from "./packet/packet";
 
 export default class SessionManager
 {
     static Instance: SessionManager;
 
-    private sessionMap: SessionMap = {}
+    sessionMap: SessionMap;
 
     constructor() {
-
+        this.sessionMap = {};
     }
 
-    addSession(session: Session): void {
-        let list: PlayerInfoList = new PlayerInfoList({list: this.getAllSessionInfo()});
-        this.sessionMap[session.uuid] = session;
-        session.Init(list);
-        this.broadcast(MSGID.NEWSESSION, session.info.serialize(), session.uuid, true);
-    }
-
-    getAllSessionInfo(): PlayerInfo[] {
-        let list: PlayerInfo[] = [];
-        for(let key in this.sessionMap)
-        {
-            list.push(this.sessionMap[key].info);
-        }
-        return list;
-    }
-
-    broadcast(code: number, data: Uint8Array, senderUUID: string, exceptSender: boolean = false): void
+    addSession(session: Session): void
     {
-        for(let key in this.sessionMap)
-        {
-            if(key == senderUUID && exceptSender == true) continue;
-            this.sessionMap[key].sendData(code, data);
-        }
+        this.sessionMap[session.id] = session;
     }
 
-    removeSession(uuid: string) {
-        delete this?.sessionMap[uuid];
+    removeSession(id: number): void 
+    {
+        delete this.sessionMap[id];
+    }
+
+    getSession(id: number): Session | undefined
+    {
+        return this.sessionMap[id];
+    }
+
+    getAllSessionInfo()
+    {
+        return Object.values(this.sessionMap).map(s => {
+            let {name, id, isLogin, isReady, state, level, money, gameProp} = s;
+            return {name, id, isLogin, isReady, state, level, money, gameProp};
+        });
     }
 }
 
-interface SessionMap
-{
-    [key: string]: Session;
-}
+type SessionMap = { [key: number]: Session; }

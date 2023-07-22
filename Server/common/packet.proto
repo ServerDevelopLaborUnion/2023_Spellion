@@ -1,53 +1,121 @@
 syntax = "proto3";
+package packet;
 
 option csharp_namespace = "Packet";
 
 enum MSGID
 {
-    MSGBOX = 0;
-    PLAYERINFO = 1;
-    PLAYERINFOLIST = 2;
-    INITLIST = 3;
-    NEWSESSION = 4;
-    STARTFIRE = 5;
-    STOPFIRE = 6;
+    C_LOGIN_REQ = 0;
+    S_LOGIN_RES = 1;
+    C_REGISTER_REQ = 3;
+    S_REGISTER_RES = 4;
+    C_JOIN_REQ = 5;
+    S_JOIN_RES = 6;
+    S_JOINED = 7;
+    C_READY = 8;
+    C_EXIT_ROOM = 9;
+    S_EXIT_MEMBER = 10;
+    S_ALL_READY = 11;
+    C_GAME_START = 12;
+    S_GAME_START = 13;
+    C_MOVE_DATA = 14;
+    S_MOVE_DATA = 15;
 }
 
-message MsgBox {
-    string context = 1;
-    float time = 2;
+message C_Login_Req
+{
+    string name = 1;
 }
 
-message PlayerInfo {
-    string uuid = 1;
-    Vector3 pos = 2;
-    Vector2 rot = 3;
-    Vector2 dir = 4;
-    bool isGround = 5;
+message S_Login_Res
+{
+    bool success = 1;
+    User userData = 2;
 }
 
-message PlayerInfoList {
-    repeated PlayerInfo list = 1;
+message C_Register_Req
+{
+    string name = 1;
 }
 
-message FireBullet {
-    Vector3 startPos = 1;
-    Vector3 dir = 2;
-    float length = 3;
-    float laserWidth = 4;
+message S_Register_Res
+{
+    bool success = 1;
+    User userData = 2;
 }
 
-message UUID {
-    string value = 1;
+message C_Join_Req 
+{
+    GameMode mode = 1;
 }
 
-message Vector2 {
+message S_Join_Res
+{
+    bool success = 1;
+    bool isOwner = 2;
+    int32 index = 3;
+    repeated RoomMember members = 4;
+}
+
+message S_Joined
+{
+    RoomMember member = 1;
+}
+
+message C_Ready {}
+
+message C_Exit_Room {}
+
+message S_Exit_Member
+{
+    string name = 1;
+    repeated RoomMember fixedMembers = 2;
+}
+
+message S_All_Ready {}
+
+message C_Game_Start {}
+
+message S_Game_Start 
+{
+    RoomMember pInfo = 1;
+    Vector3 spawnPos = 2;
+}
+
+enum GameMode
+{
+    AllKill = 0;
+}
+
+enum Team
+{
+    Red = 0;
+    Blue = 1;
+}
+
+message Vector2 
+{
     float x = 1;
     float y = 2;
 }
 
-message Vector3 {
+message Vector3 
+{
     float x = 1;
     float y = 2;
     float z = 3;
+}
+
+message User
+{
+    string name = 1;
+    int32 level = 2;
+    int32 money = 3;
+}
+
+message RoomMember
+{
+    User user = 1;
+    Team team = 2;
+    int32 index = 3;
 }

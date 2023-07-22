@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Player" src="project://database/Assets/09.UIToolkit/Lobby/Player.uxml?fileID=9197481963319205126&amp;guid=19de16911794bc84c9789d1583d78bbd&amp;type=3#Player" />
     <Style src="project://database/Assets/09.UIToolkit/Lobby/LobbyUI.uss?fileID=7433441132597879392&amp;guid=bf5c2b47a1ae3c54db641676099595a8&amp;type=3#LobbyUI" />
     <ui:VisualElement name="MainTopBar" class="top-bar on">
         <ui:VisualElement name="BtnList" style="height: 100%; flex-direction: row; flex-basis: 60%; align-items: flex-end;">
@@ -65,32 +66,38 @@
     </ui:VisualElement>
     <ui:VisualElement name="RoomContainer" class="container" style="border-top-width: 5px; background-color: rgb(115, 115, 115); border-top-color: rgb(255, 255, 255); padding-left: 8%; padding-right: 8%; padding-top: 6%; padding-bottom: 6%;">
         <ui:VisualElement name="Teams" style="flex-grow: 3; flex-shrink: 0; flex-direction: row; justify-content: center; align-items: stretch;">
-            <ui:VisualElement name="AllyTeam" class="team">
-                <ui:Label text="아군" display-tooltip-when-elided="true" name="TeamName" style="font-size: 40px; padding-left: 38px; padding-right: 38px; color: rgb(197, 194, 255); margin-bottom: 12px;" />
+            <ui:VisualElement name="BlueTeam" class="team">
+                <ui:Label text="BLUE" display-tooltip-when-elided="true" name="TeamName" style="font-size: 40px; padding-left: 38px; padding-right: 38px; color: rgb(197, 194, 255); margin-bottom: 12px;" />
                 <ui:VisualElement name="PlayerList" class="player-list">
                     <ui:VisualElement name="0" class="player empty">
                         <ui:Button text="+" display-tooltip-when-elided="true" enable-rich-text="false" name="Invite" style="font-size: 39px; padding-top: 6px; padding-left: 0; padding-right: 0; padding-bottom: 0; width: 10%;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="1" class="player empty">
-                        <ui:Button text="+" display-tooltip-when-elided="true" enable-rich-text="false" name="Invite" style="font-size: 39px; padding-top: 6px; padding-left: 0; padding-right: 0; padding-bottom: 0; width: 10%;" />
+                        <ui:Instance template="Player" name="Player" />
                     </ui:VisualElement>
                     <ui:VisualElement name="2" class="player empty">
                         <ui:Button text="+" display-tooltip-when-elided="true" enable-rich-text="false" name="Invite" style="font-size: 39px; padding-top: 6px; padding-left: 0; padding-right: 0; padding-bottom: 0; width: 10%;" />
+                        <ui:Instance template="Player" name="Player" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="4" class="player empty">
+                        <ui:Button text="+" display-tooltip-when-elided="true" enable-rich-text="false" name="Invite" style="font-size: 39px; padding-top: 6px; padding-left: 0; padding-right: 0; padding-bottom: 0; width: 10%;" />
+                        <ui:Instance template="Player" name="Player" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Label text="VS" display-tooltip-when-elided="true" name="Vs" style="-unity-text-align: middle-center; font-size: 75px; flex-shrink: 1; margin-left: 60px; margin-right: 60px; color: rgb(255, 255, 255); min-width: 55px;" />
-            <ui:VisualElement name="EnemyTeam" class="team">
-                <ui:Label text="적군" display-tooltip-when-elided="true" name="TeamName" style="font-size: 40px; padding-left: 38px; padding-right: 38px; color: rgb(255, 223, 223); margin-bottom: 12px;" />
+            <ui:VisualElement name="RedTeam" class="team">
+                <ui:Label text="RED" display-tooltip-when-elided="true" name="TeamName" style="font-size: 40px; padding-left: 38px; padding-right: 38px; color: rgb(255, 223, 223); margin-bottom: 12px;" />
                 <ui:VisualElement name="PlayerList" class="player-list">
-                    <ui:VisualElement name="0" class="player empty">
-                        <ui:Button text="+" display-tooltip-when-elided="true" enable-rich-text="false" name="Invite" style="font-size: 39px; padding-top: 6px; padding-left: 0; padding-right: 0; padding-bottom: 0; width: 10%;" />
-                    </ui:VisualElement>
                     <ui:VisualElement name="1" class="player empty">
                         <ui:Button text="+" display-tooltip-when-elided="true" enable-rich-text="false" name="Invite" style="font-size: 39px; padding-top: 6px; padding-left: 0; padding-right: 0; padding-bottom: 0; width: 10%;" />
+                        <ui:Instance template="Player" name="Player" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="2" class="player empty">
+                    <ui:VisualElement name="3" class="player empty">
                         <ui:Button text="+" display-tooltip-when-elided="true" enable-rich-text="false" name="Invite" style="font-size: 39px; padding-top: 6px; padding-left: 0; padding-right: 0; padding-bottom: 0; width: 10%;" />
+                        <ui:Instance template="Player" name="Player" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="5" class="player empty">
+                        <ui:Button text="+" display-tooltip-when-elided="true" enable-rich-text="false" name="Invite" style="font-size: 39px; padding-top: 6px; padding-left: 0; padding-right: 0; padding-bottom: 0; width: 10%;" />
+                        <ui:Instance template="Player" name="Player" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

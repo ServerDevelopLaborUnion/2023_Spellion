@@ -84,14 +84,5 @@ public class AgentMovement : MonoBehaviour
 
         _verticalVelocity += _moveData.Gravity * Time.fixedDeltaTime;
         _charController.Move((_verticalVelocity * Vector3.up) * Time.fixedDeltaTime);
-
-        _timer += Time.fixedDeltaTime;
-        if(_timer >= _sendDuration)
-        {
-            Packet.Vector3 pos = new Packet.Vector3{X = transform.position.x, Y = transform.position.y, Z = transform.position.z};
-            Packet.Vector2 velocity = new Packet.Vector2{X = _movementVelocity.x, Y = _movementVelocity.y};
-            PlayerInfo info = new PlayerInfo{ Pos = pos, Dir = velocity, IsGround = _charController.isGrounded };
-            SocketManager.Instance.RegisterSend(MSGID.Playerinfo, info);
-        }
     }
 }

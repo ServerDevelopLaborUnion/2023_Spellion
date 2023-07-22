@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Google.Protobuf.Collections;
+using Packet;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,7 +21,7 @@ public class LobbyUI : MonoBehaviour
 
     private VisualElement _roomTopBar;
     private Label _title, _sub;
-    private Button _exitBtn;
+    private Button _readyBtn, _exitBtn, _gamePlayBtn;
     
     private VisualElement _mainContainer;
     
@@ -26,6 +29,9 @@ public class LobbyUI : MonoBehaviour
     private Button _allKill, _payload, _capture, _bomb;
 
     private VisualElement _roomContainer;
+
+    [SerializeField]
+    private VisualTreeAsset _player;
 
     private void Awake()
     {
@@ -48,21 +54,86 @@ public class LobbyUI : MonoBehaviour
         _currentTopBar = _mainTopBar;
     }
 
-    public void InitRoom()
+    private void Start()
     {
-        
+        if(GameManager.Instance.MyData != null)
+            SetUserData(GameManager.Instance.MyData);
     }
 
-    public void JoinRoom()
+    public void InitRoom()
     {
+        VisualElement mySlot = _roomContainer.Q($"0");
+        mySlot.RemoveFromClassList("empty");
+
+        VisualElement player = mySlot.Q("Player");
+        player.Q<Label>("Name").text = GameManager.Instance.MyData.Name;
+        player.Q<Label>("Level").text = GameManager.Instance.MyData.Level.ToString();
+
+        SetCurrentTopBar(_roomTopBar);
+        SetCurrentContainer(_roomContainer);
+    }
+    public void InitRoom(int index, IList<RoomMember> members)
+    {
+        VisualElement mySlot = _roomContainer.Q($"{index}");
+        mySlot.RemoveFromClassList("empty");
+
+        VisualElement player = mySlot.Q("Player");
+        player.Q<Label>("Name").text = GameManager.Instance.MyData.Name; 
+        player.Q<Label>("Level").text = GameManager.Instance.MyData.Level.ToString();
+
+        foreach(RoomMember member in members)
+        {
+            VisualElement slot = _roomContainer.Q($"{member.Index}");
+            slot.RemoveFromClassList("empty");
+
+            player = slot.Q("Player");
+            player.Q<Label>("Name").text = member.User.Name;
+            player.Q<Label>("Level").text = member.User.Level.ToString();
+        }
+
         SetCurrentTopBar(_roomTopBar);
         SetCurrentContainer(_roomContainer);
     }
 
+    public void AddMember(RoomMember member)
+    {
+        VisualElement slot = _roomContainer.Q($"{member.Index}");
+        slot.RemoveFromClassList("empty");
+
+        VisualElement player = slot.Q("Player");
+        player.Q<Label>("Name").text = member.User.Name;
+        player.Q<Label>("Level").text = member.User.Level.ToString();
+
+        SetCurrentTopBar(_roomTopBar);
+        SetCurrentContainer(_roomContainer);
+    }
+
+    public void JoinRoom()
+    {
+        // SetCurrentTopBar(_roomTopBar);
+        // SetCurrentContainer(_roomContainer);
+        C_Join_Req req = new C_Join_Req{Mode = Packet.GameMode.AllKill};
+        SocketManager.Instance.RegisterSend(MSGID.CJoinReq, req);
+        // TODO: Show Waiting Popup & Set timeout
+    }
+
     public void ExitRoom()
     {
+        SocketManager.Instance.RegisterSend(MSGID.CExitRoom, new C_Exit_Room());
         SetCurrentTopBar(_mainTopBar);
         SetCurrentContainer(_mainContainer);
+    }
+    
+    public void ClearRoom()
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            VisualElement slot = _roomContainer.Q($"{i}");
+            if(!slot.ClassListContains("empty"))
+            {
+                slot.AddToClassList("empty");
+            }
+        }
     }
 
     private void SetCurrentContainer(VisualElement container)
@@ -122,8 +193,10 @@ public class LobbyUI : MonoBehaviour
     {
         _roomContainer = root.Q("RoomContainer");
         _exitBtn = root.Q<Button>("ExitBtn");
+        _readyBtn = root.Q<Button>("ReadyBtn");
 
         _exitBtn.RegisterCallback<ClickEvent>(e => ExitRoom());
+        _readyBtn.RegisterCallback<ClickEvent>(e => SocketManager.Instance.RegisterSend(MSGID.CReady, new C_Ready()));
     }
 
     private void PlayButtonHandle(ClickEvent ev)
@@ -137,6 +210,26 @@ public class LobbyUI : MonoBehaviour
         {
             _play.AddToClassList("on");
             SetCurrentContainer(_selectModeContainer);
+        }
+    }
+
+    public void SetUserData(User userData)
+    {
+        _level.text = userData.Level.ToString();
+        _name.text = userData.Name;
+    }
+
+    public void FixMember(IList<RoomMember> fixedMembers)
+    {
+        ClearRoom();
+        foreach(RoomMember member in fixedMembers)
+        {
+            VisualElement slot = _roomContainer.Q($"{member.Index}");
+            slot.RemoveFromClassList("empty");
+
+            VisualElement player = slot.Q("Player");
+            player.Q<Label>("Name").text = member.User.Name;
+            player.Q<Label>("Level").text = member.User.Level.ToString();
         }
     }
 }

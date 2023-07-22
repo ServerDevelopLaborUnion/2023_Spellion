@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Packet;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,11 +27,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     [SerializeField] 
     private string _ip, _port;
 
     [SerializeField]
     private float _minLoadTime = 3f;
+
+    public User MyData { get => _myData; }
+    private User _myData;
+
+    private ManagerUI _managerUI;
+
+    private Dictionary<string, Action<AsyncOperation>> _loadSceneCallback = new Dictionary<string, Action<AsyncOperation>>();
 
     private void Awake()
     {
@@ -47,10 +57,26 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        _managerUI = GetComponentInChildren<ManagerUI>();
+
         // Create Socket Manager
         gameObject.AddComponent<SocketManager>();
-        SocketManager.Instance.Init($"{_ip}:{_port}");
+        string url = $"ws://{_ip}:{_port}";
+        Debug.Log($"Start to connect {url}");
+        SocketManager.Instance.Init(url);
         SocketManager.Instance.Connection();
+
+        _loadSceneCallback["MainLobby"] = (oper) => {};
+
+        if(PlayerPrefs.GetString("name") == string.Empty)
+        {
+            _managerUI.GetName();
+        }
+        else
+        {
+            SocketManager.Instance.RegisterSend(MSGID.CLoginReq, new C_Login_Req{Name = "kwak1s1h"});
+            LoadScene("MainLobby");
+        }
     }
 
     public void LoadScene(string sceneName)
@@ -71,6 +97,22 @@ public class GameManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
             yield return null;
+        }
+        loadScene.completed += _loadSceneCallback[sceneName];
+        _loadSceneCallback[sceneName] = (oper) => {};
+    }
+
+    public void SetPlayerData(User userData)
+    {
+        _myData = userData;
+        LobbyUI lobbyUI = FindObjectOfType<LobbyUI>();
+        if(lobbyUI != null)
+        {
+            lobbyUI.SetUserData(MyData);
+        }
+        else
+        {
+            _loadSceneCallback["MainLobby"] += (oper) => {};
         }
     }
 }

@@ -1,31 +1,38 @@
-import ws from "ws";
-import { MSGID, MsgBox, PlayerInfo, PlayerInfoList, Vector2, Vector3 } from "./packet/packet";
-import { Message } from "google-protobuf";
-import PacketManager from "./PacketManager";
-import SessionManager from "./SessionManager";
+import { RawData, WebSocket } from "ws";
+import { GameProperty } from "./Utills";
+import { packet } from "./packet/packet";
+import PacketManager from "./packet/PacketManager";
+import Room from "./Room";
+
+let idCnt = 0;
 
 export default class Session
 {
-    private socket: ws;
-    uuid: string;
-    info: PlayerInfo;
-    isLogin: boolean = false;
-    
-    constructor(socket: ws, uuid:string, closeListener: (code: number, reason: Buffer) => void) {
+    socket: WebSocket;
+    id: number;
+
+    state: SessionState;
+
+    isLogin: boolean;
+    name?: string;
+    level?: number;
+    money?: number;
+
+    room?: Room;
+
+    isReady: boolean;
+
+    gameProp?: GameProperty;
+
+    constructor(socket: WebSocket) {
         this.socket = socket;
-        this.uuid = uuid;
-        this.socket.on("close", closeListener);
-        this.info = new PlayerInfo({uuid: uuid});
-        this.info.pos = new Vector3({x: 0, y: 1, z: 0});
-        this.info.rot = new Vector2({x: 0, y: 0});
-        this.info.isGround = true;
+        this.id = idCnt++;
+        this.isLogin = false;
+        this.state = SessionState.NONE;
+        this.isReady = false;
     }
 
-    Init(list: PlayerInfoList) {
-        this.sendData(MSGID.INITLIST, list.serialize());
-    }
-
-    processPacket(data: ws.RawData) {
+    processPacket(data: RawData) {
         let code: number = this.getInt16LEFromBuffer(data.slice(2, 4) as Buffer);
         PacketManager.Instance.handleMsg(this, code, data.slice(4) as Buffer);
         console.log(`[Session.ts] Packet recieved. ID: ${code}`);
@@ -36,7 +43,7 @@ export default class Session
         return buffer.readInt16LE();
     }
 
-    sendData(code: MSGID, data: Uint8Array) {
+    sendData(code: packet.MSGID, data: Uint8Array) {
         let len: number = data.length + 4;
 
         let lenBuffer: Uint8Array = new Uint8Array(2); 
@@ -52,4 +59,18 @@ export default class Session
 
         this.socket.send(sendBuffer);
     }
+
+    get user(): packet.User 
+    {
+        let {name, level, money} = this;
+        return new packet.User({name, level, money});
+    }
+}
+
+export enum SessionState
+{
+    NONE,
+    LOBBY,
+    ROOM,
+    GAME
 }

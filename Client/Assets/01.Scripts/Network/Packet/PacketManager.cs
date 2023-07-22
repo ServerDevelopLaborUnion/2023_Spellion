@@ -24,23 +24,20 @@ public class PacketManager
 
     private void Register()
     {
-        _OnRecv.Add((ushort)MSGID.Msgbox, MakePacket<MsgBox>);
-        _Handlers.Add((ushort)MSGID.Msgbox, new MsgBoxHandler());
+        _OnRecv.Add((ushort)MSGID.SRegisterRes, MakePacket<S_Register_Res>);
+        _Handlers.Add((ushort)MSGID.SRegisterRes, new SRegisterResHandler());
 
-        _OnRecv.Add((ushort)MSGID.Playerinfolist, MakePacket<PlayerInfoList>);
-        _Handlers.Add((ushort)MSGID.Playerinfolist, new PlayerInfoListHandler());
+        _OnRecv.Add((ushort)MSGID.SLoginRes, MakePacket<S_Login_Res>);
+        _Handlers.Add((ushort)MSGID.SLoginRes, new SLoginResHandler());
 
-        _OnRecv.Add((ushort)MSGID.Initlist, MakePacket<PlayerInfoList>);
-        _Handlers.Add((ushort)MSGID.Initlist, new InitListHandler());
+        _OnRecv.Add((ushort)MSGID.SJoinRes, MakePacket<S_Join_Res>);
+        _Handlers.Add((ushort)MSGID.SJoinRes, new SJoinResHandler());
 
-        _OnRecv.Add((ushort)MSGID.Newsession, MakePacket<PlayerInfo>);
-        _Handlers.Add((ushort)MSGID.Newsession, new NewSessionHandler());
+        _OnRecv.Add((ushort)MSGID.SJoined, MakePacket<S_Joined>);
+        _Handlers.Add((ushort)MSGID.SJoined, new SJoinedHandler());
 
-        _OnRecv.Add((ushort)MSGID.Startfire, MakePacket<UUID>);
-        _Handlers.Add((ushort)MSGID.Startfire, new StartFIreHandler());
-
-        _OnRecv.Add((ushort)MSGID.Stopfire, MakePacket<UUID>);
-        _Handlers.Add((ushort)MSGID.Stopfire, new StopFireHandler());
+        _OnRecv.Add((ushort)MSGID.SExitMember, MakePacket<S_Exit_Member>);
+        _Handlers.Add((ushort)MSGID.SExitMember, new SExitMemberHandler());
     }
 
     public IPacketHandler GetPacketHandler(ushort id)

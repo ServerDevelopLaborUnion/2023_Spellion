@@ -61,16 +61,10 @@ public class PlayerInput : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             OnFireKeyPress?.Invoke();
-
-            //! Remove This
-            SocketManager.Instance.RegisterSend(MSGID.Startfire, new UUID());
         }
         if(Input.GetMouseButtonUp(0))
         {
             OnFireKeyRelease?.Invoke();
-
-            //! Remove This
-            SocketManager.Instance.RegisterSend(MSGID.Stopfire, new UUID());
         }
     }
 }
