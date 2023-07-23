@@ -98,7 +98,7 @@ export default class Room
         if(member.isReady)
         {
             this.readyCnt++;
-            if(this.readyCnt > 4)
+            if(this.readyCnt >= this.members.length - 1)
             {
                 let allReady = new packet.S_All_Ready({});
                 this.owner.sendData(packet.MSGID.S_ALL_READY, allReady.serialize());

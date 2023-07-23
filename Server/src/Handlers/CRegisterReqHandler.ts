@@ -30,6 +30,7 @@ export default class CRegisterReqHandler implements PacketHandler
             session.money = 0;
             session.state = SessionState.LOBBY;
             session.isLogin = true;
+            console.log(`[RegisterReq] User ${session.name} logged in!`);
         }
         catch(err)
         {

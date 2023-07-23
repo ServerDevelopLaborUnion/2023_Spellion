@@ -1071,9 +1071,7 @@ MonoBehaviour:
   crouchSpeed: 1.5
   crouchRatio: 0.65
   weapons:
-  - {fileID: 5002645016562175231}
-  - {fileID: 2892898434898154621}
-  - {fileID: 6931406552807705128}
+  - {fileID: 3059173346584996829}
   shake: {fileID: 11400000, guid: ce574d2150fc1f540a612314d3d6662e, type: 2}
 --- !u!143 &1481196064775287564
 CharacterController:
@@ -1205,10 +1203,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7848955858915208784, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
+--- !u!114 &3059173346584996829 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3761234480460004184, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
+  m_PrefabInstance: {fileID: 2181654434940866693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8782032804392379503 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7468876282586789098, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
@@ -5075,17 +5084,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4537cc4f31f6a864ab74877e1dee9b2b, type: 3}
---- !u!114 &2892898434898154621 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1520529762629545365, guid: 4537cc4f31f6a864ab74877e1dee9b2b, type: 3}
-  m_PrefabInstance: {fileID: 4413424348586719720}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &3532183954464291354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 881426349669975026, guid: 4537cc4f31f6a864ab74877e1dee9b2b, type: 3}
@@ -5101,6 +5099,10 @@ PrefabInstance:
     - target: {fileID: 2208818845419045761, guid: d3283fb22e94e034e9ca74494cc3640d, type: 3}
       propertyPath: m_Name
       value: AK12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208818845419045761, guid: d3283fb22e94e034e9ca74494cc3640d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2368811415538818050, guid: d3283fb22e94e034e9ca74494cc3640d, type: 3}
       propertyPath: m_RootOrder
@@ -5148,17 +5150,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3283fb22e94e034e9ca74494cc3640d, type: 3}
---- !u!114 &5002645016562175231 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 746774683944186785, guid: d3283fb22e94e034e9ca74494cc3640d, type: 3}
-  m_PrefabInstance: {fileID: 5706593705372057438}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8065473953327129436 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2368811415538818050, guid: d3283fb22e94e034e9ca74494cc3640d, type: 3}
@@ -5298,14 +5289,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 830822289977377357, guid: 841965fbe80cdf747b20b9aa3e1b2d82, type: 3}
   m_PrefabInstance: {fileID: 7761639435514349674}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6931406552807705128 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 830822289977377346, guid: 841965fbe80cdf747b20b9aa3e1b2d82, type: 3}
-  m_PrefabInstance: {fileID: 7761639435514349674}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

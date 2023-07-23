@@ -320,13 +320,13 @@ namespace Demo.Scripts.Runtime.Base
                 GetGun().Reload();
             }
 
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                if (movementState == FPSMovementState.Sprinting || _hasActiveAction) return;
+            // if (Input.GetKeyDown(KeyCode.G))
+            // {
+            //     if (movementState == FPSMovementState.Sprinting || _hasActiveAction) return;
 
-                if (GetGun().grenadeClip == null) return;
-                PlayAnimation(GetGun().grenadeClip);
-            }
+            //     if (GetGun().grenadeClip == null) return;
+            //     PlayAnimation(GetGun().grenadeClip);
+            // }
 
             if (Input.GetKeyDown(KeyCode.Y))
             {
@@ -345,10 +345,10 @@ namespace Demo.Scripts.Runtime.Base
                 SprintReleased();
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                ChangeWeapon();
-            }
+            // if (Input.GetKeyDown(KeyCode.F))
+            // {
+            //     ChangeWeapon();
+            // }
 
             if (movementState == FPSMovementState.Sprinting)
             {
@@ -387,10 +387,10 @@ namespace Demo.Scripts.Runtime.Base
                     ToggleAim();
                 }
 
-                if (Input.GetKeyDown(KeyCode.V))
-                {
-                    ChangeScope();
-                }
+                // if (Input.GetKeyDown(KeyCode.V))
+                // {
+                //     ChangeScope();
+                // }
 
                 if (Input.GetKeyDown(KeyCode.B) && _aiming)
                 {
@@ -597,16 +597,12 @@ namespace Demo.Scripts.Runtime.Base
             animator.SetFloat(MoveY, _smoothAnimatorMove.y);
             
             Vector3 move = transform.right * moveX + transform.forward * moveY;
+            if(!controller.isGrounded) move += transform.up * -9.81f;
             controller.Move(move * speed * Time.deltaTime);
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Application.Quit(0);
-            }
-
             UpdateActionInput();
             UpdateLookInput();
             UpdateFiring();

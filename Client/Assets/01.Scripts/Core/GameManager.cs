@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Packet;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Kinemation.FPSFramework.Runtime.FPSAnimator;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private Transform _player;
+    public Transform Player 
+    {
+        get
+        {
+            if(_player == null)
+            {
+                _player = FindObjectOfType<FPSAnimController>().transform;
+                if(_player == null)
+                {
+                    Debug.LogError("Player Cannot Found");
+                    throw null;
+                }
+            }
+            return _player;
+        }
+    }
+
+    private Camera _playerCam;
+    public Camera PlayerCam
+    {
+        get
+        {
+            if(_playerCam == null)
+            {
+                _playerCam = Player.GetComponentInChildren<Camera>();
+                if(_playerCam == null)
+                {
+                    Debug.LogError("PlayerCam Cannot Found");
+                    throw null;
+                }
+            }
+            return _playerCam;
+        }
+    }
 
     [SerializeField] 
     private string _ip, _port;
@@ -67,21 +103,27 @@ public class GameManager : MonoBehaviour
         SocketManager.Instance.Connection();
 
         _loadSceneCallback["MainLobby"] = (oper) => {};
+        _loadSceneCallback["Game"] = (oper) => {};
 
+#if UNITY_EDITOR
+        SocketManager.Instance.RegisterSend(MSGID.CLoginReq, new C_Login_Req{Name = "곽석현"});
+        LoadScene("MainLobby");
+#else
         if(PlayerPrefs.GetString("name") == string.Empty)
         {
             _managerUI.GetName();
         }
         else
         {
-            SocketManager.Instance.RegisterSend(MSGID.CLoginReq, new C_Login_Req{Name = "kwak1s1h"});
+            SocketManager.Instance.RegisterSend(MSGID.CLoginReq, new C_Login_Req{Name = PlayerPrefs.GetString("name")});
             LoadScene("MainLobby");
         }
+#endif
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName, Action callback = null)
     {
-        StartCoroutine(LoadSceneCoroutine(sceneName));
+        StartCoroutine(LoadSceneCoroutine(sceneName, callback));
     }
 
     public void LoadSceneImmediate(string sceneName)
@@ -89,16 +131,22 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private IEnumerator LoadSceneCoroutine(string sceneName)
+    private IEnumerator LoadSceneCoroutine(string sceneName, Action callback = null)
     {
         AsyncOperation loadScene = SceneManager.LoadSceneAsync(sceneName);
+        _managerUI.ShowLoadingBar();
         float timer = _minLoadTime;
         while(loadScene.isDone && timer <= 0f)
         {
             timer -= Time.deltaTime;
+            _managerUI.SetLoadingProgress(loadScene.progress * 100f);
             yield return null;
         }
-        loadScene.completed += _loadSceneCallback[sceneName];
+        loadScene.completed += (oper) => {
+            _managerUI.HideLoadingBar();
+            callback?.Invoke();
+            _loadSceneCallback[sceneName].Invoke(oper);
+        };
         _loadSceneCallback[sceneName] = (oper) => {};
     }
 
@@ -114,5 +162,10 @@ public class GameManager : MonoBehaviour
         {
             _loadSceneCallback["MainLobby"] += (oper) => {};
         }
+    }
+
+    public PlayerManager CreatePlayerManager()
+    {
+        return gameObject.AddComponent<PlayerManager>();
     }
 }

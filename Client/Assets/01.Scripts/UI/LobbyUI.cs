@@ -67,6 +67,7 @@ public class LobbyUI : MonoBehaviour
 
         VisualElement player = mySlot.Q("Player");
         player.Q<Label>("Name").text = GameManager.Instance.MyData.Name;
+        player.Q<Label>("Name").style.color = new StyleColor(Color.yellow);
         player.Q<Label>("Level").text = GameManager.Instance.MyData.Level.ToString();
 
         SetCurrentTopBar(_roomTopBar);
@@ -79,6 +80,7 @@ public class LobbyUI : MonoBehaviour
 
         VisualElement player = mySlot.Q("Player");
         player.Q<Label>("Name").text = GameManager.Instance.MyData.Name; 
+        player.Q<Label>("Name").style.color = new StyleColor(Color.yellow);
         player.Q<Label>("Level").text = GameManager.Instance.MyData.Level.ToString();
 
         foreach(RoomMember member in members)
@@ -88,6 +90,7 @@ public class LobbyUI : MonoBehaviour
 
             player = slot.Q("Player");
             player.Q<Label>("Name").text = member.User.Name;
+            player.Q<Label>("Name").style.color = new StyleColor(Color.white);
             player.Q<Label>("Level").text = member.User.Level.ToString();
         }
 
@@ -102,6 +105,7 @@ public class LobbyUI : MonoBehaviour
 
         VisualElement player = slot.Q("Player");
         player.Q<Label>("Name").text = member.User.Name;
+        player.Q<Label>("Name").style.color = new StyleColor(Color.white);
         player.Q<Label>("Level").text = member.User.Level.ToString();
 
         SetCurrentTopBar(_roomTopBar);
@@ -194,9 +198,11 @@ public class LobbyUI : MonoBehaviour
         _roomContainer = root.Q("RoomContainer");
         _exitBtn = root.Q<Button>("ExitBtn");
         _readyBtn = root.Q<Button>("ReadyBtn");
+        _gamePlayBtn = root.Q<Button>("StartBtn");
 
         _exitBtn.RegisterCallback<ClickEvent>(e => ExitRoom());
         _readyBtn.RegisterCallback<ClickEvent>(e => SocketManager.Instance.RegisterSend(MSGID.CReady, new C_Ready()));
+        _gamePlayBtn.RegisterCallback<ClickEvent>(e => SocketManager.Instance.RegisterSend(MSGID.CGameStart, new C_Game_Start()));
     }
 
     private void PlayButtonHandle(ClickEvent ev)
@@ -229,6 +235,7 @@ public class LobbyUI : MonoBehaviour
 
             VisualElement player = slot.Q("Player");
             player.Q<Label>("Name").text = member.User.Name;
+            player.Q<Label>("Name").style.color = new StyleColor(member.User.Name == GameManager.Instance.MyData.Name ? Color.yellow : Color.white);
             player.Q<Label>("Level").text = member.User.Level.ToString();
         }
     }

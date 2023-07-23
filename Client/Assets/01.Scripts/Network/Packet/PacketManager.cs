@@ -38,6 +38,12 @@ public class PacketManager
 
         _OnRecv.Add((ushort)MSGID.SExitMember, MakePacket<S_Exit_Member>);
         _Handlers.Add((ushort)MSGID.SExitMember, new SExitMemberHandler());
+
+        _OnRecv.Add((ushort)MSGID.SAllReady, MakePacket<S_All_Ready>);
+        _Handlers.Add((ushort)MSGID.SAllReady, new SAllReadyHandler());
+
+        _OnRecv.Add((ushort)MSGID.SGameStart, MakePacket<S_Game_Start>);
+        _Handlers.Add((ushort)MSGID.SGameStart, new SGameStartHandler());
     }
 
     public IPacketHandler GetPacketHandler(ushort id)

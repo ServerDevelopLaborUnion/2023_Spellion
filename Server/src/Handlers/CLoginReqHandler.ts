@@ -30,5 +30,7 @@ export default class CLoginHandler implements PacketHandler
         session.level = level;
         session.money = money;
         session.state = SessionState.LOBBY;
+
+        console.log(`[LoginReq] User ${session.name} logged in!`);
     }
 }
