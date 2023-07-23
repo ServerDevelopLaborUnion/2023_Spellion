@@ -29,5 +29,6 @@ public class RemotePlayer : MonoBehaviour
         Quaternion rot = Quaternion.Lerp(transform.rotation, _targetRot, Time.deltaTime * _lerpValue);
 
         transform.position = pos;
+        transform.rotation = rot;
     }
 }

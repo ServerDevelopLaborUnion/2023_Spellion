@@ -20,7 +20,21 @@ export default class CGameStartHandler implements PacketHandler
 
         room.state = RoomState.INGAME;
         room.gameUpdater = new JobTimer(20, () => {
-            
+            room.members.forEach(member => {
+                room.members.forEach(s => {
+                    if(s.id != member.id)
+                    {
+                        let moveData = new packet.S_Move_Data({
+                            id: s.id,
+                            team: room.getTeamAndIndex(s).team,
+                            pos: Vector3Packet(s.gameProp?.position),
+                            eulerAngle: Vector3Packet(s.gameProp?.eulerAngle)
+
+                        });
+                        member.sendData(packet.MSGID.S_MOVE_DATA, moveData.serialize());
+                    }
+                })
+            })
         });
 
         room.members.forEach(s => {
@@ -33,6 +47,8 @@ export default class CGameStartHandler implements PacketHandler
             let eulerAngle: Vector3 = {x: 0, y: 0, z: 0};
             s.gameProp = {eulerAngle, position: spawnPos};
         });
+
+        room.gameUpdater.startTimer();
     }
     
 }

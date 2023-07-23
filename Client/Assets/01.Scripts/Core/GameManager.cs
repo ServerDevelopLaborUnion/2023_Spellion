@@ -28,18 +28,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private Transform _player;
-    public Transform Player 
+    private FPSAnimController _player;
+    public FPSAnimController Player 
     {
         get
         {
             if(_player == null)
             {
-                _player = FindObjectOfType<FPSAnimController>().transform;
+                _player = FindObjectOfType<FPSAnimController>();
                 if(_player == null)
                 {
                     Debug.LogError("Player Cannot Found");
-                    throw null;
                 }
             }
             return _player;
@@ -57,7 +56,6 @@ public class GameManager : MonoBehaviour
                 if(_playerCam == null)
                 {
                     Debug.LogError("PlayerCam Cannot Found");
-                    throw null;
                 }
             }
             return _playerCam;
@@ -76,6 +74,10 @@ public class GameManager : MonoBehaviour
     private ManagerUI _managerUI;
 
     private Dictionary<string, Action<AsyncOperation>> _loadSceneCallback = new Dictionary<string, Action<AsyncOperation>>();
+    private float _tick = 0f;
+
+    [SerializeField]
+    private GameObject _playerPref;
 
     private void Awake()
     {
@@ -119,6 +121,24 @@ public class GameManager : MonoBehaviour
             LoadScene("MainLobby");
         }
 #endif
+    }
+
+    private void Update()
+    {
+        if(_player != null)
+        {
+            _tick += Time.deltaTime;
+            if(_tick > 0.005f)
+            {
+                _tick = 0;
+                C_Move_Data moveData = new C_Move_Data
+                {
+                    Pos = _player.transform.position.ToPacket(),
+                    EulurAngle = _player.transform.eulerAngles.ToPacket()
+                };
+                SocketManager.Instance.RegisterSend(MSGID.CMoveData, moveData);
+            }
+        }
     }
 
     public void LoadScene(string sceneName, Action callback = null)
@@ -166,6 +186,9 @@ public class GameManager : MonoBehaviour
 
     public PlayerManager CreatePlayerManager()
     {
-        return gameObject.AddComponent<PlayerManager>();
+        PlayerManager pManager = gameObject.AddComponent<PlayerManager>();
+        pManager.SetPrefab(_playerPref);
+        pManager.Init();
+        return pManager;
     }
 }

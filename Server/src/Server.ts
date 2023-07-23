@@ -5,7 +5,7 @@ import Session from "./Session";
 import SessionManager from "./SessionManager";
 import PacketManager from "./packet/PacketManager";
 import RoomManager from "./RoomManager";
-dotenv.config();
+// dotenv.config();
 
 const app = Express();
 
@@ -17,8 +17,8 @@ app.get("/room", (req, res) => {
     res.json(RoomManager.Instance.getAllRoomInfo());
 });
 
-const httpServer = app.listen(process.env.PORT, () => {
-    console.log(`Web Server is listening on port ${process.env.PORT}`);
+const httpServer = app.listen(50000, () => {
+    console.log(`Web Server is listening on port ${50000}`);
 });
 
 SessionManager.Instance = new SessionManager();
@@ -30,7 +30,7 @@ const wsServer = new WebSocket.Server({
 });
 
 wsServer.on("listening", () => {
-    console.log(`Socket Server is listening on port ${process.env.PORT}`);
+    console.log(`Socket Server is listening on port ${50000}`);
 });
 
 wsServer.on("connection", (socket, req) => {

@@ -216,6 +216,7 @@ MonoBehaviour:
   _ip: localhost
   _port: 50000
   _minLoadTime: 3
+  _playerPref: {fileID: 8314422345246962827, guid: 31436f33137a4a54f9a516564da1ec9a, type: 3}
 --- !u!4 &660859863
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &405075383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405075384}
+  m_Layer: 0
+  m_Name: FirePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &405075384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405075383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0.42}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8782032804392379503}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &134656768985120325
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +303,7 @@ GameObject:
   - component: {fileID: 8527037085942780392}
   m_Layer: 4
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1152,6 +1183,30 @@ PrefabInstance:
     - target: {fileID: 3761234480460004184, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
       propertyPath: weaponBone.rotation.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761234480460004184, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
+      propertyPath: gunData.moveSwayData.maxMoveLocSway.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761234480460004184, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
+      propertyPath: gunData.moveSwayData.maxMoveLocSway.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761234480460004184, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
+      propertyPath: gunData.moveSwayData.maxMoveLocSway.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761234480460004184, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
+      propertyPath: gunData.moveSwayData.maxMoveRotSway.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761234480460004184, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
+      propertyPath: gunData.moveSwayData.maxMoveRotSway.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761234480460004184, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
+      propertyPath: gunData.moveSwayData.maxMoveRotSway.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7468876282586789098, guid: 0fea6d667ca57724f97d5e419d00cbac, type: 3}
       propertyPath: m_RootOrder

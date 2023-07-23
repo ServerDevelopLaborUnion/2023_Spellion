@@ -44,6 +44,9 @@ public class PacketManager
 
         _OnRecv.Add((ushort)MSGID.SGameStart, MakePacket<S_Game_Start>);
         _Handlers.Add((ushort)MSGID.SGameStart, new SGameStartHandler());
+
+        _OnRecv.Add((ushort)MSGID.SMoveData, MakePacket<S_Move_Data>);
+        _Handlers.Add((ushort)MSGID.SMoveData, new SMoveDataHandler());
     }
 
     public IPacketHandler GetPacketHandler(ushort id)

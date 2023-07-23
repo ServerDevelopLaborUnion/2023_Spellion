@@ -968,6 +968,244 @@ export namespace packet {
             return S_Game_Start.deserialize(bytes);
         }
     }
+    export class C_Move_Data extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            pos?: Vector3;
+            eulurAngle?: Vector3;
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("pos" in data && data.pos != undefined) {
+                    this.pos = data.pos;
+                }
+                if ("eulurAngle" in data && data.eulurAngle != undefined) {
+                    this.eulurAngle = data.eulurAngle;
+                }
+            }
+        }
+        get pos() {
+            return pb_1.Message.getWrapperField(this, Vector3, 1) as Vector3;
+        }
+        set pos(value: Vector3) {
+            pb_1.Message.setWrapperField(this, 1, value);
+        }
+        get has_pos() {
+            return pb_1.Message.getField(this, 1) != null;
+        }
+        get eulurAngle() {
+            return pb_1.Message.getWrapperField(this, Vector3, 2) as Vector3;
+        }
+        set eulurAngle(value: Vector3) {
+            pb_1.Message.setWrapperField(this, 2, value);
+        }
+        get has_eulurAngle() {
+            return pb_1.Message.getField(this, 2) != null;
+        }
+        static fromObject(data: {
+            pos?: ReturnType<typeof Vector3.prototype.toObject>;
+            eulurAngle?: ReturnType<typeof Vector3.prototype.toObject>;
+        }): C_Move_Data {
+            const message = new C_Move_Data({});
+            if (data.pos != null) {
+                message.pos = Vector3.fromObject(data.pos);
+            }
+            if (data.eulurAngle != null) {
+                message.eulurAngle = Vector3.fromObject(data.eulurAngle);
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                pos?: ReturnType<typeof Vector3.prototype.toObject>;
+                eulurAngle?: ReturnType<typeof Vector3.prototype.toObject>;
+            } = {};
+            if (this.pos != null) {
+                data.pos = this.pos.toObject();
+            }
+            if (this.eulurAngle != null) {
+                data.eulurAngle = this.eulurAngle.toObject();
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.has_pos)
+                writer.writeMessage(1, this.pos, () => this.pos.serialize(writer));
+            if (this.has_eulurAngle)
+                writer.writeMessage(2, this.eulurAngle, () => this.eulurAngle.serialize(writer));
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): C_Move_Data {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new C_Move_Data();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        reader.readMessage(message.pos, () => message.pos = Vector3.deserialize(reader));
+                        break;
+                    case 2:
+                        reader.readMessage(message.eulurAngle, () => message.eulurAngle = Vector3.deserialize(reader));
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): C_Move_Data {
+            return C_Move_Data.deserialize(bytes);
+        }
+    }
+    export class S_Move_Data extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            id?: number;
+            team?: Team;
+            pos?: Vector3;
+            eulerAngle?: Vector3;
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("id" in data && data.id != undefined) {
+                    this.id = data.id;
+                }
+                if ("team" in data && data.team != undefined) {
+                    this.team = data.team;
+                }
+                if ("pos" in data && data.pos != undefined) {
+                    this.pos = data.pos;
+                }
+                if ("eulerAngle" in data && data.eulerAngle != undefined) {
+                    this.eulerAngle = data.eulerAngle;
+                }
+            }
+        }
+        get id() {
+            return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+        }
+        set id(value: number) {
+            pb_1.Message.setField(this, 1, value);
+        }
+        get team() {
+            return pb_1.Message.getFieldWithDefault(this, 2, Team.Red) as Team;
+        }
+        set team(value: Team) {
+            pb_1.Message.setField(this, 2, value);
+        }
+        get pos() {
+            return pb_1.Message.getWrapperField(this, Vector3, 3) as Vector3;
+        }
+        set pos(value: Vector3) {
+            pb_1.Message.setWrapperField(this, 3, value);
+        }
+        get has_pos() {
+            return pb_1.Message.getField(this, 3) != null;
+        }
+        get eulerAngle() {
+            return pb_1.Message.getWrapperField(this, Vector3, 4) as Vector3;
+        }
+        set eulerAngle(value: Vector3) {
+            pb_1.Message.setWrapperField(this, 4, value);
+        }
+        get has_eulerAngle() {
+            return pb_1.Message.getField(this, 4) != null;
+        }
+        static fromObject(data: {
+            id?: number;
+            team?: Team;
+            pos?: ReturnType<typeof Vector3.prototype.toObject>;
+            eulerAngle?: ReturnType<typeof Vector3.prototype.toObject>;
+        }): S_Move_Data {
+            const message = new S_Move_Data({});
+            if (data.id != null) {
+                message.id = data.id;
+            }
+            if (data.team != null) {
+                message.team = data.team;
+            }
+            if (data.pos != null) {
+                message.pos = Vector3.fromObject(data.pos);
+            }
+            if (data.eulerAngle != null) {
+                message.eulerAngle = Vector3.fromObject(data.eulerAngle);
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                id?: number;
+                team?: Team;
+                pos?: ReturnType<typeof Vector3.prototype.toObject>;
+                eulerAngle?: ReturnType<typeof Vector3.prototype.toObject>;
+            } = {};
+            if (this.id != null) {
+                data.id = this.id;
+            }
+            if (this.team != null) {
+                data.team = this.team;
+            }
+            if (this.pos != null) {
+                data.pos = this.pos.toObject();
+            }
+            if (this.eulerAngle != null) {
+                data.eulerAngle = this.eulerAngle.toObject();
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.id != 0)
+                writer.writeInt32(1, this.id);
+            if (this.team != Team.Red)
+                writer.writeEnum(2, this.team);
+            if (this.has_pos)
+                writer.writeMessage(3, this.pos, () => this.pos.serialize(writer));
+            if (this.has_eulerAngle)
+                writer.writeMessage(4, this.eulerAngle, () => this.eulerAngle.serialize(writer));
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): S_Move_Data {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new S_Move_Data();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        message.id = reader.readInt32();
+                        break;
+                    case 2:
+                        message.team = reader.readEnum();
+                        break;
+                    case 3:
+                        reader.readMessage(message.pos, () => message.pos = Vector3.deserialize(reader));
+                        break;
+                    case 4:
+                        reader.readMessage(message.eulerAngle, () => message.eulerAngle = Vector3.deserialize(reader));
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): S_Move_Data {
+            return S_Move_Data.deserialize(bytes);
+        }
+    }
     export class Vector2 extends pb_1.Message {
         #one_of_decls: number[][] = [];
         constructor(data?: any[] | {

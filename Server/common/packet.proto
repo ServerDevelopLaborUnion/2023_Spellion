@@ -82,6 +82,20 @@ message S_Game_Start
     Vector3 spawnPos = 2;
 }
 
+message C_Move_Data
+{
+    Vector3 pos = 1;
+    Vector3 eulurAngle = 2;
+}
+
+message S_Move_Data
+{
+    int32 id = 1;
+    Team team = 2;
+    Vector3 pos = 3;
+    Vector3 eulerAngle = 4;
+}
+
 enum GameMode
 {
     AllKill = 0;

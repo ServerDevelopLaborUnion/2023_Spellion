@@ -19,7 +19,7 @@ public class SGameStartHandler : IPacketHandler
                 start.SpawnPos.Z
             );
             GameManager.Instance.Player.transform.position = spawnPos;
-            GameManager.Instance.Player.GetComponent<FPSAnimController>().enabled = false;
+            GameManager.Instance.Player.enabled = false;
             GameManager.Instance.Player.GetComponentInChildren<CoreAnimComponent>().enabled = false;
             GameManager.Instance.PlayerCam.gameObject.SetActive(false);
             

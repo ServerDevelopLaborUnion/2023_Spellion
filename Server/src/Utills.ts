@@ -2,8 +2,8 @@ import { packet } from "./packet/packet";
 
 export interface GameProperty
 {
-    position: Vector3;
-    eulerAngle: Vector3;
+    position?: Vector3;
+    eulerAngle?: Vector3;
 }
 
 export interface Vector3 { x: number, y: number, z: number }
@@ -15,8 +15,9 @@ export function Vector2Packet(value: Vector2): packet.Vector2
     return new packet.Vector2({x, y});
 }
 
-export function Vector3Packet(value: Vector3): packet.Vector3
+export function Vector3Packet(value?: Vector3): packet.Vector3 | undefined
 {
+    if(!value) return undefined;
     let { x, y, z } = value;
     return new packet.Vector3({x, y, z});
 }
