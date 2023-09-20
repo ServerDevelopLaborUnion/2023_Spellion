@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/09.UIToolkit/EliminationUI.uss?fileID=7433441132597879392&amp;guid=d9d350b4d0108c0458b88d49ab02ac17&amp;type=3#EliminationUI" />
+    <ui:VisualElement name="Root">
+        <ui:VisualElement name="TitleContainer">
+            <ui:Label text="Elimination" display-tooltip-when-elided="true" name="TitleLabel" class="text" style="margin-left: 28px; margin-top: 17px; font-size: 83px;" />
+            <ui:Label text="섬멸전" display-tooltip-when-elided="true" name="KorTitleLabel" class="text" style="font-size: 47px; margin-left: 343px; margin-bottom: 14px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="UnderBar" style="height: 2px; background-color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="PlayerListContainer" style="flex-direction: row;">
+            <ui:VisualElement name="MyTeamContainer" style="margin-top: 90px;">
+                <ui:Label text="아군" display-tooltip-when-elided="true" name="MyTeamLabel" class="text" style="margin-left: 210px;" />
+                <ui:VisualElement />
+            </ui:VisualElement>
+            <ui:VisualElement name="VSContainer" />
+            <ui:VisualElement name="EnemyTeamContainer" />
+        </ui:VisualElement>
+        <ui:VisualElement name="MenuBtnContainer" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,5 @@
+.text {
+    -unity-font-definition: url('project://database/Assets/08.Fonts/Tenada%20SDF%201.asset?fileID=11400000&guid=923e335bb123e084c952c8313de554ce&type=2#Tenada SDF 1');
+    color: rgba(255, 255, 255, 255);
+    font-size: 42px;
+}

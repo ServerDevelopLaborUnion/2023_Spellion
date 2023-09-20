@@ -30,7 +30,7 @@
             </ui:Button>
         </ui:VisualElement>
         <ui:VisualElement name="UnderBar" style="height: 2px; background-color: rgb(255, 255, 255);" />
-        <ui:VisualElement name="GameMenuContainer" style="justify-content: center; align-items: auto; flex-direction: row;">
+        <ui:VisualElement name="GameMenuContainer" style="justify-content: center; align-items: auto; flex-direction: row; visibility: visible;">
             <ui:Button display-tooltip-when-elided="true" class="menuBtn">
                 <ui:VisualElement name="MenuIcon" style="background-image: url(&apos;project://database/Assets/09.UIToolkit/EliminationIcon.png?fileID=2800000&amp;guid=28a69f6539462f24b9bd123e1f12d0fe&amp;type=3#EliminationIcon&apos;);" />
                 <ui:VisualElement name="MenuLabelContainer">
